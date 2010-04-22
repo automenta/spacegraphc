@@ -1,0 +1,22 @@
+CritterGod is an Automatic-Life (AL) Operating Environment
+http://automenta.com/crittergod
+
+ -- a simulation environment useful for research and experimentation with "artificial life" technology.
+ -- developed in C++ using OpenGL
+ -- inspired by Critterding http://critterding.sf.net
+
+
+Building on Ubuntu Linux (tested with 9.10 and 10.04)
+
+  Requires libraries: GL, GLU, Glut, FTGL, SDL
+
+  1)  git clone git://github.com/automenta/crittergod2.git
+  2)  make -j4
+  3)  dist/Debug/GNU-Linux-x86/crittergod5
+
+
+Building on Windows
+
+  It should build on Win32/64... in theory.  Can anyone provide detailed instructions and necessary binaries (including .DLL's)?
+
+
