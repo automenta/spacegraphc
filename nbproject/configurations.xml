@@ -1,0 +1,661 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="62">
+  <logicalFolder name="root" displayName="root" projectFiles="true">
+    <logicalFolder name="bullet" displayName="bullet" projectFiles="true">
+      <logicalFolder name="BulletCollision"
+                     displayName="BulletCollision"
+                     projectFiles="true">
+        <logicalFolder name="BroadphaseCollision"
+                       displayName="BroadphaseCollision"
+                       projectFiles="true">
+          <itemPath>bullet/BulletCollision/BroadphaseCollision/btAxisSweep3.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/BroadphaseCollision/btAxisSweep3.h</itemPath>
+          <itemPath>bullet/BulletCollision/BroadphaseCollision/btBroadphaseInterface.h</itemPath>
+          <itemPath>bullet/BulletCollision/BroadphaseCollision/btBroadphaseProxy.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/BroadphaseCollision/btBroadphaseProxy.h</itemPath>
+          <itemPath>bullet/BulletCollision/BroadphaseCollision/btCollisionAlgorithm.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/BroadphaseCollision/btCollisionAlgorithm.h</itemPath>
+          <itemPath>bullet/BulletCollision/BroadphaseCollision/btDbvt.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/BroadphaseCollision/btDbvt.h</itemPath>
+          <itemPath>bullet/BulletCollision/BroadphaseCollision/btDbvtBroadphase.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/BroadphaseCollision/btDbvtBroadphase.h</itemPath>
+          <itemPath>bullet/BulletCollision/BroadphaseCollision/btDispatcher.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/BroadphaseCollision/btDispatcher.h</itemPath>
+          <itemPath>bullet/BulletCollision/BroadphaseCollision/btMultiSapBroadphase.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/BroadphaseCollision/btMultiSapBroadphase.h</itemPath>
+          <itemPath>bullet/BulletCollision/BroadphaseCollision/btOverlappingPairCache.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/BroadphaseCollision/btOverlappingPairCache.h</itemPath>
+          <itemPath>bullet/BulletCollision/BroadphaseCollision/btOverlappingPairCallback.h</itemPath>
+          <itemPath>bullet/BulletCollision/BroadphaseCollision/btQuantizedBvh.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/BroadphaseCollision/btQuantizedBvh.h</itemPath>
+          <itemPath>bullet/BulletCollision/BroadphaseCollision/btSimpleBroadphase.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/BroadphaseCollision/btSimpleBroadphase.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="CMakeFiles" displayName="CMakeFiles" projectFiles="true">
+          <logicalFolder name="BulletCollision.dir"
+                         displayName="BulletCollision.dir"
+                         projectFiles="true">
+            <logicalFolder name="BroadphaseCollision"
+                           displayName="BroadphaseCollision"
+                           projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="CollisionDispatch"
+                           displayName="CollisionDispatch"
+                           projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="CollisionShapes"
+                           displayName="CollisionShapes"
+                           projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="Gimpact" displayName="Gimpact" projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="NarrowPhaseCollision"
+                           displayName="NarrowPhaseCollision"
+                           projectFiles="true">
+            </logicalFolder>
+          </logicalFolder>
+        </logicalFolder>
+        <logicalFolder name="CollisionDispatch"
+                       displayName="CollisionDispatch"
+                       projectFiles="true">
+          <itemPath>bullet/BulletCollision/CollisionDispatch/SphereTriangleDetector.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/SphereTriangleDetector.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btActivatingCollisionAlgorithm.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btActivatingCollisionAlgorithm.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btBox2dBox2dCollisionAlgorithm.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btBox2dBox2dCollisionAlgorithm.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btBoxBoxCollisionAlgorithm.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btBoxBoxCollisionAlgorithm.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btBoxBoxDetector.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btBoxBoxDetector.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btCollisionConfiguration.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btCollisionCreateFunc.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btCollisionDispatcher.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btCollisionDispatcher.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btCollisionObject.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btCollisionObject.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btCollisionWorld.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btCollisionWorld.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btCompoundCollisionAlgorithm.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btCompoundCollisionAlgorithm.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btConvex2dConvex2dAlgorithm.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btConvex2dConvex2dAlgorithm.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btConvexConcaveCollisionAlgorithm.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btConvexConcaveCollisionAlgorithm.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btConvexConvexAlgorithm.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btConvexConvexAlgorithm.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btConvexPlaneCollisionAlgorithm.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btConvexPlaneCollisionAlgorithm.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btEmptyCollisionAlgorithm.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btEmptyCollisionAlgorithm.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btGhostObject.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btGhostObject.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btInternalEdgeUtility.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btInternalEdgeUtility.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btManifoldResult.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btManifoldResult.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btSimulationIslandManager.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btSimulationIslandManager.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btSphereBoxCollisionAlgorithm.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btSphereBoxCollisionAlgorithm.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btSphereSphereCollisionAlgorithm.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btSphereSphereCollisionAlgorithm.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btSphereTriangleCollisionAlgorithm.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btSphereTriangleCollisionAlgorithm.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btUnionFind.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionDispatch/btUnionFind.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="CollisionShapes"
+                       displayName="CollisionShapes"
+                       projectFiles="true">
+          <itemPath>bullet/BulletCollision/CollisionShapes/btBox2dShape.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btBox2dShape.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btBoxShape.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btBoxShape.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btBvhTriangleMeshShape.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btCapsuleShape.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btCapsuleShape.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btCollisionMargin.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btCollisionShape.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btCollisionShape.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btCompoundShape.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btCompoundShape.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btConcaveShape.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btConcaveShape.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btConeShape.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btConeShape.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btConvex2dShape.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btConvex2dShape.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btConvexHullShape.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btConvexHullShape.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btConvexInternalShape.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btConvexInternalShape.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btConvexPointCloudShape.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btConvexPointCloudShape.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btConvexShape.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btConvexShape.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btConvexTriangleMeshShape.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btConvexTriangleMeshShape.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btCylinderShape.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btCylinderShape.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btEmptyShape.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btEmptyShape.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btHeightfieldTerrainShape.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btHeightfieldTerrainShape.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btMaterial.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btMinkowskiSumShape.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btMinkowskiSumShape.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btMultiSphereShape.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btMultiSphereShape.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btMultimaterialTriangleMeshShape.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btMultimaterialTriangleMeshShape.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btOptimizedBvh.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btOptimizedBvh.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btPolyhedralConvexShape.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btPolyhedralConvexShape.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btScaledBvhTriangleMeshShape.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btScaledBvhTriangleMeshShape.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btShapeHull.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btShapeHull.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btSphereShape.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btSphereShape.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btStaticPlaneShape.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btStaticPlaneShape.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btStridingMeshInterface.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btStridingMeshInterface.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btTetrahedronShape.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btTetrahedronShape.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btTriangleBuffer.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btTriangleBuffer.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btTriangleCallback.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btTriangleCallback.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btTriangleIndexVertexArray.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btTriangleIndexVertexArray.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btTriangleIndexVertexMaterialArray.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btTriangleIndexVertexMaterialArray.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btTriangleInfoMap.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btTriangleMesh.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btTriangleMesh.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btTriangleMeshShape.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btTriangleMeshShape.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btTriangleShape.h</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btUniformScalingShape.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/CollisionShapes/btUniformScalingShape.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="Gimpact" displayName="Gimpact" projectFiles="true">
+          <itemPath>bullet/BulletCollision/Gimpact/btBoxCollision.h</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/btClipPolygon.h</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/btContactProcessing.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/btContactProcessing.h</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/btGImpactBvh.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/btGImpactBvh.h</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/btGImpactCollisionAlgorithm.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/btGImpactCollisionAlgorithm.h</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/btGImpactMassUtil.h</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/btGImpactQuantizedBvh.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/btGImpactQuantizedBvh.h</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/btGImpactShape.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/btGImpactShape.h</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/btGenericPoolAllocator.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/btGenericPoolAllocator.h</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/btGeometryOperations.h</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/btQuantization.h</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/btTriangleShapeEx.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/btTriangleShapeEx.h</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/gim_array.h</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/gim_basic_geometry_operations.h</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/gim_bitset.h</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/gim_box_collision.h</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/gim_box_set.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/gim_box_set.h</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/gim_clip_polygon.h</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/gim_contact.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/gim_contact.h</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/gim_geom_types.h</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/gim_geometry.h</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/gim_hash_table.h</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/gim_linear_math.h</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/gim_math.h</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/gim_memory.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/gim_memory.h</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/gim_radixsort.h</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/gim_tri_collision.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/Gimpact/gim_tri_collision.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="ibmsdk" displayName="ibmsdk" projectFiles="true">
+        </logicalFolder>
+        <logicalFolder name="NarrowPhaseCollision"
+                       displayName="NarrowPhaseCollision"
+                       projectFiles="true">
+          <itemPath>bullet/BulletCollision/NarrowPhaseCollision/btContinuousConvexCollision.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/NarrowPhaseCollision/btContinuousConvexCollision.h</itemPath>
+          <itemPath>bullet/BulletCollision/NarrowPhaseCollision/btConvexCast.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/NarrowPhaseCollision/btConvexCast.h</itemPath>
+          <itemPath>bullet/BulletCollision/NarrowPhaseCollision/btConvexPenetrationDepthSolver.h</itemPath>
+          <itemPath>bullet/BulletCollision/NarrowPhaseCollision/btDiscreteCollisionDetectorInterface.h</itemPath>
+          <itemPath>bullet/BulletCollision/NarrowPhaseCollision/btGjkConvexCast.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/NarrowPhaseCollision/btGjkConvexCast.h</itemPath>
+          <itemPath>bullet/BulletCollision/NarrowPhaseCollision/btGjkEpa2.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/NarrowPhaseCollision/btGjkEpa2.h</itemPath>
+          <itemPath>bullet/BulletCollision/NarrowPhaseCollision/btGjkEpaPenetrationDepthSolver.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/NarrowPhaseCollision/btGjkEpaPenetrationDepthSolver.h</itemPath>
+          <itemPath>bullet/BulletCollision/NarrowPhaseCollision/btGjkPairDetector.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/NarrowPhaseCollision/btGjkPairDetector.h</itemPath>
+          <itemPath>bullet/BulletCollision/NarrowPhaseCollision/btManifoldPoint.h</itemPath>
+          <itemPath>bullet/BulletCollision/NarrowPhaseCollision/btMinkowskiPenetrationDepthSolver.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/NarrowPhaseCollision/btMinkowskiPenetrationDepthSolver.h</itemPath>
+          <itemPath>bullet/BulletCollision/NarrowPhaseCollision/btPersistentManifold.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/NarrowPhaseCollision/btPersistentManifold.h</itemPath>
+          <itemPath>bullet/BulletCollision/NarrowPhaseCollision/btPointCollector.h</itemPath>
+          <itemPath>bullet/BulletCollision/NarrowPhaseCollision/btRaycastCallback.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/NarrowPhaseCollision/btRaycastCallback.h</itemPath>
+          <itemPath>bullet/BulletCollision/NarrowPhaseCollision/btSimplexSolverInterface.h</itemPath>
+          <itemPath>bullet/BulletCollision/NarrowPhaseCollision/btSubSimplexConvexCast.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/NarrowPhaseCollision/btSubSimplexConvexCast.h</itemPath>
+          <itemPath>bullet/BulletCollision/NarrowPhaseCollision/btVoronoiSimplexSolver.cpp</itemPath>
+          <itemPath>bullet/BulletCollision/NarrowPhaseCollision/btVoronoiSimplexSolver.h</itemPath>
+        </logicalFolder>
+      </logicalFolder>
+      <logicalFolder name="BulletDynamics"
+                     displayName="BulletDynamics"
+                     projectFiles="true">
+        <logicalFolder name="Character" displayName="Character" projectFiles="true">
+          <itemPath>bullet/BulletDynamics/Character/btCharacterControllerInterface.h</itemPath>
+          <itemPath>bullet/BulletDynamics/Character/btKinematicCharacterController.cpp</itemPath>
+          <itemPath>bullet/BulletDynamics/Character/btKinematicCharacterController.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="CMakeFiles" displayName="CMakeFiles" projectFiles="true">
+          <logicalFolder name="BulletDynamics.dir"
+                         displayName="BulletDynamics.dir"
+                         projectFiles="true">
+            <logicalFolder name="Character" displayName="Character" projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="ConstraintSolver"
+                           displayName="ConstraintSolver"
+                           projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="Dynamics" displayName="Dynamics" projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="Vehicle" displayName="Vehicle" projectFiles="true">
+            </logicalFolder>
+          </logicalFolder>
+        </logicalFolder>
+        <logicalFolder name="ConstraintSolver"
+                       displayName="ConstraintSolver"
+                       projectFiles="true">
+          <itemPath>bullet/BulletDynamics/ConstraintSolver/btConeTwistConstraint.cpp</itemPath>
+          <itemPath>bullet/BulletDynamics/ConstraintSolver/btConeTwistConstraint.h</itemPath>
+          <itemPath>bullet/BulletDynamics/ConstraintSolver/btConstraintSolver.h</itemPath>
+          <itemPath>bullet/BulletDynamics/ConstraintSolver/btContactConstraint.cpp</itemPath>
+          <itemPath>bullet/BulletDynamics/ConstraintSolver/btContactConstraint.h</itemPath>
+          <itemPath>bullet/BulletDynamics/ConstraintSolver/btContactSolverInfo.h</itemPath>
+          <itemPath>bullet/BulletDynamics/ConstraintSolver/btGeneric6DofConstraint.cpp</itemPath>
+          <itemPath>bullet/BulletDynamics/ConstraintSolver/btGeneric6DofConstraint.h</itemPath>
+          <itemPath>bullet/BulletDynamics/ConstraintSolver/btGeneric6DofSpringConstraint.cpp</itemPath>
+          <itemPath>bullet/BulletDynamics/ConstraintSolver/btGeneric6DofSpringConstraint.h</itemPath>
+          <itemPath>bullet/BulletDynamics/ConstraintSolver/btHinge2Constraint.cpp</itemPath>
+          <itemPath>bullet/BulletDynamics/ConstraintSolver/btHinge2Constraint.h</itemPath>
+          <itemPath>bullet/BulletDynamics/ConstraintSolver/btHingeConstraint.cpp</itemPath>
+          <itemPath>bullet/BulletDynamics/ConstraintSolver/btHingeConstraint.h</itemPath>
+          <itemPath>bullet/BulletDynamics/ConstraintSolver/btJacobianEntry.h</itemPath>
+          <itemPath>bullet/BulletDynamics/ConstraintSolver/btPoint2PointConstraint.cpp</itemPath>
+          <itemPath>bullet/BulletDynamics/ConstraintSolver/btPoint2PointConstraint.h</itemPath>
+          <itemPath>bullet/BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.cpp</itemPath>
+          <itemPath>bullet/BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h</itemPath>
+          <itemPath>bullet/BulletDynamics/ConstraintSolver/btSliderConstraint.cpp</itemPath>
+          <itemPath>bullet/BulletDynamics/ConstraintSolver/btSliderConstraint.h</itemPath>
+          <itemPath>bullet/BulletDynamics/ConstraintSolver/btSolve2LinearConstraint.cpp</itemPath>
+          <itemPath>bullet/BulletDynamics/ConstraintSolver/btSolve2LinearConstraint.h</itemPath>
+          <itemPath>bullet/BulletDynamics/ConstraintSolver/btSolverBody.h</itemPath>
+          <itemPath>bullet/BulletDynamics/ConstraintSolver/btSolverConstraint.h</itemPath>
+          <itemPath>bullet/BulletDynamics/ConstraintSolver/btTypedConstraint.cpp</itemPath>
+          <itemPath>bullet/BulletDynamics/ConstraintSolver/btTypedConstraint.h</itemPath>
+          <itemPath>bullet/BulletDynamics/ConstraintSolver/btUniversalConstraint.cpp</itemPath>
+          <itemPath>bullet/BulletDynamics/ConstraintSolver/btUniversalConstraint.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="Dynamics" displayName="Dynamics" projectFiles="true">
+          <itemPath>bullet/BulletDynamics/Dynamics/Bullet-C-API.cpp</itemPath>
+          <itemPath>bullet/BulletDynamics/Dynamics/btActionInterface.h</itemPath>
+          <itemPath>bullet/BulletDynamics/Dynamics/btContinuousDynamicsWorld.cpp</itemPath>
+          <itemPath>bullet/BulletDynamics/Dynamics/btContinuousDynamicsWorld.h</itemPath>
+          <itemPath>bullet/BulletDynamics/Dynamics/btDiscreteDynamicsWorld.cpp</itemPath>
+          <itemPath>bullet/BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h</itemPath>
+          <itemPath>bullet/BulletDynamics/Dynamics/btDynamicsWorld.h</itemPath>
+          <itemPath>bullet/BulletDynamics/Dynamics/btRigidBody.cpp</itemPath>
+          <itemPath>bullet/BulletDynamics/Dynamics/btRigidBody.h</itemPath>
+          <itemPath>bullet/BulletDynamics/Dynamics/btSimpleDynamicsWorld.cpp</itemPath>
+          <itemPath>bullet/BulletDynamics/Dynamics/btSimpleDynamicsWorld.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="ibmsdk" displayName="ibmsdk" projectFiles="true">
+        </logicalFolder>
+        <logicalFolder name="Vehicle" displayName="Vehicle" projectFiles="true">
+          <itemPath>bullet/BulletDynamics/Vehicle/btRaycastVehicle.cpp</itemPath>
+          <itemPath>bullet/BulletDynamics/Vehicle/btRaycastVehicle.h</itemPath>
+          <itemPath>bullet/BulletDynamics/Vehicle/btVehicleRaycaster.h</itemPath>
+          <itemPath>bullet/BulletDynamics/Vehicle/btWheelInfo.cpp</itemPath>
+          <itemPath>bullet/BulletDynamics/Vehicle/btWheelInfo.h</itemPath>
+        </logicalFolder>
+      </logicalFolder>
+      <logicalFolder name="BulletSoftBody"
+                     displayName="BulletSoftBody"
+                     projectFiles="true">
+        <logicalFolder name="CMakeFiles" displayName="CMakeFiles" projectFiles="true">
+          <logicalFolder name="BulletSoftBody.dir"
+                         displayName="BulletSoftBody.dir"
+                         projectFiles="true">
+          </logicalFolder>
+        </logicalFolder>
+        <itemPath>bullet/BulletSoftBody/btSoftBody.cpp</itemPath>
+        <itemPath>bullet/BulletSoftBody/btSoftBody.h</itemPath>
+        <itemPath>bullet/BulletSoftBody/btSoftBodyConcaveCollisionAlgorithm.cpp</itemPath>
+        <itemPath>bullet/BulletSoftBody/btSoftBodyConcaveCollisionAlgorithm.h</itemPath>
+        <itemPath>bullet/BulletSoftBody/btSoftBodyHelpers.cpp</itemPath>
+        <itemPath>bullet/BulletSoftBody/btSoftBodyHelpers.h</itemPath>
+        <itemPath>bullet/BulletSoftBody/btSoftBodyInternals.h</itemPath>
+        <itemPath>bullet/BulletSoftBody/btSoftBodyRigidBodyCollisionConfiguration.cpp</itemPath>
+        <itemPath>bullet/BulletSoftBody/btSoftBodyRigidBodyCollisionConfiguration.h</itemPath>
+        <itemPath>bullet/BulletSoftBody/btSoftRigidCollisionAlgorithm.cpp</itemPath>
+        <itemPath>bullet/BulletSoftBody/btSoftRigidCollisionAlgorithm.h</itemPath>
+        <itemPath>bullet/BulletSoftBody/btSoftRigidDynamicsWorld.cpp</itemPath>
+        <itemPath>bullet/BulletSoftBody/btSoftRigidDynamicsWorld.h</itemPath>
+        <itemPath>bullet/BulletSoftBody/btSoftSoftCollisionAlgorithm.cpp</itemPath>
+        <itemPath>bullet/BulletSoftBody/btSoftSoftCollisionAlgorithm.h</itemPath>
+        <itemPath>bullet/BulletSoftBody/btSparseSDF.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="CMakeFiles" displayName="CMakeFiles" projectFiles="true">
+      </logicalFolder>
+      <logicalFolder name="ibmsdk" displayName="ibmsdk" projectFiles="true">
+      </logicalFolder>
+      <logicalFolder name="LinearMath" displayName="LinearMath" projectFiles="true">
+        <logicalFolder name="CMakeFiles" displayName="CMakeFiles" projectFiles="true">
+          <logicalFolder name="LinearMath.dir"
+                         displayName="LinearMath.dir"
+                         projectFiles="true">
+          </logicalFolder>
+        </logicalFolder>
+        <logicalFolder name="ibmsdk" displayName="ibmsdk" projectFiles="true">
+        </logicalFolder>
+        <itemPath>bullet/LinearMath/btAabbUtil2.h</itemPath>
+        <itemPath>bullet/LinearMath/btAlignedAllocator.cpp</itemPath>
+        <itemPath>bullet/LinearMath/btAlignedAllocator.h</itemPath>
+        <itemPath>bullet/LinearMath/btAlignedObjectArray.h</itemPath>
+        <itemPath>bullet/LinearMath/btConvexHull.cpp</itemPath>
+        <itemPath>bullet/LinearMath/btConvexHull.h</itemPath>
+        <itemPath>bullet/LinearMath/btDefaultMotionState.h</itemPath>
+        <itemPath>bullet/LinearMath/btGeometryUtil.cpp</itemPath>
+        <itemPath>bullet/LinearMath/btGeometryUtil.h</itemPath>
+        <itemPath>bullet/LinearMath/btHashMap.h</itemPath>
+        <itemPath>bullet/LinearMath/btIDebugDraw.h</itemPath>
+        <itemPath>bullet/LinearMath/btList.h</itemPath>
+        <itemPath>bullet/LinearMath/btMatrix3x3.h</itemPath>
+        <itemPath>bullet/LinearMath/btMinMax.h</itemPath>
+        <itemPath>bullet/LinearMath/btMotionState.h</itemPath>
+        <itemPath>bullet/LinearMath/btPoolAllocator.h</itemPath>
+        <itemPath>bullet/LinearMath/btQuadWord.h</itemPath>
+        <itemPath>bullet/LinearMath/btQuaternion.h</itemPath>
+        <itemPath>bullet/LinearMath/btQuickprof.cpp</itemPath>
+        <itemPath>bullet/LinearMath/btQuickprof.h</itemPath>
+        <itemPath>bullet/LinearMath/btRandom.h</itemPath>
+        <itemPath>bullet/LinearMath/btScalar.h</itemPath>
+        <itemPath>bullet/LinearMath/btSerializer.cpp</itemPath>
+        <itemPath>bullet/LinearMath/btSerializer.h</itemPath>
+        <itemPath>bullet/LinearMath/btStackAlloc.h</itemPath>
+        <itemPath>bullet/LinearMath/btTransform.h</itemPath>
+        <itemPath>bullet/LinearMath/btTransformUtil.h</itemPath>
+        <itemPath>bullet/LinearMath/btVector3.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="OpenGL" displayName="OpenGL" projectFiles="true">
+        <logicalFolder name="CMakeFiles" displayName="CMakeFiles" projectFiles="true">
+          <logicalFolder name="OpenGLSupport.dir"
+                         displayName="OpenGLSupport.dir"
+                         projectFiles="true">
+          </logicalFolder>
+        </logicalFolder>
+        <logicalFolder name="ibmsdk" displayName="ibmsdk" projectFiles="true">
+        </logicalFolder>
+        <itemPath>bullet/OpenGL/DebugCastResult.h</itemPath>
+        <itemPath>bullet/OpenGL/GLDebugDrawer.cpp</itemPath>
+        <itemPath>bullet/OpenGL/GLDebugDrawer.h</itemPath>
+        <itemPath>bullet/OpenGL/GLDebugFont.cpp</itemPath>
+        <itemPath>bullet/OpenGL/GLDebugFont.h</itemPath>
+        <itemPath>bullet/OpenGL/GL_DialogDynamicsWorld.cpp</itemPath>
+        <itemPath>bullet/OpenGL/GL_DialogDynamicsWorld.h</itemPath>
+        <itemPath>bullet/OpenGL/GL_DialogWindow.cpp</itemPath>
+        <itemPath>bullet/OpenGL/GL_DialogWindow.h</itemPath>
+        <itemPath>bullet/OpenGL/GL_ShapeDrawer.cpp</itemPath>
+        <itemPath>bullet/OpenGL/GL_ShapeDrawer.h</itemPath>
+        <itemPath>bullet/OpenGL/GL_Simplex1to4.cpp</itemPath>
+        <itemPath>bullet/OpenGL/GL_Simplex1to4.h</itemPath>
+        <itemPath>bullet/OpenGL/GlutStuff.cpp</itemPath>
+        <itemPath>bullet/OpenGL/GlutStuff.h</itemPath>
+        <itemPath>bullet/OpenGL/RenderTexture.cpp</itemPath>
+        <itemPath>bullet/OpenGL/RenderTexture.h</itemPath>
+        <itemPath>bullet/OpenGL/Win32AppMain.cpp</itemPath>
+        <itemPath>bullet/OpenGL/Win32DemoApplication.cpp</itemPath>
+        <itemPath>bullet/OpenGL/Win32DemoApplication.h</itemPath>
+      </logicalFolder>
+      <itemPath>bullet/Bullet-C-Api.h</itemPath>
+      <itemPath>bullet/btBulletCollisionCommon.h</itemPath>
+      <itemPath>bullet/btBulletDynamicsCommon.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="crittergod" displayName="crittergod" projectFiles="true">
+      <logicalFolder name="audio" displayName="audio" projectFiles="true">
+        <itemPath>crittergod/audio/Audio.cpp</itemPath>
+        <itemPath>crittergod/audio/Audio.h</itemPath>
+        <itemPath>crittergod/audio/SoundSource.cpp</itemPath>
+        <itemPath>crittergod/audio/SoundSource.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="bio" displayName="bio" projectFiles="true">
+        <itemPath>crittergod/bio/BloodBrainInterface.cpp</itemPath>
+        <itemPath>crittergod/bio/BloodBrainInterface.h</itemPath>
+        <itemPath>crittergod/bio/NColor.cpp</itemPath>
+        <itemPath>crittergod/bio/NColor.h</itemPath>
+        <itemPath>crittergod/bio/NPosition.cpp</itemPath>
+        <itemPath>crittergod/bio/NPosition.h</itemPath>
+        <itemPath>crittergod/bio/Retina.cpp</itemPath>
+        <itemPath>crittergod/bio/Retina.h</itemPath>
+        <itemPath>crittergod/bio/SineSound.cpp</itemPath>
+        <itemPath>crittergod/bio/SineSound.h</itemPath>
+        <itemPath>crittergod/bio/SixDoFMotor.cpp</itemPath>
+        <itemPath>crittergod/bio/SixDoFMotor.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="control" displayName="control" projectFiles="true">
+      </logicalFolder>
+      <logicalFolder name="graph" displayName="graph" projectFiles="true">
+        <itemPath>crittergod/graph/Graph.cpp</itemPath>
+        <itemPath>crittergod/graph/Graph.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="math" displayName="math" projectFiles="true">
+        <itemPath>crittergod/math/Math.cpp</itemPath>
+        <itemPath>crittergod/math/Math.h</itemPath>
+        <itemPath>crittergod/math/vector2f.cpp</itemPath>
+        <itemPath>crittergod/math/vector2f.h</itemPath>
+        <itemPath>crittergod/math/vector2i.cpp</itemPath>
+        <itemPath>crittergod/math/vector2i.h</itemPath>
+        <itemPath>crittergod/math/vector3f.cpp</itemPath>
+        <itemPath>crittergod/math/vector3f.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="media" displayName="media" projectFiles="true">
+        <logicalFolder name="font" displayName="font" projectFiles="true">
+        </logicalFolder>
+      </logicalFolder>
+      <logicalFolder name="neural" displayName="neural" projectFiles="true">
+        <itemPath>crittergod/neural/Brain.cpp</itemPath>
+        <itemPath>crittergod/neural/Brain.h</itemPath>
+        <itemPath>crittergod/neural/BrainLink.cpp</itemPath>
+        <itemPath>crittergod/neural/BrainLink.h</itemPath>
+        <itemPath>crittergod/neural/NInput.cpp</itemPath>
+        <itemPath>crittergod/neural/NInput.h</itemPath>
+        <itemPath>crittergod/neural/NOutput.cpp</itemPath>
+        <itemPath>crittergod/neural/NOutput.h</itemPath>
+        <itemPath>crittergod/neural/Neuron.cpp</itemPath>
+        <itemPath>crittergod/neural/Neuron.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="objects" displayName="objects" projectFiles="true">
+        <itemPath>crittergod/objects/BrainPanel.cpp</itemPath>
+        <itemPath>crittergod/objects/BrainPanel.h</itemPath>
+        <itemPath>crittergod/objects/BrainVis.cpp</itemPath>
+        <itemPath>crittergod/objects/BrainVis.h</itemPath>
+        <itemPath>crittergod/objects/FDBrainBody.cpp</itemPath>
+        <itemPath>crittergod/objects/FDBrainBody.h</itemPath>
+        <itemPath>crittergod/objects/NeuralSignalsPanel.cpp</itemPath>
+        <itemPath>crittergod/objects/NeuralSignalsPanel.h</itemPath>
+        <itemPath>crittergod/objects/PointerPanel.cpp</itemPath>
+        <itemPath>crittergod/objects/PointerPanel.h</itemPath>
+        <itemPath>crittergod/objects/RetinaPanel.cpp</itemPath>
+        <itemPath>crittergod/objects/RetinaPanel.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="space" displayName="space" projectFiles="true">
+        <itemPath>crittergod/space/AbstractBody.h</itemPath>
+        <itemPath>crittergod/space/BoxBody.cpp</itemPath>
+        <itemPath>crittergod/space/BoxBody.h</itemPath>
+        <itemPath>crittergod/space/DefaultSpace.cpp</itemPath>
+        <itemPath>crittergod/space/DefaultSpace.h</itemPath>
+        <itemPath>crittergod/space/Humanoid.cpp</itemPath>
+        <itemPath>crittergod/space/Humanoid.h</itemPath>
+        <itemPath>crittergod/space/SnakeBody.cpp</itemPath>
+        <itemPath>crittergod/space/SnakeBody.h</itemPath>
+        <itemPath>crittergod/space/SpiderBody.cpp</itemPath>
+        <itemPath>crittergod/space/SpiderBody.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="video" displayName="video" projectFiles="true">
+        <logicalFolder name="font" displayName="font" projectFiles="true">
+          <itemPath>crittergod/video/font/FontDemo1.cpp</itemPath>
+          <itemPath>crittergod/video/font/FontDemo1.h</itemPath>
+        </logicalFolder>
+        <itemPath>crittergod/video/AbstractSpace.cpp</itemPath>
+        <itemPath>crittergod/video/AbstractSpace.h</itemPath>
+        <itemPath>crittergod/video/GLWindow.cpp</itemPath>
+        <itemPath>crittergod/video/GLWindow.h</itemPath>
+        <itemPath>crittergod/video/SpaceProcess.cpp</itemPath>
+        <itemPath>crittergod/video/SpaceProcess.h</itemPath>
+        <itemPath>crittergod/video/Spacetime.cpp</itemPath>
+        <itemPath>crittergod/video/Spacetime.h</itemPath>
+        <itemPath>crittergod/video/displaylists.cpp</itemPath>
+        <itemPath>crittergod/video/displaylists.h</itemPath>
+        <itemPath>crittergod/video/gldebugdrawer.cpp</itemPath>
+        <itemPath>crittergod/video/gldebugdrawer.h</itemPath>
+        <itemPath>crittergod/video/mousepicker.cpp</itemPath>
+        <itemPath>crittergod/video/mousepicker.h</itemPath>
+        <itemPath>crittergod/video/raycast.cpp</itemPath>
+        <itemPath>crittergod/video/raycast.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="widget2d" displayName="widget2d" projectFiles="true">
+        <itemPath>crittergod/widget2d/button.cpp</itemPath>
+        <itemPath>crittergod/widget2d/button.h</itemPath>
+        <itemPath>crittergod/widget2d/container.cpp</itemPath>
+        <itemPath>crittergod/widget2d/container.h</itemPath>
+        <itemPath>crittergod/widget2d/panel.cpp</itemPath>
+        <itemPath>crittergod/widget2d/panel.h</itemPath>
+        <itemPath>crittergod/widget2d/slider.cpp</itemPath>
+        <itemPath>crittergod/widget2d/slider.h</itemPath>
+        <itemPath>crittergod/widget2d/text.cpp</itemPath>
+        <itemPath>crittergod/widget2d/text.h</itemPath>
+        <itemPath>crittergod/widget2d/textprinter.cpp</itemPath>
+        <itemPath>crittergod/widget2d/textprinter.h</itemPath>
+        <itemPath>crittergod/widget2d/widget.cpp</itemPath>
+        <itemPath>crittergod/widget2d/widget.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="widget3d" displayName="widget3d" projectFiles="true">
+        <itemPath>crittergod/widget3d/Button.cpp</itemPath>
+        <itemPath>crittergod/widget3d/Button.h</itemPath>
+        <itemPath>crittergod/widget3d/Panel.cpp</itemPath>
+        <itemPath>crittergod/widget3d/Panel.h</itemPath>
+        <itemPath>crittergod/widget3d/Rect.cpp</itemPath>
+        <itemPath>crittergod/widget3d/Rect.h</itemPath>
+        <itemPath>crittergod/widget3d/TextRect.cpp</itemPath>
+        <itemPath>crittergod/widget3d/TextRect.h</itemPath>
+        <itemPath>crittergod/widget3d/WidgetPlane.cpp</itemPath>
+        <itemPath>crittergod/widget3d/WidgetPlane.h</itemPath>
+      </logicalFolder>
+      <itemPath>crittergod/RunSims.cpp</itemPath>
+      <itemPath>crittergod/RunSims.h</itemPath>
+      <itemPath>crittergod/RunTests.cpp</itemPath>
+      <itemPath>crittergod/RunTests.h</itemPath>
+      <itemPath>crittergod/RunWidgets.cpp</itemPath>
+      <itemPath>crittergod/RunWidgets.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="src" displayName="src" projectFiles="true">
+      <itemPath>main.cpp</itemPath>
+      <itemPath>main.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>bullet</Elem>
+    <Elem>src</Elem>
+    <Elem>crittergod</Elem>
+    <Elem>bulletgl</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <compilerSet>GNU|GNU</compilerSet>
+        <assemblerRequired>true</assemblerRequired>
+        <platform>2</platform>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>bullet</pElem>
+            <pElem>crittergod</pElem>
+            <pElem>bulletgl</pElem>
+          </incDir>
+          <commandLine>-fopenmp</commandLine>
+        </ccTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerOptionItem>-lGL</linkerOptionItem>
+            <linkerOptionItem>-lSDL</linkerOptionItem>
+            <linkerOptionItem>-lftgl</linkerOptionItem>
+            <linkerOptionItem>-lGLU</linkerOptionItem>
+            <linkerOptionItem>-lglut</linkerOptionItem>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <compilerSet>GNU|GNU</compilerSet>
+        <platform>2</platform>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <linkerTool>
+          <linkerLibItems>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+    </conf>
+  </confs>
+</configurationDescriptor>
