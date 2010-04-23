@@ -9,6 +9,7 @@
 #define	_SIXDOFMOTOR_H
 
 #include <BulletDynamics/ConstraintSolver/btGeneric6DofConstraint.h>
+#include <BulletCollision/CollisionShapes/btCollisionShape.h>
 #include <neural/NOutput.h>
 
 class SixDoFMotor : public NOutput {
@@ -34,7 +35,7 @@ public:
         outs[1]->setStimulationFactor(linearStimulation);
         //outs[1]->setDecay(0.9999);
 
-        float smoothing = 0.001;
+        float smoothing = 0.01;
 
         double a = outs[0]->getOutput();
         double l = outs[1]->getOutput();
@@ -87,6 +88,60 @@ public:
     }
 
     virtual ~SixDoFMotor() {
+
+    }
+private:
+
+};
+
+class BodyScaleMotor : public NOutput {
+    btRigidBody* body;
+
+    float normalLength;
+    float linearScale, angularScale;
+    float linearStimulation, angularStimulation;
+
+    float lastLength;
+    float minScale, maxScale;
+    float normalMass;
+    
+public:
+    BodyScaleMotor(Brain* b, btRigidBody* _body, float _linearScale, float _linearStimulation) :
+        NOutput(b, 1), body(_body), normalLength(0), linearScale(_linearScale), linearStimulation(_linearStimulation) {
+
+            lastLength = 0;
+            minScale = 0.9;
+            maxScale = 1.1;
+            normalMass = 1.0f / body->getInvMass();
+    }
+
+    virtual void process(double dt) {
+        outs[0]->setStimulationFactor(linearStimulation);
+        //outs[1]->setDecay(0.9999);
+
+        float smoothing = 0.05;
+
+        double l = outs[0]->getOutput();
+
+        double lengthMod = smoothing * l + (1.0 - smoothing) * lastLength;
+
+        lastLength = lengthMod;
+
+        //TODO expose this parameter
+
+        float xmax = normalLength + lengthMod;
+
+        float yScale = 1.0f + xmax;
+        yScale = fmax(yScale, minScale);
+        yScale = fmin(yScale, maxScale);
+
+        //default to the Y coordinate
+        body->getCollisionShape()->setLocalScaling(btVector3(yScale, yScale, yScale));
+
+
+    }
+
+    virtual ~BodyScaleMotor() {
 
     }
 private:

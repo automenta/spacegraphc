@@ -42,7 +42,7 @@ public:
         int minSynapses = 1;
         int maxSynapses = 8;
 
-        brain = new Brain(numNeurons, minSynapses, maxSynapses, 0.5);
+        brain = new Brain();
 
         //
         // Setup geometry
@@ -216,7 +216,6 @@ public:
             }
         }
 
-        brain->init();
         brain->printSummary();
 
     }

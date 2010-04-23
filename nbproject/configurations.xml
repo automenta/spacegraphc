@@ -622,7 +622,7 @@
             <pElem>crittergod</pElem>
             <pElem>bulletgl</pElem>
           </incDir>
-          <commandLine>-fopenmp</commandLine>
+          <commandLine>-fopenmp -O2</commandLine>
         </ccTool>
         <linkerTool>
           <linkerLibItems>

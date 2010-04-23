@@ -80,7 +80,7 @@ public:
         int maxSynapses = 6;
 
 
-        brain = new Brain(numNeurons, minSynapses, maxSynapses, 0.5);
+        brain = new Brain();
 
         posCenter = new NPosition(brain, 1);
 
@@ -222,7 +222,6 @@ public:
 
         voice = new SineSound(brain, space->audio, 128);
 
-        brain->init();
         brain->printSummary();
     }
 
@@ -299,12 +298,14 @@ class SpiderBody2 : public AbstractBody {
 
     btVector3 positionOffset;
     vector<SixDoFMotor*> jointControllers;
+    vector<BodyScaleMotor*> scaleControllers;
 
     NPosition* posCenter;
     SineSound* voice;
 
     btCapsuleShape* headShape;
     vector<btScalar>* legLengths;
+    vector<btScalar>* legRadii;
 
     vector<NPosition*> partPos;
     unsigned retinaSize;
@@ -314,9 +315,10 @@ public:
     Brain* brain;
 
 
-    SpiderBody2(unsigned numLegs, vector<btScalar>* _legLengths, const btVector3& _positionOffset, unsigned _retinaSize) {
+    SpiderBody2(unsigned numLegs, vector<btScalar>* _legLengths, vector<btScalar>* _legRadii, const btVector3& _positionOffset, unsigned _retinaSize) {
         NUM_LEGS = numLegs;
         legLengths = _legLengths;
+        legRadii = _legRadii;
         PARTS_PER_LEG = legLengths->size();
         retinaSize = _retinaSize;
 
@@ -334,21 +336,16 @@ public:
 
         //
         // Setup geometry
-        float headRadius = 0.15f;
+        float headRadius = 0.10f;
         float headHeight = 0.05f;
         float headMass = 0.05;
 
         float fHeight = 0.5;
 
-        unsigned numNeurons = 1200;
-        unsigned minSynapses = 1;
-        unsigned maxSynapses = 6;
-
-        float fLegRadiusScale = 0.10;
         float fLegDensity = 0.2;
 
 
-        brain = new Brain(numNeurons, minSynapses, maxSynapses, 0.5);
+        brain = new Brain();
 
         posCenter = new NPosition(brain, 1);
         
@@ -365,9 +362,12 @@ public:
 
         headShape = new btCapsuleShape(btScalar(headRadius), btScalar(headHeight));
         shapes.push_back(headShape);
-        createRigidShape(headMass, offset*transform, headShape);
+        btRigidBody* headBody = createRigidShape(headMass, offset*transform, headShape);
 
         float fLegLength = (*legLengths)[0];
+
+        BodyScaleMotor* hbm  = new BodyScaleMotor(brain, headBody, 15.5, 0.55);
+        scaleControllers.push_back(hbm);
 
         unsigned i;
         // legs
@@ -385,7 +385,7 @@ public:
                 btVector3 vAxis = vToBone.cross(vUp);
                 transform.setRotation(btQuaternion(vAxis, M_PI_2));
                 float fLegLength = (*legLengths)[j];
-                float fLegRadius = fLegLength * fLegRadiusScale;
+                float fLegRadius = fLegLength * (*legRadii)[j];
                 float fLegMass = fLegDensity * fLegLength * fLegRadius * fLegRadius; //approximate cylinder volume
                 //btCapsuleShape* legPart = new btCapsuleShape(btScalar(fLegRadius), btScalar(fLegLength));
                 btBoxShape* legPart = new btBoxShape(btVector3(fLegRadius, fLegLength*0.5, fLegRadius));
@@ -394,6 +394,9 @@ public:
                 if (j == PARTS_PER_LEG-1) {
                     legEye.push_back( new Retina(brain, space->dynamicsWorld, legPartBody, retinaSize, retinaSize, 0.5, 40.0) );
                 }
+
+                BodyScaleMotor* bm  = new BodyScaleMotor(brain, legPartBody, 15.5, 0.55);
+                scaleControllers.push_back(bm);
 
             }
 
@@ -441,7 +444,8 @@ public:
             joints.push_back(c);
             dyn->addConstraint(c);
 
-            SixDoFMotor* sm = new SixDoFMotor(brain, c, 0, M_PI_4, 0.05, 0.05);
+            
+            SixDoFMotor* sm = new SixDoFMotor(brain, c, 0, M_PI_4, 0.25, 0.25);
             jointControllers.push_back(sm);
 
         }
@@ -468,7 +472,7 @@ public:
                 joints.push_back(c);
                 dyn->addConstraint(c);
 
-                SixDoFMotor* sm = new SixDoFMotor(brain, c, 0, M_PI_4, 0.1, 0.1);
+                SixDoFMotor* sm = new SixDoFMotor(brain, c, 0, M_PI_4, 0.25, 0.25);
                 jointControllers.push_back(sm);
 
             }
@@ -478,8 +482,23 @@ public:
 
         voice = new SineSound(brain, space->audio, 128);
 
-        brain->init();
+
         brain->printSummary();
+    }
+
+    void addNeuron() {
+        unsigned minSynapsesPerNeuron = 1;
+        unsigned maxSynapsesPerNeuron = 6;
+        float percentInhibitoryNeuron = 0.5f;
+        float percentInputSynapse = 0.25f;
+        float percentOutputNeuron = 0.02f;
+        float percentInhibitorySynapse = 0.5f;
+        float minSynapseWeight = 0.001f;
+        float maxSynapseWeight = 2.5f;
+        float neuronPotentialDecay = 0.95f;
+        brain->wireRandomly(minSynapsesPerNeuron, maxSynapsesPerNeuron,
+            percentInhibitoryNeuron, percentInputSynapse, percentOutputNeuron, percentInhibitorySynapse,
+            minSynapseWeight, maxSynapseWeight, neuronPotentialDecay);
     }
 
     virtual btVector3 getColor(btCollisionShape* shape) {
@@ -506,9 +525,18 @@ public:
         
         for (unsigned j = 0; j < jointControllers.size(); j++)
             jointControllers[j]->process(dt);
+        for (unsigned j = 0; j < scaleControllers.size(); j++)
+            scaleControllers[j]->process(dt);
 
         voice->process(dt);
 
+        if (frand(0,1) < 0.5) {
+            unsigned numNeurons = 16384;
+            if (brain->neurons.size() < numNeurons) {
+                addNeuron();
+                cout << " added neuron, total = " << brain->neurons.size() << "\n";
+            }
+        }
     }
 
     btScalar getLegTargetAngle(int leg, bool hipOrKnee) {

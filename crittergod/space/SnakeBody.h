@@ -72,7 +72,7 @@ public:
         int maxSynapses = 4;
 
 
-        brain = new Brain(numNeurons, minSynapses, maxSynapses, 0.5);
+        brain = new Brain();
 
 
         //
@@ -231,7 +231,6 @@ public:
         voices.push_back( new SineSound(brain, space->audio, 741) );
         voices.push_back( new SineSound(brain, space->audio, 852) );
 
-        brain->init();
         brain->printSummary();
 
     }

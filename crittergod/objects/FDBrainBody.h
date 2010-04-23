@@ -62,8 +62,9 @@ public:
         neuronBody.reserve(numNeurons);
         joints.reserve(0);
 
-        for (unsigned i = 0; i < numNeurons; i++) {
-            Neuron* n = brain->neurons[i];
+        unsigned i = 0;
+        for(map< Neuron*, list<Synapse*>* >::iterator im = brain->neurons.begin(); (im != brain->neurons.end()); im++) {
+            Neuron* n = im->first;
 
             btTransform transform;
             transform.setIdentity();
@@ -77,6 +78,8 @@ public:
             shapeToNeuron[neuronShape[i]] = n;
             neuronToBody[n] = bodies[i] = neuronBody[i] = createRigidShape(btScalar(0.1), transform, neuronShape[i]);
             bodies[i]->setGravity( btVector3(0,0,0) );
+
+            i++;
         }
 
     }
@@ -115,164 +118,167 @@ public:
         for (unsigned i = 0; i < numNeurons; i++) {
             btCollisionShape* bt = neuronShape[i];
             float s = neuronSize;
-            float w = s * (1.0 + (fabs(brain->neurons[i]->getOutput())));
-            float h = s * (1.0 + sqrt(fabs(brain->neurons[i]->potential)));
-            bt->setLocalScaling(btVector3(w, h, (w + h) / 2.0));
+            //TODO
+            //  Neuron* neuron = getNeuronFor(bt);
+            
+//            float w = s * (1.0 + (fabs(brain->neurons[i]->getOutput())));
+//            float h = s * (1.0 + sqrt(fabs(brain->neurons[i]->potential)));
+            //bt->setLocalScaling(btVector3(w, h, (w + h) / 2.0));
         }
 
         //attract
         btVector3 center(0, 0, 0);
 
-        unsigned i;
-        #pragma omp parallel for private(i)
-        for (i = 0; i < brain->numNeurons; i++) {
-            Neuron* a = brain->neurons[i];
-            btRigidBody *aBod = neuronBody[i];
-            btVector3 aPos = aBod->getWorldTransform().getOrigin();
-
-            unsigned numSynapses = a->synapses.size();
-            for (unsigned s = 0; s < numSynapses; s++) {
-                Synapse* syn = a->synapses[s];
-                AbstractNeuron *b = syn->inputNeuron;
-                if (b == NULL)
-                    continue;
-
-                btRigidBody *bBod = neuronToBody[b];
-                if (bBod == NULL)
-                    continue;
-
-                btVector3 bPos = bBod->getWorldTransform().getOrigin();
-
-                float currentLength = aPos.distance(bPos);
-                float targetLength = neuronSize * naturalLength * (2.0 - fabs(syn->weight)); // / (1.0 + fabs(syn->weight));
-                float f = tension * (currentLength - targetLength)/* / ((float) numSynapses)*/;
-
-                float sx = f * (bPos.getX() - aPos.getX());
-                float sy = f * (bPos.getY() - aPos.getY());
-                float sz = f * (bPos.getZ() - aPos.getZ());
-
-                aPos += btVector3(sx / 2.0, sy / 2.0, sz / 2.0) * speed;
-                bPos -= btVector3(sx / 2.0, sy / 2.0, sz / 2.0) * speed;
-
-                aBod->getWorldTransform().setOrigin(aPos);
-                bBod->getWorldTransform().setOrigin(bPos);
-
-            }
-        }
-
-        //repel
-        for (i = 0; i < brain->numNeurons; i++) {
-            Neuron* a = brain->neurons[i];
-            btRigidBody *aBod = neuronBody[i];
-            btVector3 aPos = aBod->getWorldTransform().getOrigin();
-
-            if (repulsion != 0.0) {
-                btVector3 force(0, 0, 0);
-
-                unsigned j;
-#pragma omp parallel for private(j)
-                for (j = 0; j < brain->numNeurons; j++) {
-                    if (i == j)
-                        continue;
-
-                    btRigidBody *bBod = neuronBody[j];
-                    if (bBod == NULL)
-                        continue;
-
-                    btVector3 bPos = bBod->getWorldTransform().getOrigin();
-
-                    double dist = bPos.distance(aPos);
-
-                    double f = repulsion * /*(nMass * mMass)*/1.0 / (dist * dist);
-
-                    double sx = f * (aPos.getX() - bPos.getX());
-                    double sy = f * (aPos.getY() - bPos.getY());
-                    double sz = f * (aPos.getZ() - bPos.getZ());
-                    force += btVector3(sx, sy, sz);
-                }
-
-                aPos += force * speed;
-            }
-
-            aPos[0] = fmax(fmin(aPos[0], maxXYZ[0]), minXYZ[0]);
-            aPos[1] = fmax(fmin(aPos[1], maxXYZ[1]), minXYZ[1]);
-            aPos[2] = fmax(fmin(aPos[2], maxXYZ[2]), minXYZ[2]);
-            
-            aBod->getWorldTransform().setOrigin(aPos);
-
-            center += aPos;
-        }
-
-        center /= ((double) brain->numNeurons);
-
-        if (center) {
-            #pragma omp parallel for private(i)
-            for (i = 0; i < brain->numNeurons; i++) {
-                btRigidBody *aBod = neuronBody[i];
-                btVector3 pos = aBod->getWorldTransform().getOrigin();
-                aBod->getWorldTransform().setOrigin(pos - center);
-            }
-        }
+//        unsigned i;
+//        #pragma omp parallel for private(i)
+//        for(map< Neuron*, list<Synapse*>* >::iterator im = brain->neurons.begin(); (im != brain->neurons.end()); im++) {
+//            Neuron* a = im->first;
+//            btRigidBody *aBod = neuronBody[i];
+//            btVector3 aPos = aBod->getWorldTransform().getOrigin();
+//
+//            //TODO iterate synapses of a neuron
+//            unsigned numSynapses = brain->neurons[a]->size();// a->synapses.size();
+//            for (unsigned s = 0; s < numSynapses; s++) {
+//                Synapse* syn = a->synapses[s];
+//                AbstractNeuron *b = syn->inputNeuron;
+//                if (b == NULL)
+//                    continue;
+//
+//                btRigidBody *bBod = neuronToBody[b];
+//                if (bBod == NULL)
+//                    continue;
+//
+//                btVector3 bPos = bBod->getWorldTransform().getOrigin();
+//
+//                float currentLength = aPos.distance(bPos);
+//                float targetLength = neuronSize * naturalLength * (2.0 - fabs(syn->weight)); // / (1.0 + fabs(syn->weight));
+//                float f = tension * (currentLength - targetLength)/* / ((float) numSynapses)*/;
+//
+//                float sx = f * (bPos.getX() - aPos.getX());
+//                float sy = f * (bPos.getY() - aPos.getY());
+//                float sz = f * (bPos.getZ() - aPos.getZ());
+//
+//                aPos += btVector3(sx / 2.0, sy / 2.0, sz / 2.0) * speed;
+//                bPos -= btVector3(sx / 2.0, sy / 2.0, sz / 2.0) * speed;
+//
+//                aBod->getWorldTransform().setOrigin(aPos);
+//                bBod->getWorldTransform().setOrigin(bPos);
+//
+//            }
+//        }
+//
+//        //repel
+//        for (i = 0; i < brain->numNeurons; i++) {
+//            Neuron* a = brain->neurons[i];
+//            btRigidBody *aBod = neuronBody[i];
+//            btVector3 aPos = aBod->getWorldTransform().getOrigin();
+//
+//            if (repulsion != 0.0) {
+//                btVector3 force(0, 0, 0);
+//
+//                unsigned j;
+//#pragma omp parallel for private(j)
+//                for (j = 0; j < brain->numNeurons; j++) {
+//                    if (i == j)
+//                        continue;
+//
+//                    btRigidBody *bBod = neuronBody[j];
+//                    if (bBod == NULL)
+//                        continue;
+//
+//                    btVector3 bPos = bBod->getWorldTransform().getOrigin();
+//
+//                    double dist = bPos.distance(aPos);
+//
+//                    double f = repulsion * /*(nMass * mMass)*/1.0 / (dist * dist);
+//
+//                    double sx = f * (aPos.getX() - bPos.getX());
+//                    double sy = f * (aPos.getY() - bPos.getY());
+//                    double sz = f * (aPos.getZ() - bPos.getZ());
+//                    force += btVector3(sx, sy, sz);
+//                }
+//
+//                aPos += force * speed;
+//            }
+//
+//            aPos[0] = fmax(fmin(aPos[0], maxXYZ[0]), minXYZ[0]);
+//            aPos[1] = fmax(fmin(aPos[1], maxXYZ[1]), minXYZ[1]);
+//            aPos[2] = fmax(fmin(aPos[2], maxXYZ[2]), minXYZ[2]);
+//
+//            aBod->getWorldTransform().setOrigin(aPos);
+//
+//            center += aPos;
+//        }
+//
+//        center /= ((double) brain->numNeurons);
+//
+//        if (center) {
+//            #pragma omp parallel for private(i)
+//            for (i = 0; i < brain->numNeurons; i++) {
+//                btRigidBody *aBod = neuronBody[i];
+//                btVector3 pos = aBod->getWorldTransform().getOrigin();
+//                aBod->getWorldTransform().setOrigin(pos - center);
+//            }
+//        }
 
 
     }
 
     virtual void draw() {
-        glBegin(GL_TRIANGLES);
-        
-        for (unsigned i = 0; i < brain->numNeurons; i++) {
-            Neuron* a = brain->neurons[i];
-            btRigidBody *aBod = neuronBody[i];
-
-            btVector3 aPos = aBod->getWorldTransform().getOrigin();
-            btVector3 axis = aBod->getWorldTransform().getRotation().getAxis().normalized();
-            double aax = axis.getX();
-            double aay = axis.getY();
-
-            unsigned numSynapses = a->synapses.size();
-            for (unsigned s = 0; s < numSynapses; s++) {
-                Synapse* syn = a->synapses[s];
-                AbstractNeuron *b = syn->inputNeuron;
-                if (b == NULL) {
-                    cout << "synapse " << s << " has NULL inputNeuron\n";
-                    continue;
-                }
-
-                btRigidBody *bBod = neuronToBody[b];
-                if (bBod == NULL) {
-                    continue;
-                }
-
-                btVector3 bPos = bBod->getWorldTransform().getOrigin();
-                //double bbx = bBod->getOrientation().getAxis().getX();
-                //double bby = bBod->getOrientation().getAxis().getY();
-
-                float w = syn->weight;
-                float input = neuronSize * (0.5 + 0.5 * fmin(fabs(a->potential), 1.0));
-                float cr, cg, cb, ca;
-                if (w < 0) {
-                    cr = fmin(0.5 + -w/2.0, 1.0);
-                    cg = 0.25;
-                    cb = 0.25;
-                    ca = 0.5;
-                }
-                else {
-                    cb = fmin(0.5 + w/2.0, 1.0);
-                    cr = 0.25;
-                    cg = 0.25;
-                    ca = 0.5;
-                }
-
-                glColor4f(cr, cg, cb, ca);
-
-                glVertex3f(aPos.getX()+aax*input, aPos.getY(), aPos.getZ());
-                glVertex3f(aPos.getX()-aax*input, aPos.getY(), aPos.getZ());
-                glVertex3f(bPos.getX(), bPos.getY(), bPos.getZ());
-
-            }
-
-        }
-        glEnd();
+//        glBegin(GL_TRIANGLES);
+//        for(map< Neuron*, list<Synapse*>* >::iterator im = brain->neurons.begin(); (im != brain->neurons.end()); im++) {
+//            Neuron* a = im->first;
+//            btRigidBody *aBod = neuronBody[i];
+//
+//            btVector3 aPos = aBod->getWorldTransform().getOrigin();
+//            btVector3 axis = aBod->getWorldTransform().getRotation().getAxis().normalized();
+//            double aax = axis.getX();
+//            double aay = axis.getY();
+//
+//            list<Synapse*>* synapses = brain->neurons[a];
+//            for(std::list<Synapse*>::iterator list_iter = synapses->begin(); list_iter != synapses->end(); list_iter++) {
+//                Synapse* syn = *list_iter;
+//                AbstractNeuron *b = syn->inputNeuron;
+//                if (b == NULL) {
+//                    cout << "synapse " << s << " has NULL inputNeuron\n";
+//                    continue;
+//                }
+//
+//                btRigidBody *bBod = neuronToBody[b];
+//                if (bBod == NULL) {
+//                    continue;
+//                }
+//
+//                btVector3 bPos = bBod->getWorldTransform().getOrigin();
+//                //double bbx = bBod->getOrientation().getAxis().getX();
+//                //double bby = bBod->getOrientation().getAxis().getY();
+//
+//                float w = syn->weight;
+//                float input = neuronSize * (0.5 + 0.5 * fmin(fabs(a->potential), 1.0));
+//                float cr, cg, cb, ca;
+//                if (w < 0) {
+//                    cr = fmin(0.5 + -w/2.0, 1.0);
+//                    cg = 0.25;
+//                    cb = 0.25;
+//                    ca = 0.5;
+//                }
+//                else {
+//                    cb = fmin(0.5 + w/2.0, 1.0);
+//                    cr = 0.25;
+//                    cg = 0.25;
+//                    ca = 0.5;
+//                }
+//
+//                glColor4f(cr, cg, cb, ca);
+//
+//                glVertex3f(aPos.getX()+aax*input, aPos.getY(), aPos.getZ());
+//                glVertex3f(aPos.getX()-aax*input, aPos.getY(), aPos.getZ());
+//                glVertex3f(bPos.getX(), bPos.getY(), bPos.getZ());
+//
+//            }
+//
+//        }
+//        glEnd();
 
     }
 

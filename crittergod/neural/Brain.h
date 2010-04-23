@@ -9,6 +9,8 @@
 #define BRAIN_H_
 
 #include <iostream>
+#include <map>
+#include <list>
 #include <vector>
 #include <stdio.h>
 #include <math.h>
@@ -23,108 +25,54 @@ public:
     int neuronsFired;
     int outNeuronsFired;
 
+    int numNeurons;
     int totalSynapses;
+    
+    map<Neuron*, list<Synapse*>* > neurons;
+    //vector<Neuron*> neurons;
 
-    vector<Neuron*> neurons;
     vector<InNeuron*> ins;
     vector<OutNeuron*> outs;
 
     vector<float> inValues;
     vector<float> outValues;
 
-    vector<NeuronBuilder*> neuronBuilders;
-
-    unsigned numNeurons;
-    unsigned minSynapses;
-    unsigned maxSynapses;
-
-    float percentChanceInhibitoryNeuron;
-    float percentChanceConsistentSynapses;
-    float percentChanceInhibitorySynapses;
-
-    float percentChanceOutputNeuron;
-    float percentChancePlasticNeuron;
-    float percentChanceInputSynapse;
-
-    float minPlasticityStrengthen;
-    float maxPlasticityStrengthen;
-    float minPlasticityWeaken;
-    float maxPlasticityWeaken;
-
-    float minFiringThreshold;
-    float maxFiringThreshold;
-
-    //float maxDendridicBranches;
-    //float percentMutation;
-
-
-    //Usage: create the brain, attach peripherals, then call 'init()' to wire them
-
-    Brain(unsigned _numNeurons, unsigned _minSynapsesPerNeuron, unsigned _maxSynapsesPerNeuron, float _percentInhibitory) {
-
-        numNeurons = _numNeurons;
-        minSynapses = _minSynapsesPerNeuron;
-        maxSynapses = _maxSynapsesPerNeuron;
-
-        percentChanceInhibitoryNeuron = _percentInhibitory;
-        percentChanceInhibitorySynapses = _percentInhibitory;
-
-
-        initDefaults();
-    }
-
-
-    //DEPRECATED
-    Brain(unsigned numInputs, unsigned numOutputs, unsigned _numNeurons, unsigned _minSynapsesPerNeuron, unsigned _maxSynapsesPerNeuron, float _percentInhibitory) {
-        numNeurons = _numNeurons;
-        minSynapses = _minSynapsesPerNeuron;
-        maxSynapses = _maxSynapsesPerNeuron;
-
-        percentChanceInhibitoryNeuron = _percentInhibitory;
-        percentChanceInhibitorySynapses = _percentInhibitory;
-
-        for (unsigned i = 0; i < numInputs; i++)
-            newInput();
-
-        for (unsigned i = 0; i < numOutputs; i++)
-            newOutput();
-
-        initDefaults();
-        init();
-
-    }
-
     Brain() {
+        totalSynapses = 0;
     }
 
-    int getNeuronIndex(AbstractNeuron* a) {
-        for (unsigned i = 0; i < neurons.size(); i++) {
-            Neuron* n = neurons[i];
-            if (n == a)
-                return i;
-        }
-        return -1;
-    }
 
-    void initDefaults() {
-        minPlasticityStrengthen = 1.01;
-        maxPlasticityStrengthen = 1.200;
-        minPlasticityWeaken = 0.800;
-        maxPlasticityWeaken = 0.99;
+//    //DEPRECATED
+//    Brain(unsigned numInputs, unsigned numOutputs, unsigned _numNeurons, unsigned _minSynapsesPerNeuron, unsigned _maxSynapsesPerNeuron, float _percentInhibitory) {
+//        numNeurons = _numNeurons;
+//        minSynapses = _minSynapsesPerNeuron;
+//        maxSynapses = _maxSynapsesPerNeuron;
+//
+//        percentChanceInhibitoryNeuron = _percentInhibitory;
+//        percentChanceInhibitorySynapses = _percentInhibitory;
+//
+//        for (unsigned i = 0; i < numInputs; i++)
+//            newInput();
+//
+//        for (unsigned i = 0; i < numOutputs; i++)
+//            newOutput();
+//
+//        initDefaults();
+//        //init();
+//
+//    }
 
 
-        percentChanceConsistentSynapses = 0.10;
+    
+//    int getNeuronIndex(AbstractNeuron* a) {
+//        for (unsigned i = 0; i < neurons.size(); i++) {
+//            Neuron* n = neurons[i];
+//            if (n == a)
+//                return i;
+//        }
+//        return -1;
+//    }
 
-        percentChancePlasticNeuron = 0.75;
-
-        percentChanceOutputNeuron = 0.25;
-        percentChanceInputSynapse = 0.25;
-
-        minFiringThreshold = 0.51;
-
-        maxFiringThreshold = 0.99;
-
-    }
 
     InNeuron* newInput() {
         InNeuron* i = new InNeuron();
@@ -152,7 +100,12 @@ public:
 
     Neuron* getRandomInterNeuron() {
         int i = irand(0, neurons.size());
-        return neurons[i];
+        Neuron* n = NULL;
+        for(map< Neuron*, list<Synapse*>* >::iterator im = neurons.begin(); (i >= 0) && (im != neurons.end()); im++, i--) {
+            //cout << im->first << " " << im->second << endl;
+            n = im->first;
+        }
+        return n;
     }
 
     void addRandomInputs(double minValue, double maxValue, double decay) {
@@ -177,123 +130,29 @@ public:
         }
     }
 
-    // build time functions
+    void wireRandomly(unsigned minSynapsesPerNeuron, unsigned maxSynapsesPerNeuron, float percentInhibitoryNeuron, float percentInputSynapse, float percentInhibitorySynapse, float percentOutputNeuron, float minSynapseWeight, float maxSynapseWeight, float neuronPotentialDecay) {
+        float minPlasticityStrengthen = 1.01;
+        float maxPlasticityStrengthen = 1.05;
+        float minPlasticityWeaken = 0.95;
+        float maxPlasticityWeaken = 0.99;
 
-    NeuronBuilder* newRandomNeuronBuilder() {
-        // new architectural neuron
-        NeuronBuilder* an = new NeuronBuilder();
+        float percentChanceConsistentSynapses = 0.25;
 
-        // is it inhibitory ?
-        if (frand(0, 1) <= percentChanceInhibitoryNeuron) {
-            an->isInhibitory = true;
-        }// if not, is it motor ?
-        else {
-            an->isInhibitory = false;
-        }
-        
-        if (frand(0, 1) <= percentChanceOutputNeuron) {
-            OutNeuron* mn = getRandomOutNeuron();
+        float percentChancePlasticNeuron = 0.75;
 
-            // check if motor already used
-            //            bool proceed = true;
-            //            for (NeuronBuilder nb : neuronBuilders) {
-            //                if (nb.motor == mn) {
-            //                    proceed = false;
-            //                    break;
-            //                }
-            //            }
-
-            //if (proceed) {
-
-            //Allows a motor neuron to receive multiple inputs
-            an->out = mn;
-            //}
-        }
-
-        // does it have synaptic plasticity ?
-        if (frand(0, 1) <= percentChancePlasticNeuron) {
-            an->isPlastic = true;
-            an->plasticityStrengthen = frand(minPlasticityStrengthen, maxPlasticityStrengthen);
-            an->plasticityWeaken = frand(minPlasticityWeaken, maxPlasticityWeaken);
-        } else {
-            an->isPlastic = false;
-            an->plasticityStrengthen = (minPlasticityStrengthen + maxPlasticityStrengthen)/2.0;
-            an->plasticityWeaken = (minPlasticityWeaken + maxPlasticityWeaken) / 2.0;
-        }
-
-        // does it have consistent synapses ?
-        if (frand(0, 1) <= percentChanceConsistentSynapses) {
-            an->hasConsistentSynapses = true;
-
-            // if so, does it have inhibitory synapses ?
-            if (frand(0, 1) <= percentChanceInhibitorySynapses) {
-                an->hasInhibitorySynapses = true;
-            }
-        }
-
-        // determine firing threshold
-        if (an->out != NULL) {
-            an->firingThreshold = maxFiringThreshold;
-            //an->maxDendridicBranches = maxDendridicBranches;
-        } else {
-            an->firingThreshold = frand(minFiringThreshold, maxFiringThreshold);
-            //an->maxDendridicBranches = irand(1, maxDendridicBranches);
-        }
-
-
-
-        return an;
-    }
-
-    SynapseBuilder* newRandomSynapseBuilder(NeuronBuilder* bn) {
-        // new architectural synapse
-        SynapseBuilder* as = new SynapseBuilder();
-
-        // is it connected to a sensor neuron ?
-        // < 2 because if only 1 archneuron, it can't connect to other one
-        if (frand(0, 1) <= percentChanceInputSynapse || neuronBuilders.size() < 2) {
-            as->isSensorNeuron = true;
-
-            // sensor neuron id synapse is connected to
-            //cout << "inNeuron = random in neuron\n";
-            as->inNeuron = getRandomInNeuron();
-        }// if not determine inter neuron id
-        else {
-            as->isSensorNeuron = false;
-            // as in real life, neurons can connect to themselves
-            //cout << "inNeuron = random neuron\n";
-            as->inNeuron = getRandomInterNeuron();
-        }
-
-        // dendrite branch number
-        //as->dendriteBranches = irand(0, bn->maxDendriteBranches);
-
-        // synaptic weight
-        if (bn->hasConsistentSynapses) {
-            as->weight = (bn->hasInhibitorySynapses) ? -1.0 : 1.0;
-        } else {
-            as->weight = (frand(0, 1) <= percentChanceInhibitorySynapses) ? -1.0 : 1.0;
-        }
-
-        //bn->synapseBuilders.push_back(as);
-
-        return as;
-    }
-
-    void init() {
+        float minFiringThreshold = 0.01;
+        float maxFiringThreshold = 0.9999;
 
         // determine number of neurons this brain will start with
         //int numNeurons = (int) Math.round(Maths.random(minNeuronsAtBuildtime, maxNeuronsAtBuildtime));
 
-        totalSynapses = 0;
 
         // create the architectural neurons
-        for (unsigned i = 0; i < numNeurons; i++) {
-            NeuronBuilder *nb = newRandomNeuronBuilder();
-            neuronBuilders.push_back(nb);
-
-        }
-
+//        for (unsigned i = 0; i < numNeurons; i++) {
+//            NeuronBuilder *nb = newRandomNeuronBuilder();
+//            neuronBuilders.push_back(nb);
+//
+//        }
 
         // clear everything
         //neuron.clear();
@@ -303,27 +162,143 @@ public:
         // we know the amount of neurons already, reset totalsynapses for the count later
 
 
+
         // create all runtime neurons
-        for (unsigned i = 0; i < neuronBuilders.size(); i++) {
-            NeuronBuilder* nb = neuronBuilders[i];
-            Neuron* n = nb->newNeuron(maxSynapses);
-            neurons.push_back(n);
+        /*for (unsigned i = 0; i < numNeurons; i++)*/
+        {
+            Neuron* t = new Neuron();
+
+            // is it inhibitory ?
+            if (frand(0, 1) <= percentInhibitoryNeuron) {
+                t->isInhibitory = true;
+            }// if not, is it motor ?
+            else {
+                t->isInhibitory = false;
+            }
+
+            if (frand(0, 1) <= percentOutputNeuron) {
+                OutNeuron* mn = getRandomOutNeuron();
+
+                // check if motor already used
+                //            bool proceed = true;
+                //            for (NeuronBuilder nb : neuronBuilders) {
+                //                if (nb.motor == mn) {
+                //                    proceed = false;
+                //                    break;
+                //                }
+                //            }
+
+                //if (proceed) {
+
+                //Allows a motor neuron to receive multiple inputs
+                t->target = mn;
+                //}
+            }
+            else {
+                t->target = NULL;
+            }
+
+            // does it have synaptic plasticity ?
+            if (frand(0, 1) <= percentChancePlasticNeuron) {
+                t->isPlastic = true;
+                t->plasticityStrengthen = frand(minPlasticityStrengthen, maxPlasticityStrengthen);
+                t->plasticityWeaken = frand(minPlasticityWeaken, maxPlasticityWeaken);
+            } else {
+                t->isPlastic = false;
+                t->plasticityStrengthen = (minPlasticityStrengthen + maxPlasticityStrengthen)/2.0;
+                t->plasticityWeaken = (minPlasticityWeaken + maxPlasticityWeaken) / 2.0;
+            }
+
+            // does it have consistent synapses ?
+            if (frand(0, 1) <= percentChanceConsistentSynapses) {
+                t->hasConsistentSynapses = true;
+
+                // if so, does it have inhibitory synapses ?
+                if (frand(0, 1) <= percentInhibitorySynapse) {
+                    t->hasInhibitorySynapses = true;
+                }
+            }
+
+            // determine firing threshold
+            if (t->target != NULL) {
+                t->firingThreshold = maxFiringThreshold;
+                //an->maxDendridicBranches = maxDendridicBranches;
+            } else {
+                t->firingThreshold = frand(minFiringThreshold, maxFiringThreshold);
+                //an->maxDendridicBranches = irand(1, maxDendridicBranches);
+            }
+
+            //maximum that a synapse can multiply a signal. 1.0 = conserved
+            t->maxSynapseWeight = maxSynapseWeight;    //ex: 1.0
+            t->minSynapseWeight = minSynapseWeight;    //ex: 0.1
+
+            t->potentialDecay = neuronPotentialDecay; //ex: 0.995;
+
+            addNeuron(t);
 
             // determine amount of synapses this neuron will start with
-            int numSynapses = irand(minSynapses, maxSynapses);
+            int numSynapses = irand(minSynapsesPerNeuron, maxSynapsesPerNeuron);
 
+            bool isSensorNeuron;
             // create the architectural neurons
             for (int j = 0; j < numSynapses; j++) {
-                SynapseBuilder* sb = newRandomSynapseBuilder(nb);
+                AbstractNeuron* inNeuron;
+                if (frand(0, 1) <= percentInputSynapse || neurons.size() < 2) {
+                    isSensorNeuron = true;
+                    inNeuron = getRandomInNeuron();
+                }
+                else {
+                    isSensorNeuron = false;
+                    inNeuron = getRandomInterNeuron();
+                }
+                
+                float weight;
+                if (t->hasConsistentSynapses) {
+                    weight = (t->hasInhibitorySynapses) ? -1.0 : 1.0;
+                } else {
+                    float percentChanceInhibitorySynapses = 0.5f;
+                    weight = (frand(0, 1) <= percentChanceInhibitorySynapses) ? -1.0 : 1.0;
+                }
 
-                Synapse* s = new Synapse(sb->inNeuron, sb->weight);
-                n->synapses.push_back(s);
+
+                Synapse* s = new Synapse(inNeuron, weight);
+                addSynapse(s, t);
                 totalSynapses++;
             }
 
 
         }
 
+    }
+
+    bool addNeuron(Neuron* n) {
+        neurons[n] = new list<Synapse*>();
+        return true;
+    }
+
+    bool removeNeuron(Neuron* n) {
+        //TODO remove all synapses that have an input==n
+        neurons.erase(n);
+        return true;
+    }
+
+    void addSynapse(Synapse* s, Neuron* target) {
+        neurons[target]->push_back(s);
+    }
+
+    void removeSynapse(Synapse* s, Neuron* target) {
+        //iterate through all neurons synapse lists and remove existence of 's'
+        for (std::list<Synapse*>::iterator list_iter = neurons[target]->begin(); list_iter != neurons[target]->end(); list_iter++) {
+            Synapse* e = *list_iter;
+            if (s == e) {
+                neurons[target]->erase(list_iter);
+            }
+        }
+
+    }
+
+    void removeSynapses(Neuron* target) {
+        neurons[target]->clear();
     }
 
     void forward(float dt) {
@@ -339,9 +314,9 @@ public:
             inValues[i] = ins[i]->getInput();
         }
 
-        for (unsigned i = 0; i < neurons.size(); i++) {
-            Neuron* n = neurons[i];
-            n->forward(dt);
+        for (map< Neuron*, list<Synapse*>* >::iterator im = neurons.begin(); (im != neurons.end()); im++) {
+            Neuron* n = im->first;
+            n->forward(dt, im->second);
 
             // if neuron fires
             if (n->nextOutput != 0) {
@@ -357,8 +332,8 @@ public:
         }
 
         // commit outputs at the end
-        for (unsigned i = 0; i < neurons.size(); i++) {
-            Neuron* n = neurons[i];
+        for (map< Neuron*, list<Synapse*>* >::iterator im = neurons.begin(); (im != neurons.end()); im++) {
+            Neuron* n = im->first;
             n->output = n->nextOutput;
         }
 
@@ -369,50 +344,53 @@ public:
 
     }
 
-    void forwardParallel(float dt) {
-        //TODO handle 'dt' appropriately
-
-        // reset fired neurons counter
-        neuronsFired = outNeuronsFired = 0;
-
-        resetOutputs();
-
-        unsigned i;
-#pragma omp parallel for private(i)
-        for (i = 0; i < neurons.size(); i++) {
-            Neuron* n = neurons[i];
-            n->forward(dt);
-
-            // if neuron fires
-            if (n->nextOutput != 0) {
-                neuronsFired++;
-
-                // motor neuron check & exec
-                OutNeuron* mn = n->target;
-                if (mn != NULL) {
-                    outNeuronsFired++;
-                    mn->stimulate(n->nextOutput);
-                }
-            }
-        }
-
-        // commit outputs at the end
-#pragma omp parallel for private(i)
-        for (i = 0; i < neurons.size(); i++) {
-            Neuron* n = neurons[i];
-            n->output = n->nextOutput;
-        }
-
-    }
+    //    void forwardParallel(float dt) {
+    //        //TODO handle 'dt' appropriately
+    //
+    //        // reset fired neurons counter
+    //        neuronsFired = outNeuronsFired = 0;
+    //
+    //        resetOutputs();
+    //
+    //        unsigned i;
+    //
+    //        //#pragma omp parallel for private(i)
+    //
+    //        for (i = 0; i < neurons.size(); i++) {
+    //            Neuron* n = neurons[i];
+    //            n->forward(dt);
+    //
+    //            // if neuron fires
+    //            if (n->nextOutput != 0) {
+    //                neuronsFired++;
+    //
+    //                // motor neuron check & exec
+    //                OutNeuron* mn = n->target;
+    //                if (mn != NULL) {
+    //                    outNeuronsFired++;
+    //                    mn->stimulate(n->nextOutput);
+    //                }
+    //            }
+    //        }
+    //
+    //        // commit outputs at the end
+    //#pragma omp parallel for private(i)
+    //        for (i = 0; i < neurons.size(); i++) {
+    //            Neuron* n = neurons[i];
+    //            n->output = n->nextOutput;
+    //        }
+    //
+    //    }
 
     void printSummary() {
+        int numNeurons = neurons.size();
         cout << "Brain" << '\n';
-        cout << "  ins/outs: " << ins.size() << "|" << outs.size() << '\n';
         cout << "  Neurons: " << numNeurons << '\n';
+        cout << "  ins/outs: " << ins.size() << "|" << outs.size() << '\n';
         cout << "  Synapses: " << totalSynapses << '\n';
         cout << "  Avg Synapses/Neuron: " << ((float) totalSynapses) / ((float) numNeurons) << '\n';
-        cout << "    Min Synapses: " << minSynapses << '\n';
-        cout << "    Max Synapses: " << maxSynapses << '\n';
+//        cout << "    Min Synapses: " << minSynapses << '\n';
+//        cout << "    Max Synapses: " << maxSynapses << '\n';
     }
 
     void print() {
@@ -420,24 +398,24 @@ public:
 
         cout << '\n';
 
-        for (unsigned i = 0; i < neurons.size(); i++) {
-            Neuron* n = neurons[i];
+        for (map< Neuron*, list<Synapse*>* >::iterator im = neurons.begin(); (im != neurons.end()); im++) {
+            Neuron* n = im->first;
             n->print();
         }
 
     }
 
     void setPotentialDecay(double pd) {
-        for (unsigned i = 0; i < neurons.size(); i++) {
-            Neuron* n = neurons[i];
+        for (map< Neuron*, list<Synapse*>* >::iterator im = neurons.begin(); (im != neurons.end()); im++) {
+            Neuron* n = im->first;
             n->potentialDecay = pd;
         }
         cout << "All neurons have potentialDecay=" << pd << "\n";
     }
 
     void setFiringThreshold(double ft) {
-        for (unsigned i = 0; i < neurons.size(); i++) {
-            Neuron* n = neurons[i];
+        for (map< Neuron*, list<Synapse*>* >::iterator im = neurons.begin(); (im != neurons.end()); im++) {
+            Neuron* n = im->first;
             n->firingThreshold = ft;
         }
         cout << "All neurons have firingThreshold=" << ft << "\n";
