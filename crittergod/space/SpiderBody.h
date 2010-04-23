@@ -299,6 +299,7 @@ class SpiderBody2 : public AbstractBody {
     btVector3 positionOffset;
     vector<SixDoFMotor*> jointControllers;
     vector<BodyScaleMotor*> scaleControllers;
+    vector<ImpulseMotor*> impulseControllers;
 
     NPosition* posCenter;
     SineSound* voice;
@@ -369,6 +370,9 @@ public:
         BodyScaleMotor* hbm  = new BodyScaleMotor(brain, headBody, 15.5, 0.55);
         scaleControllers.push_back(hbm);
 
+        ImpulseMotor* hi = new ImpulseMotor(brain, headBody, 0.001, 0.001);
+        impulseControllers.push_back(hi);
+
         unsigned i;
         // legs
         for (i = 0; i < NUM_LEGS; i++) {
@@ -393,6 +397,10 @@ public:
 
                 if (j == PARTS_PER_LEG-1) {
                     legEye.push_back( new Retina(brain, space->dynamicsWorld, legPartBody, retinaSize, retinaSize, 0.5, 40.0) );
+
+                    ImpulseMotor* hl = new ImpulseMotor(brain, legPartBody, 0.001, 0.001);
+                    impulseControllers.push_back(hl);
+
                 }
 
                 BodyScaleMotor* bm  = new BodyScaleMotor(brain, legPartBody, 15.5, 0.55);
@@ -407,13 +415,14 @@ public:
             //bodies[i]->setDamping(0.8, 0.85);
             bodies[i]->setDeactivationTime(0.8);
             bodies[i]->setSleepingThresholds(0.5f, 0.5f);
-            //m_bodies[i]->setSleepingThresholds(1.6, 2.5);
 
             partPos.push_back(new NPosition(brain, 1));
         }
 
 
         btTransform localA, localB;
+
+
 
         for (i = 0; i < NUM_LEGS; i++) {
 
@@ -443,7 +452,6 @@ public:
 
             joints.push_back(c);
             dyn->addConstraint(c);
-
             
             SixDoFMotor* sm = new SixDoFMotor(brain, c, 0, M_PI_4, 0.25, 0.25);
             jointControllers.push_back(sm);
@@ -486,6 +494,12 @@ public:
         brain->printSummary();
     }
 
+    void setDamping(float f) {
+        for (unsigned i = 0; i < bodies.size(); ++i) {
+            bodies[i]->setDamping(f, f);
+        }
+    }
+
     void addNeuron() {
         unsigned minSynapsesPerNeuron = 1;
         unsigned maxSynapsesPerNeuron = 6;
@@ -509,6 +523,7 @@ public:
     virtual void process(btScalar dt) {
         static int frame = 0;
 
+        bodies[0]->applyImpulse(btVector3(0,0,0.001), btVector3(0,0,0));
         posCenter->set(bodies[0]->getCenterOfMassTransform().getRotation().getAxis().m_floats);
         posCenter->process(dt);
 
@@ -525,6 +540,9 @@ public:
 
         //process brain
         brain->forward(dt);
+
+        for (j = 0; j < impulseControllers.size(); j++)
+            impulseControllers[j]->process(dt);
         
         for (j = 0; j < jointControllers.size(); j++)
             jointControllers[j]->process(dt);

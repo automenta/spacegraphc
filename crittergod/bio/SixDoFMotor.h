@@ -94,6 +94,44 @@ private:
 
 };
 
+class ImpulseMotor : public NOutput {
+    btRigidBody* body;
+
+    float linearScale;
+    float linearStimulation;
+
+public:
+    ImpulseMotor(Brain* b, btRigidBody* _body, float _linearScale, float _linearStimulation) :
+        NOutput(b, 3), body(_body), linearScale(_linearScale), linearStimulation(_linearStimulation) {
+
+    }
+
+    virtual void process(double dt) {
+        outs[0]->setStimulationFactor(linearStimulation);
+        outs[0]->setDecay(0.5);
+        outs[1]->setStimulationFactor(linearStimulation);
+        outs[1]->setDecay(0.5);
+        outs[2]->setStimulationFactor(linearStimulation);
+        outs[2]->setDecay(0.5);
+
+        double x = outs[0]->getOutput() * linearScale;
+        double y = outs[1]->getOutput() * linearScale;
+        double z = outs[2]->getOutput() * linearScale;
+
+        double ax = body->getWorldTransform().getRotation().getAxis().getX();
+        double ay = body->getWorldTransform().getRotation().getAxis().getY();
+        double az = body->getWorldTransform().getRotation().getAxis().getZ();
+
+        body->applyCentralForce(btVector3(ax * x, ay * y, az * z));
+    }
+
+    virtual ~ImpulseMotor() {
+
+    }
+private:
+
+};
+
 class BodyScaleMotor : public NOutput {
     btRigidBody* body;
 

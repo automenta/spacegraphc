@@ -615,7 +615,7 @@ void runSpiderWithBrains() {
 
     DefaultSpace* ds = new DefaultSpace(audio);
 
-    ds->addGround(10, 1, 10, 0, -10, 0);
+    ds->dynamicsWorld->setGravity(btVector3(0, 0, 0));
 
     int numLegs = 3;
     vector<btScalar>* legLengths = new vector<btScalar> ();
@@ -626,12 +626,45 @@ void runSpiderWithBrains() {
     legLengths->push_back(0.10);    legRadii->push_back(0.25);
     legLengths->push_back(0.10);    legRadii->push_back(0.25);
     legLengths->push_back(0.10);    legRadii->push_back(0.25);
-    legLengths->push_back(0.10);    legRadii->push_back(0.25);
-    legLengths->push_back(0.10);    legRadii->push_back(0.25);
     legLengths->push_back(0.10);    legRadii->push_back(0.15);
     legLengths->push_back(0.09);    legRadii->push_back(0.1);
     SpiderBody2* spider = new SpiderBody2(numLegs, legLengths, legRadii, btVector3(0, 10, 0), 64);
     ds->addBody(spider);
+
+    {
+            vector<btScalar>* legLengthsB = new vector<btScalar> ();
+            vector<btScalar>* legRadiiB = new vector<btScalar> ();
+            legLengthsB->push_back(0.42);    legRadiiB->push_back(0.10);
+            legLengthsB->push_back(0.32);    legRadiiB->push_back(0.10);
+            legLengthsB->push_back(0.21);    legRadiiB->push_back(0.15);
+
+            SpiderBody2* spiderB = new SpiderBody2(numLegs+1, legLengthsB, legRadiiB, btVector3(4, 10, 0), 4);
+            ds->addBody(spiderB);
+    }
+    {
+            vector<btScalar>* legLengthsB = new vector<btScalar> ();
+            vector<btScalar>* legRadiiB = new vector<btScalar> ();
+            legLengthsB->push_back(0.42);    legRadiiB->push_back(0.20);
+            legLengthsB->push_back(0.32);    legRadiiB->push_back(0.20);
+            legLengthsB->push_back(0.21);    legRadiiB->push_back(0.25);
+            legLengthsB->push_back(0.1);    legRadiiB->push_back(0.25);
+
+            SpiderBody2* spiderB = new SpiderBody2(2, legLengthsB, legRadiiB, btVector3(4, 10, 0), 4);
+            ds->addBody(spiderB);
+    }
+
+    ds->addGround(10, 1, 10, 0, -10, 0);
+    {
+        float wallHeight = 0.75;
+        float h = 8;
+        spider->setDamping(0.85);
+        ds->addBody(new BoxBody(new btVector3(0, 0, 0), new btVector3(1, wallHeight, 1)));
+        ds->addBody(new BoxBody(new btVector3(0, 0, -h/2.0), new btVector3(4, wallHeight, 0.5)));
+        ds->addBody(new BoxBody(new btVector3(0, 0, h/2.0), new btVector3(4, wallHeight, 0.5)));
+        ds->addBody(new BoxBody(new btVector3(-h/2.0, 0, 0), new btVector3(0.5, wallHeight, 4)));
+        ds->addBody(new BoxBody(new btVector3(h/2.0, 0, 0), new btVector3(0.5, wallHeight, 4)));
+
+    }
 
     for (unsigned l = 0; l < numLegs; l++) {
         RetinaPanel* rp = new RetinaPanel(spider->legEye[l]);

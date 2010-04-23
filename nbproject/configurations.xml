@@ -617,12 +617,13 @@
       </toolsSet>
       <compileType>
         <ccTool>
+          <developmentMode>5</developmentMode>
           <incDir>
             <pElem>bullet</pElem>
             <pElem>crittergod</pElem>
             <pElem>bulletgl</pElem>
           </incDir>
-          <commandLine>-fopenmp -O3 -ftree-parallelize-loops=3</commandLine>
+          <commandLine>-fopenmp -O3</commandLine>
         </ccTool>
         <linkerTool>
           <linkerLibItems>
@@ -632,6 +633,7 @@
             <linkerOptionItem>-lGLU</linkerOptionItem>
             <linkerOptionItem>-lglut</linkerOptionItem>
             <linkerOptionItem>-lpthread</linkerOptionItem>
+            <linkerOptionItem>-lgomp</linkerOptionItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
