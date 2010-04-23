@@ -222,8 +222,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=-fopenmp -O2
-CXXFLAGS=-fopenmp -O2
+CCFLAGS=-fopenmp -O3 -ftree-parallelize-loops=3
+CXXFLAGS=-fopenmp -O3 -ftree-parallelize-loops=3
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -232,7 +232,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-lGL -lSDL -lftgl -lGLU -lglut
+LDLIBSOPTIONS=-lGL -lSDL -lftgl -lGLU -lglut -lpthread
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}

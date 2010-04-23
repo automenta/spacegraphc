@@ -210,32 +210,36 @@ public:
         btCollisionObject* c = res.hitBody;
         float r, g, b;
 
+        long C = (long)c;
+        int hash = (C & 0x00000011) + ((C & 0x00001100) >> 2) + ((C & 0x00110000) >> 4) + ((C & 0x11000000) >> 6);
 
-        switch ((((long) c)^2347) % 5) {
+        switch (hash % 9) {
             case 0:
-                r = 1.0;
-                g = 0.5;
-                b = 0.25;
+                r = 1.0;  g = 0.5;   b = 0.25;
                 break;
             case 1:
-                r = 0.25;
-                g = 0.5;
-                b = 1.0;
+                r = 0.25; g = 0.5;   b = 1.0;
                 break;
             case 2:
-                r = 0.25;
-                g = 1.0;
-                b = 0.5;
+                r = 0.5; g = 1.0;   b = 0.25;
                 break;
             case 3:
-                g = 0.5;
-                r = 0.25;
-                b = 1.0;
+                r = 0.25; g = 0.5;   b = 1.0;
                 break;
             case 4:
-                b = 0.5;
-                g = 1.0;
-                r = 0.25;
+                r = 0.25;  g = 1.0;  b = 0.5;
+                break;
+            case 5:
+                r = 0.25; g = 1.0;   b = 0.5;
+                break;
+            case 6:
+                r = 1.0; g = 0;   b = 0;
+                break;
+            case 7:
+                r = 0.0; g = 1.0;   b = 0;
+                break;
+            case 8:
+                r = 0.0; g = 0;   b = 1.0;
                 break;
         }
 

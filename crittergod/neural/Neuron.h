@@ -193,7 +193,10 @@ public:
         active = nextActive;
     }
 
-    void forward(float dt, list<Synapse*>* synapses) {
+    //returns how much weight has been changed
+    double forward(float dt, list<Synapse*>* synapses) {
+        double learnedTotal = 0;
+
         if (!active) {
             potential = 0.0f;
             nextOutput = 0.0f;
@@ -210,7 +213,11 @@ public:
 
             // lower synaptic weights
             if (isPlastic) {
+                double preWeight = s->weight;
+                
                 s->weight *= plasticityWeaken;
+                
+                learnedTotal += fabs(s->weight - preWeight);
             }
 
             potential += s->weight * s->getInput() /** s->dendriteBranch * */;
@@ -218,13 +225,16 @@ public:
         }
 
         if (isInhibitory) {
-            forwardInhibitory(synapses);
+            learnedTotal += forwardInhibitory(synapses);
         } else {
-            forwardExhibitory(synapses);
+            learnedTotal += forwardExhibitory(synapses);
         }
+
+        return learnedTotal;
     }
 
-    void forwardInhibitory(list<Synapse*>* synapses) {
+    double forwardInhibitory(list<Synapse*>* synapses) {
+        double learnedTotal = 0;
         // do we spike/fire
         if (potential <= -1.0f * firingThreshold) {
             // reset neural potential
@@ -240,6 +250,7 @@ public:
                     Synapse* s = *list_iter;
                     double o = s->getInput();
 
+                    double preWeight = s->weight;
                     // if synapse fired, strengthen the weight
                     if ((o < 0.0f && s->weight > 0.0f) || (o > 0.0f && s->weight < 0.0f)) {
                         s->weight *= plasticityStrengthen;
@@ -247,6 +258,8 @@ public:
 
                     // clamp weight
                     clampWeight(s);
+
+                    learnedTotal += fabs(preWeight - s->weight);
                 }
             }
         }// don't fire the neuron
@@ -257,9 +270,11 @@ public:
                 potential = 0.0f;
             }
         }
+        return learnedTotal;
     }
 
-    void forwardExhibitory(list<Synapse*>* synapses) {
+    double forwardExhibitory(list<Synapse*>* synapses) {
+        double learnedTotal = 0;
         // do we spike/fire
         if (potential >= +1.0f * firingThreshold) {
             // reset neural potential
@@ -275,6 +290,7 @@ public:
                     Synapse* s = *list_iter;
                     double o = s->getInput();
 
+                    double preWeight = s->weight;
                     // if synapse fired, strengthen the weight
                     if ((o > 0.0f && s->weight > 0.0f) || (o < 0.0f && s->weight < 0.0f)) {
                         s->weight *= plasticityStrengthen;
@@ -282,6 +298,8 @@ public:
 
                     // if weight > max back to max
                     clampWeight(s);
+
+                    learnedTotal += fabs(preWeight - s->weight);
                 }
             }
         }// don't fire the neuron
@@ -292,6 +310,7 @@ public:
                 potential = 0.0f;
             }
         }
+        return learnedTotal;
     }
 
     void clampWeight(Synapse* s) {

@@ -615,17 +615,22 @@ void runSpiderWithBrains() {
 
     DefaultSpace* ds = new DefaultSpace(audio);
 
-    ds->addGround(15, 1, 15, 0, -10, 0);
+    ds->addGround(10, 1, 10, 0, -10, 0);
 
-    int numLegs = 4;
+    int numLegs = 3;
     vector<btScalar>* legLengths = new vector<btScalar> ();
     vector<btScalar>* legRadii = new vector<btScalar> ();
-    legLengths->push_back(0.12);    legRadii->push_back(0.40);
+    legLengths->push_back(0.22);    legRadii->push_back(0.20);
     legLengths->push_back(0.12);    legRadii->push_back(0.20);
-    legLengths->push_back(0.11);    legRadii->push_back(0.15);
+    legLengths->push_back(0.11);    legRadii->push_back(0.25);
+    legLengths->push_back(0.10);    legRadii->push_back(0.25);
+    legLengths->push_back(0.10);    legRadii->push_back(0.25);
+    legLengths->push_back(0.10);    legRadii->push_back(0.25);
+    legLengths->push_back(0.10);    legRadii->push_back(0.25);
+    legLengths->push_back(0.10);    legRadii->push_back(0.25);
     legLengths->push_back(0.10);    legRadii->push_back(0.15);
     legLengths->push_back(0.09);    legRadii->push_back(0.1);
-    SpiderBody2* spider = new SpiderBody2(numLegs, legLengths, legRadii, btVector3(0, 10, 0), 32);
+    SpiderBody2* spider = new SpiderBody2(numLegs, legLengths, legRadii, btVector3(0, 10, 0), 64);
     ds->addBody(spider);
 
     for (unsigned l = 0; l < numLegs; l++) {
@@ -634,7 +639,7 @@ void runSpiderWithBrains() {
         panelName[5] = 'a' + l;
         ds->getFace()->addPanel(panelName, rp);
 
-        int w = 66;
+        int w = 130;
         rp->setSize(w, w);
         rp->setPosition(w * l, 0);
     }

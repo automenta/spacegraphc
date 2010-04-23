@@ -15,6 +15,8 @@
 #include <stdio.h>
 #include <math.h>
 
+#include <omp.h>
+
 using namespace std;
 
 #include "../math/Math.h"
@@ -131,14 +133,14 @@ public:
     }
 
     void wireRandomly(unsigned minSynapsesPerNeuron, unsigned maxSynapsesPerNeuron, float percentInhibitoryNeuron, float percentInputSynapse, float percentInhibitorySynapse, float percentOutputNeuron, float minSynapseWeight, float maxSynapseWeight, float neuronPotentialDecay) {
-        float minPlasticityStrengthen = 1.01;
-        float maxPlasticityStrengthen = 1.05;
-        float minPlasticityWeaken = 0.95;
-        float maxPlasticityWeaken = 0.99;
+        float minPlasticityStrengthen = 1.001;
+        float maxPlasticityStrengthen = 1.15;
+        float minPlasticityWeaken = 0.85;
+        float maxPlasticityWeaken = 0.999;
 
-        float percentChanceConsistentSynapses = 0.25;
+        float percentChanceConsistentSynapses = 0.05;
 
-        float percentChancePlasticNeuron = 0.75;
+        float percentChancePlasticNeuron = 0.99;
 
         float minFiringThreshold = 0.01;
         float maxFiringThreshold = 0.9999;
@@ -301,48 +303,7 @@ public:
         neurons[target]->clear();
     }
 
-    void forward(float dt) {
-        //TODO handle 'dt' appropriately
-
-        // reset fired neurons counter
-        neuronsFired = outNeuronsFired = 0;
-
-        resetOutputs();
-
-        inValues.reserve(ins.size());
-        for (unsigned i = 0; i < ins.size(); i++) {
-            inValues[i] = ins[i]->getInput();
-        }
-
-        for (map< Neuron*, list<Synapse*>* >::iterator im = neurons.begin(); (im != neurons.end()); im++) {
-            Neuron* n = im->first;
-            n->forward(dt, im->second);
-
-            // if neuron fires
-            if (n->nextOutput != 0) {
-                neuronsFired++;
-
-                // motor neuron check & exec
-                OutNeuron* mn = n->target;
-                if (mn != NULL) {
-                    outNeuronsFired++;
-                    mn->stimulate(n->nextOutput);
-                }
-            }
-        }
-
-        // commit outputs at the end
-        for (map< Neuron*, list<Synapse*>* >::iterator im = neurons.begin(); (im != neurons.end()); im++) {
-            Neuron* n = im->first;
-            n->output = n->nextOutput;
-        }
-
-        outValues.reserve(outs.size());
-        for (unsigned i = 0; i < outs.size(); i++) {
-            outValues[i] = outs[i]->getOutput();
-        }
-
-    }
+    void forward(float dt);
 
     //    void forwardParallel(float dt) {
     //        //TODO handle 'dt' appropriately

@@ -175,8 +175,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/bullet/BulletDynamics/ConstraintSolver/btContactConstraint.o \
 	${OBJECTDIR}/crittergod/widget3d/Button.o \
 	${OBJECTDIR}/bullet/BulletCollision/Gimpact/btGImpactQuantizedBvh.o \
-	${OBJECTDIR}/bullet/OpenGL/GlutStuff.o \
 	${OBJECTDIR}/bullet/LinearMath/btAlignedAllocator.o \
+	${OBJECTDIR}/bullet/OpenGL/GlutStuff.o \
 	${OBJECTDIR}/bullet/OpenGL/Win32AppMain.o \
 	${OBJECTDIR}/crittergod/math/vector2f.o \
 	${OBJECTDIR}/bullet/BulletCollision/CollisionDispatch/btBox2dBox2dCollisionAlgorithm.o \
@@ -962,15 +962,15 @@ ${OBJECTDIR}/bullet/BulletCollision/Gimpact/btGImpactQuantizedBvh.o: nbproject/M
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/bullet/BulletCollision/Gimpact/btGImpactQuantizedBvh.o bullet/BulletCollision/Gimpact/btGImpactQuantizedBvh.cpp
 
-${OBJECTDIR}/bullet/OpenGL/GlutStuff.o: nbproject/Makefile-${CND_CONF}.mk bullet/OpenGL/GlutStuff.cpp 
-	${MKDIR} -p ${OBJECTDIR}/bullet/OpenGL
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/bullet/OpenGL/GlutStuff.o bullet/OpenGL/GlutStuff.cpp
-
 ${OBJECTDIR}/bullet/LinearMath/btAlignedAllocator.o: nbproject/Makefile-${CND_CONF}.mk bullet/LinearMath/btAlignedAllocator.cpp 
 	${MKDIR} -p ${OBJECTDIR}/bullet/LinearMath
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/bullet/LinearMath/btAlignedAllocator.o bullet/LinearMath/btAlignedAllocator.cpp
+
+${OBJECTDIR}/bullet/OpenGL/GlutStuff.o: nbproject/Makefile-${CND_CONF}.mk bullet/OpenGL/GlutStuff.cpp 
+	${MKDIR} -p ${OBJECTDIR}/bullet/OpenGL
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/bullet/OpenGL/GlutStuff.o bullet/OpenGL/GlutStuff.cpp
 
 ${OBJECTDIR}/bullet/OpenGL/Win32AppMain.o: nbproject/Makefile-${CND_CONF}.mk bullet/OpenGL/Win32AppMain.cpp 
 	${MKDIR} -p ${OBJECTDIR}/bullet/OpenGL

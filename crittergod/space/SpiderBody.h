@@ -336,7 +336,7 @@ public:
 
         //
         // Setup geometry
-        float headRadius = 0.10f;
+        float headRadius = 0.13f;
         float headHeight = 0.05f;
         float headMass = 0.05;
 
@@ -517,15 +517,19 @@ public:
             partPos[i]->process(dt);
         }
 
-        for (unsigned j = 0; j < legEye.size(); j++)
+
+        unsigned j;
+        #pragma omp parallel for
+        for (j = 0; j < legEye.size(); j++)
             legEye[j]->process(dt);
 
         //process brain
         brain->forward(dt);
         
-        for (unsigned j = 0; j < jointControllers.size(); j++)
+        for (j = 0; j < jointControllers.size(); j++)
             jointControllers[j]->process(dt);
-        for (unsigned j = 0; j < scaleControllers.size(); j++)
+
+        for (j = 0; j < scaleControllers.size(); j++)
             scaleControllers[j]->process(dt);
 
         voice->process(dt);

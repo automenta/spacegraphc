@@ -622,7 +622,7 @@
             <pElem>crittergod</pElem>
             <pElem>bulletgl</pElem>
           </incDir>
-          <commandLine>-fopenmp -O2</commandLine>
+          <commandLine>-fopenmp -O3 -ftree-parallelize-loops=3</commandLine>
         </ccTool>
         <linkerTool>
           <linkerLibItems>
@@ -631,6 +631,7 @@
             <linkerOptionItem>-lftgl</linkerOptionItem>
             <linkerOptionItem>-lGLU</linkerOptionItem>
             <linkerOptionItem>-lglut</linkerOptionItem>
+            <linkerOptionItem>-lpthread</linkerOptionItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
