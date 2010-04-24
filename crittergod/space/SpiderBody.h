@@ -153,7 +153,7 @@ public:
                 localA.setIdentity();
                 localB.setIdentity();
                 if (j % 2 == 0) {
-                    double headroomFactor = 1.5;
+                    double headroomFactor = 1.05;
                     la = fBodySize;
                     lb = fLegLength;
 
@@ -166,10 +166,10 @@ public:
                     localB = bodies[1 + i]->getWorldTransform().inverse() * bodies[0]->getWorldTransform() * localA;
 
                     c = new btGeneric6DofConstraint(*bodies[0], *bodies[1 + i], localA, localB, false);
-                    c->setAngularLowerLimit(btVector3(-M_PI_8, -M_PI_8, -M_PI_8));
-                    c->setAngularUpperLimit(btVector3(M_PI_8, M_PI_8, M_PI_8));
+                    c->setAngularLowerLimit(btVector3(-M_PI_8, -M_PI_8, -M_PI_8/2.0));
+                    c->setAngularUpperLimit(btVector3(M_PI_8, M_PI_8, M_PI_8/2.0));
                 } else {
-                    double headroomFactor = 1.3;
+                    double headroomFactor = 1.15;
                     la = fLegLength;
                     lb = fForeLegLength;
 
@@ -177,8 +177,8 @@ public:
                     localB.setOrigin(btVector3(0, (lb / 2) * headroomFactor, 0));
 
                     c = new btGeneric6DofConstraint(*bodies[1 + i], *bodies[1 + NUM_LEGS + i], localA, localB, false);
-                    c->setAngularLowerLimit(btVector3(-M_PI_4, -M_PI_4, -M_PI_4));
-                    c->setAngularUpperLimit(btVector3(M_PI_4, M_PI_4, M_PI_4));
+                    c->setAngularLowerLimit(btVector3(-M_PI_8, -M_PI_8, 0));
+                    c->setAngularUpperLimit(btVector3(M_PI_8, M_PI_8, 0));
                 }
 
                 joints[joint++] = c;
@@ -337,7 +337,7 @@ public:
 
         //
         // Setup geometry
-        float headRadius = 0.13f;
+        float headRadius = 0.23f;
         float headHeight = 0.05f;
         float headMass = 0.05;
 
@@ -370,7 +370,7 @@ public:
         BodyScaleMotor* hbm  = new BodyScaleMotor(brain, headBody, 15.5, 0.55);
         scaleControllers.push_back(hbm);
 
-        ImpulseMotor* hi = new ImpulseMotor(brain, headBody, 0.001, 0.001);
+        ImpulseMotor* hi = new ImpulseMotor(brain, headBody, 0.1, 0.1);
         impulseControllers.push_back(hi);
 
         unsigned i;
@@ -403,8 +403,8 @@ public:
 
                 }
 
-                BodyScaleMotor* bm  = new BodyScaleMotor(brain, legPartBody, 15.5, 0.55);
-                scaleControllers.push_back(bm);
+//                BodyScaleMotor* bm  = new BodyScaleMotor(brain, legPartBody, 15.5, 0.55);
+//                scaleControllers.push_back(bm);
 
             }
 
@@ -416,7 +416,7 @@ public:
             bodies[i]->setDeactivationTime(0.8);
             bodies[i]->setSleepingThresholds(0.5f, 0.5f);
 
-            partPos.push_back(new NPosition(brain, 1));
+            partPos.push_back(new NPosition(brain, 0));
         }
 
 
@@ -432,7 +432,7 @@ public:
 
             localA.setIdentity();
             localB.setIdentity();
-            double headroomFactor = 1.05;
+            double headroomFactor = 1.15;
             la = headRadius;
             lb = fLegLength;
 
@@ -447,13 +447,11 @@ public:
             localB = thigh->getWorldTransform().inverse() * head->getWorldTransform() * localA;
 
             c = new btGeneric6DofConstraint(*head, *thigh, localA, localB, false);
-            c->setAngularLowerLimit(btVector3(-M_PI_8, -M_PI_8, -M_PI_8));
-            c->setAngularUpperLimit(btVector3(M_PI_8, M_PI_8, M_PI_8));
 
             joints.push_back(c);
             dyn->addConstraint(c);
             
-            SixDoFMotor* sm = new SixDoFMotor(brain, c, 0, M_PI_4, 0.25, 0.25);
+            SixDoFMotor* sm = new SixDoFMotor(brain, c, 0, M_PI_8, 0.0, 0.15);
             jointControllers.push_back(sm);
 
         }
@@ -466,7 +464,7 @@ public:
 
                 localA.setIdentity();
                 localB.setIdentity();
-                double headroomFactor = 1.05;
+                double headroomFactor = 1.15;
                 la = (*legLengths)[j-1];
                 lb = (*legLengths)[j];
 
@@ -474,13 +472,11 @@ public:
                 localB.setOrigin(btVector3(0, (lb / 2) * headroomFactor, 0));
 
                 c = new btGeneric6DofConstraint(*bodies[1 + i*PARTS_PER_LEG+j-1], *bodies[1 + i*PARTS_PER_LEG + j], localA, localB, false);
-                c->setAngularLowerLimit(btVector3(-M_PI_8, -M_PI_8, -M_PI_8));
-                c->setAngularUpperLimit(btVector3(M_PI_8, M_PI_8, M_PI_8));
 
                 joints.push_back(c);
                 dyn->addConstraint(c);
 
-                SixDoFMotor* sm = new SixDoFMotor(brain, c, 0, M_PI_4, 0.25, 0.25);
+                SixDoFMotor* sm = new SixDoFMotor(brain, c, 0, M_PI_8, 0.0, 0.15);
                 jointControllers.push_back(sm);
 
             }
@@ -488,7 +484,7 @@ public:
 
 
 
-        voice = new SineSound(brain, space->audio, 128);
+        //voice = new SineSound(brain, space->audio, 16);
 
 
         brain->printSummary();
@@ -502,13 +498,13 @@ public:
 
     void addNeuron() {
         unsigned minSynapsesPerNeuron = 1;
-        unsigned maxSynapsesPerNeuron = 6;
+        unsigned maxSynapsesPerNeuron = 12;
         float percentInhibitoryNeuron = 0.5f;
         float percentInputSynapse = 0.25f;
-        float percentOutputNeuron = 0.02f;
+        float percentOutputNeuron = 0.10f;
         float percentInhibitorySynapse = 0.5f;
         float minSynapseWeight = 0.001f;
-        float maxSynapseWeight = 2.5f;
+        float maxSynapseWeight = 1.0f;
         float neuronPotentialDecay = 0.95f;
         brain->wireRandomly(minSynapsesPerNeuron, maxSynapsesPerNeuron,
             percentInhibitoryNeuron, percentInputSynapse, percentOutputNeuron, percentInhibitorySynapse,
@@ -516,14 +512,13 @@ public:
     }
 
     virtual btVector3 getColor(btCollisionShape* shape) {
-        float i = (float) (indexOfShape(shape) % 2);
-        return btVector3(0.8 + i * 0.5, 0.4 + i * 0.2, 0.2);
+        float i = (float) (indexOfShape(shape) % 3);
+        return btVector3(0.2, 0.4 + i * 0.25, 0.8 + i * 0.2);
     }
 
     virtual void process(btScalar dt) {
         static int frame = 0;
 
-        bodies[0]->applyImpulse(btVector3(0,0,0.001), btVector3(0,0,0));
         posCenter->set(bodies[0]->getCenterOfMassTransform().getRotation().getAxis().m_floats);
         posCenter->process(dt);
 
@@ -550,20 +545,23 @@ public:
         for (j = 0; j < scaleControllers.size(); j++)
             scaleControllers[j]->process(dt);
 
-        voice->process(dt);
+        //voice->process(dt);
 
-        if (frand(0,1) < 0.5) {
+        //if (frand(0,1) < 0.5) {
             unsigned numNeurons = 16384;
             if (brain->neurons.size() < numNeurons) {
                 addNeuron();
-                cout << " added neuron, total = " << brain->neurons.size() << "\n";
+                addNeuron();
+                addNeuron();
+                addNeuron();
+                //cout << " added neurons, total = " << brain->neurons.size() << "\n";
             }
-        }
+        //}
     }
 
-    btScalar getLegTargetAngle(int leg, bool hipOrKnee) {
-        return brain->outs[leg * 2 + hipOrKnee]->getOutput();
-    }
+//    btScalar getLegTargetAngle(int leg, bool hipOrKnee) {
+//        return brain->outs[leg * 2 + hipOrKnee]->getOutput();
+//    }
 
     virtual ~SpiderBody2() {
         int i;

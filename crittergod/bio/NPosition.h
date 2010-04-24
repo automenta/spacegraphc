@@ -36,7 +36,7 @@ public:
         p = nextP;
     }
 
-    virtual void process(double dt) {
+    virtual void process(double dt) {        
         ins[0]->setInput(p[0]);
         ins[1]->setInput(p[1]);
         ins[2]->setInput(p[2]);

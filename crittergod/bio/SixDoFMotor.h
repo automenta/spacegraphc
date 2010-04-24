@@ -19,53 +19,67 @@ class SixDoFMotor : public NOutput {
     float linearScale, angularScale;
     float linearStimulation, angularStimulation;
 
-    float lastAngle, lastLength;
+    float lastAngle1, lastAngle2, lastLength;
 public:
-    SixDoFMotor(Brain* b, btGeneric6DofConstraint* _constraint, float _linearScale, float _angularScale, float _linearStimulation, float _angularStimulation) :
-        NOutput(b, 2), constraint(_constraint), normalLength(0), linearScale(_linearScale), angularScale(_angularScale),
-        linearStimulation(_linearStimulation), angularStimulation(_angularStimulation) {
 
-            lastAngle = lastLength = 0;
+    SixDoFMotor(Brain* b, btGeneric6DofConstraint* _constraint, float _linearScale, float _angularScale, float _linearStimulation, float _angularStimulation) :
+    NOutput(b, 3), constraint(_constraint), normalLength(0), linearScale(_linearScale), angularScale(_angularScale),
+    linearStimulation(_linearStimulation), angularStimulation(_angularStimulation) {
+
+        lastAngle1 = lastAngle2 = lastLength = 0;
 
     }
 
     virtual void process(double dt) {
         outs[0]->setStimulationFactor(angularStimulation);
-        //outs[0]->setDecay(0.9999);
-        outs[1]->setStimulationFactor(linearStimulation);
-        //outs[1]->setDecay(0.9999);
+        outs[0]->setDecay(0.95);
+        outs[1]->setStimulationFactor(angularStimulation);
+        outs[1]->setDecay(0.95);
+        outs[2]->setStimulationFactor(linearStimulation);
+        outs[2]->setDecay(0.95);
 
         float smoothing = 0.01;
 
-        double a = outs[0]->getOutput();
-        double l = outs[1]->getOutput();
-        
-        double angle = smoothing * a + (1.0 - smoothing) * lastAngle;
+        double a1 = outs[0]->getOutput();
+        double a2 = outs[1]->getOutput();
+        double l = outs[2]->getOutput();
+
+        double angle1 = smoothing * a1 + (1.0 - smoothing) * lastAngle1;
+        double angle2 = smoothing * a2 + (1.0 - smoothing) * lastAngle2;
         double lengthMod = smoothing * l + (1.0 - smoothing) * lastLength;
 
-        lastAngle = angle;
+        lastAngle1 = angle1;
+        lastAngle2 = angle2;
         lastLength = lengthMod;
 
         //TODO expose this parameter
         double lengthVariation = 0.001;
 
-        float xmax = normalLength + (lengthMod)*lengthVariation;
+        float xmax = normalLength + (lengthMod) * lengthVariation;
         float xmin = 0;
 
         //cout << xmin << " " << xmax << "\n";
 
+        constraint->setAngularLowerLimit(btVector3(-angularScale/2, -angularScale/2, 0));
+        constraint->setAngularUpperLimit(btVector3(angularScale/2, angularScale/2, 0));
 
         constraint->getTranslationalLimitMotor()->m_currentLimit[0] = xmax;
         constraint->getTranslationalLimitMotor()->m_lowerLimit.setX(xmax);
         constraint->getTranslationalLimitMotor()->m_upperLimit.setX(xmax);
         constraint->getTranslationalLimitMotor()->m_enableMotor[0] = true;
 
-        float currentAngle =  angle * angularScale;
-        constraint->getRotationalLimitMotor(0)->m_currentPosition = currentAngle;
-        constraint->getRotationalLimitMotor(0)->m_loLimit = currentAngle; //angle * -angularScale/2.0;
-        constraint->getRotationalLimitMotor(0)->m_hiLimit = currentAngle; //angle * angularScale/2.0;
+        float currentAngle1 = angle1 * angularScale;
+        constraint->getRotationalLimitMotor(0)->m_currentPosition = currentAngle1;
+        constraint->setLimit(0, currentAngle1, currentAngle1);
         constraint->getRotationalLimitMotor(0)->m_enableMotor = true;
 
+        float currentAngle2 = angle2 * angularScale;
+        constraint->getRotationalLimitMotor(1)->m_currentPosition = currentAngle2;
+        constraint->setLimit(1, currentAngle2, currentAngle2);
+        constraint->getRotationalLimitMotor(1)->m_enableMotor = true;
+
+        constraint->setLimit(0, 0, 0);
+        
         //
         //			btVector3 v(xmin, 0, 0);
         //			c->setLinearLowerLimit(v);
@@ -101,8 +115,9 @@ class ImpulseMotor : public NOutput {
     float linearStimulation;
 
 public:
+
     ImpulseMotor(Brain* b, btRigidBody* _body, float _linearScale, float _linearStimulation) :
-        NOutput(b, 3), body(_body), linearScale(_linearScale), linearStimulation(_linearStimulation) {
+    NOutput(b, 3), body(_body), linearScale(_linearScale), linearStimulation(_linearStimulation) {
 
     }
 
@@ -142,15 +157,16 @@ class BodyScaleMotor : public NOutput {
     float lastLength;
     float minScale, maxScale;
     float normalMass;
-    
-public:
-    BodyScaleMotor(Brain* b, btRigidBody* _body, float _linearScale, float _linearStimulation) :
-        NOutput(b, 1), body(_body), normalLength(0), linearScale(_linearScale), linearStimulation(_linearStimulation) {
 
-            lastLength = 0;
-            minScale = 0.9;
-            maxScale = 1.1;
-            normalMass = 1.0f / body->getInvMass();
+public:
+
+    BodyScaleMotor(Brain* b, btRigidBody* _body, float _linearScale, float _linearStimulation) :
+    NOutput(b, 1), body(_body), normalLength(0), linearScale(_linearScale), linearStimulation(_linearStimulation) {
+
+        lastLength = 0;
+        minScale = 0.9;
+        maxScale = 1.1;
+        normalMass = 1.0f / body->getInvMass();
     }
 
     virtual void process(double dt) {

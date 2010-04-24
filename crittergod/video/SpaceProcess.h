@@ -207,6 +207,11 @@ public:
 	virtual void	shootBox(const btVector3& destination);
 
         btVector3* getBackgroundColor() { return &bgColor; }
+        void setBackgroundColor(float r, float g, float b) {
+            bgColor.m_floats[0] = r;
+            bgColor.m_floats[1] = g;
+            bgColor.m_floats[2] = b;
+        }
 
 	btVector3	getRayTo(int x,int y);
 

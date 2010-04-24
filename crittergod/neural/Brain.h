@@ -134,8 +134,8 @@ public:
 
     void wireRandomly(unsigned minSynapsesPerNeuron, unsigned maxSynapsesPerNeuron, float percentInhibitoryNeuron, float percentInputSynapse, float percentInhibitorySynapse, float percentOutputNeuron, float minSynapseWeight, float maxSynapseWeight, float neuronPotentialDecay) {
         float minPlasticityStrengthen = 1.001;
-        float maxPlasticityStrengthen = 1.15;
-        float minPlasticityWeaken = 0.85;
+        float maxPlasticityStrengthen = 1.010;
+        float minPlasticityWeaken = 0.990;
         float maxPlasticityWeaken = 0.999;
 
         float percentChanceConsistentSynapses = 0.05;
