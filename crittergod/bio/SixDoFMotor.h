@@ -38,7 +38,7 @@ public:
         outs[2]->setStimulationFactor(linearStimulation);
         outs[2]->setDecay(0.95);
 
-        float smoothing = 0.01;
+        float smoothing = 0.02;
 
         double a1 = outs[0]->getOutput();
         double a2 = outs[1]->getOutput();
@@ -55,7 +55,7 @@ public:
         //TODO expose this parameter
         double lengthVariation = 0.001;
 
-        float xmax = normalLength + (lengthMod) * lengthVariation;
+        float xmax = 0; //normalLength + (lengthMod) * lengthVariation;
         float xmin = 0;
 
         //cout << xmin << " " << xmax << "\n";
@@ -68,17 +68,19 @@ public:
         constraint->getTranslationalLimitMotor()->m_upperLimit.setX(xmax);
         constraint->getTranslationalLimitMotor()->m_enableMotor[0] = true;
 
+        //setLimit: 0..2 are linear limits, 3..5 are angular limits
+        
         float currentAngle1 = angle1 * angularScale;
         constraint->getRotationalLimitMotor(0)->m_currentPosition = currentAngle1;
-        constraint->setLimit(0, currentAngle1, currentAngle1);
+        constraint->setLimit(3+0, currentAngle1, currentAngle1);
         constraint->getRotationalLimitMotor(0)->m_enableMotor = true;
 
         float currentAngle2 = angle2 * angularScale;
         constraint->getRotationalLimitMotor(1)->m_currentPosition = currentAngle2;
-        constraint->setLimit(1, currentAngle2, currentAngle2);
+        constraint->setLimit(3+1, currentAngle2, currentAngle2);
         constraint->getRotationalLimitMotor(1)->m_enableMotor = true;
 
-        constraint->setLimit(0, 0, 0);
+        constraint->setLimit(3+2, 0, 0);
         
         //
         //			btVector3 v(xmin, 0, 0);

@@ -82,7 +82,7 @@ public:
         return btVector3(0.5, 0.5, 0.5);
     }
 
-    void createJoint(btTypedConstraint* c) {
+    void addJoint(btTypedConstraint* c) {
         joints.push_back(c);
         dyn->addConstraint(c);
     }

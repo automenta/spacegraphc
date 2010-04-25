@@ -7,11 +7,12 @@
 
 int main(int argc, char** argv) {
 
+    runSpiderWithBrains();
+    //runHumanoid();
 
     //runSim();
     //runSpiderLab();
 
-    runSpiderWithBrains();
 
     //runMultiSpiders();
 
@@ -24,7 +25,6 @@ int main(int argc, char** argv) {
 
     //runInteractionDemo();
 
-    //runHumanoid();
 
     //runRT();
     //testGraph();

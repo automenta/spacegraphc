@@ -38,9 +38,9 @@ public:
         m_fMuscleStrength = 0.5f;
 
 
-        int numNeurons = 16384;
+        int numNeurons = 1024;
         int minSynapses = 1;
-        int maxSynapses = 8;
+        int maxSynapses = 4;
 
         brain = new Brain();
 
@@ -50,7 +50,10 @@ public:
         btTransform t;
         t.setIdentity();
 
-        btRigidBody* torso = createRigidShape(62.0, t, new btBoxShape(btVector3(0.5, 1.0, 1.0)));
+        float torsoWidth = 0.8;
+        float torsoHeight = 1.0;
+        float torsoThickness = 0.5;
+        btRigidBody* torso = createRigidShape(45.0, t, new btBoxShape(btVector3(torsoThickness, torsoHeight, torsoWidth)));
 
         t.setIdentity();
         t.setOrigin(positionOffset);
@@ -73,7 +76,7 @@ public:
             c->setAngularLowerLimit(btVector3(0, 0, 0));
             c->setAngularUpperLimit(btVector3(0, 0, 0));
 
-            createJoint(c);
+            addJoint(c);
 
         }
 
@@ -93,15 +96,15 @@ public:
 
             btGeneric6DofConstraint* c = new btGeneric6DofConstraint(*torso, *head, localA, localB, false);
 
-            float sideToSideTilt = M_PI_8;
-            float sideToSideRoll = M_PI_8;
-            float forwardTilt = M_PI_8;
-            c->setAngularLowerLimit(btVector3(-sideToSideTilt, sideToSideRoll, -forwardTilt));
+            float sideToSideTilt = M_PI_4;
+            float sideToSideRoll = M_PI_4;
+            float forwardTilt = M_PI_4;
+            c->setAngularLowerLimit(btVector3(-sideToSideTilt, -sideToSideRoll, -forwardTilt));
             c->setAngularUpperLimit(btVector3(sideToSideTilt, sideToSideRoll, forwardTilt));
 
-            createJoint(c);
+            addJoint(c);
 
-            neckMotor = new SixDoFMotor(brain, c, 0.001, M_PI_4, 0.1, 0.1);
+            neckMotor = new SixDoFMotor(brain, c, 0.0, M_PI_2, 0, 0.25);
         }
 
 
@@ -111,47 +114,50 @@ public:
             float forwardTilt = M_PI_8;
 
             double backArmLength = 0.6;
-            double backArmWidth = 0.2;
-            double foreArmLength = 0.4;
-            double foreArmWidth = 0.15;
+            double backArmWidth = 0.15;
+            double foreArmLength = 0.3;
+            double foreArmWidth = 0.10;
 
             //left arm
-            btRigidBody* leftBackArm = createRigidShape(2.0, t, new btBoxShape(btVector3(backArmLength, backArmWidth, backArmWidth)));
-            btRigidBody* rightBackArm = createRigidShape(2.0, t, new btBoxShape(btVector3(backArmLength, backArmWidth, backArmWidth)));
+            btRigidBody* leftBackArm = createRigidShape(1.0, t, new btBoxShape(btVector3(backArmLength, backArmWidth, backArmWidth)));
+            btRigidBody* rightBackArm = createRigidShape(1.0, t, new btBoxShape(btVector3(backArmLength, backArmWidth, backArmWidth)));
 
             btTransform localA, localB;
 
             {
 
                 localA.setIdentity();
-                localA.setOrigin(btVector3(0, 0, 1.5));
+                localA.setOrigin(btVector3(0, 0, torsoWidth/2.0 + backArmWidth*4.0));
                 localB.setIdentity();
                 localB.setOrigin(btVector3(-backArmLength / 2.0, 0, backArmWidth / 2.0));
 
                 btGeneric6DofConstraint* c = new btGeneric6DofConstraint(*torso, *leftBackArm, localA, localB, false);
 
-                float sideToSideTilt = M_PI_8;
-                float sideToSideRoll = M_PI_8;
-                float forwardTilt = M_PI_8;
-                c->setAngularLowerLimit(btVector3(-sideToSideTilt, sideToSideRoll, -forwardTilt));
+                float sideToSideTilt = M_PI_4;
+                float sideToSideRoll = M_PI_4;
+                float forwardTilt = M_PI_4;
+                c->setAngularLowerLimit(btVector3(-sideToSideTilt, -sideToSideRoll, -forwardTilt));
                 c->setAngularUpperLimit(btVector3(sideToSideTilt, sideToSideRoll, forwardTilt));
 
-                createJoint(c);
-                leftShoulderMotor = new SixDoFMotor(brain, c, 0.001, M_PI_4, 0.1, 0.1);
+                addJoint(c);
+                leftShoulderMotor = new SixDoFMotor(brain, c, 0, M_PI_4, 0, 0.1);
             }
             {
 
                 localA.setIdentity();
-                localA.setOrigin(btVector3(0, 0, -1.5));
+                localA.setOrigin(btVector3(0, 0, -torsoWidth/2.0 - backArmWidth*4.0));
                 localB.setIdentity();
                 localB.setOrigin(btVector3(-backArmLength / 2.0, 0, backArmWidth / 2.0));
 
                 btGeneric6DofConstraint* c = new btGeneric6DofConstraint(*torso, *rightBackArm, localA, localB, false);
 
-                c->setAngularLowerLimit(btVector3(-sideToSideTilt, sideToSideRoll, -forwardTilt));
+                float sideToSideTilt = M_PI_4;
+                float sideToSideRoll = M_PI_4;
+                float forwardTilt = M_PI_4;
+                c->setAngularLowerLimit(btVector3(-sideToSideTilt, -sideToSideRoll, -forwardTilt));
                 c->setAngularUpperLimit(btVector3(sideToSideTilt, sideToSideRoll, forwardTilt));
 
-                createJoint(c);
+                addJoint(c);
                 rightShoulderMotor = new SixDoFMotor(brain, c, 0.001, M_PI_4, 0.1, 0.1);
             }
 
@@ -168,14 +174,14 @@ public:
 
                 btGeneric6DofConstraint* c2 = new btGeneric6DofConstraint(*leftBackArm, *leftForeArm, localA, localB, false);
 
-                c2->setAngularLowerLimit(btVector3(0, -sideToSideTilt, 0));
-                c2->setAngularUpperLimit(btVector3(0, sideToSideTilt, 0));
+                //c2->setAngularLowerLimit(btVector3(0, -sideToSideTilt, 0));
+                //c2->setAngularUpperLimit(btVector3(0, sideToSideTilt, 0));
 
-                createJoint(c2);
+                addJoint(c2);
 
-                leftElbowMotor = new SixDoFMotor(brain, c2, 0.001, M_PI_4, 0.1, 0.1);
+                leftElbowMotor = new SixDoFMotor(brain, c2, 0, M_PI_4, 0, 0.001);
 
-                btRigidBody* lhEye = createRigidShape(1.0, t, new btBoxShape(btVector3(0.05, 0.2, 0.2)));
+                btRigidBody* lhEye = createRigidShape(1.0, t, new btBoxShape(btVector3(0.1, 0.1, 0.1)));
                 {
                     //eye joint: Eye to Head
 
@@ -191,7 +197,7 @@ public:
                     c->setAngularLowerLimit(btVector3(0, 0, 0));
                     c->setAngularUpperLimit(btVector3(0, 0, 0));
 
-                    createJoint(c);
+                    addJoint(c);
 
                 }
 
@@ -210,15 +216,35 @@ public:
                 c2->setAngularLowerLimit(btVector3(0, -sideToSideTilt, 0));
                 c2->setAngularUpperLimit(btVector3(0, sideToSideTilt, 0));
 
-                createJoint(c2);
+                addJoint(c2);
 
                 rightElbowMotor = new SixDoFMotor(brain, c2, 0.001, M_PI_4, 0.1, 0.1);
             }
         }
 
+        for (unsigned i = 0; i < numNeurons; i++) {
+            addNeuron();
+        }
         brain->printSummary();
 
+
     }
+
+    void addNeuron() {
+        unsigned minSynapsesPerNeuron = 1;
+        unsigned maxSynapsesPerNeuron = 12;
+        float percentInhibitoryNeuron = 0.5f;
+        float percentInputSynapse = 0.25f;
+        float percentOutputNeuron = 0.10f;
+        float percentInhibitorySynapse = 0.5f;
+        float minSynapseWeight = 0.001f;
+        float maxSynapseWeight = 1.0f;
+        float neuronPotentialDecay = 0.95f;
+        brain->wireRandomly(minSynapsesPerNeuron, maxSynapsesPerNeuron,
+            percentInhibitoryNeuron, percentInputSynapse, percentOutputNeuron, percentInhibitorySynapse,
+            minSynapseWeight, maxSynapseWeight, neuronPotentialDecay);
+    }
+
 
     virtual btVector3 getColor(btCollisionShape* shape) {
         float i = (float) (indexOfShape(shape) % 2);

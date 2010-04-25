@@ -126,7 +126,7 @@ public:
             retinaWidth = vDistance * (float(width) / float(height));
         }
 
-        #pragma omp parallel for private(x)
+        #pragma omp parallel for
         for (x = 0; x < width; x++) {
             unsigned ip = (p++) % (timeScale);
             for (unsigned y = 0; y < height; y++) {
@@ -151,9 +151,9 @@ public:
                     btVector3 from = eyePart->getWorldTransform().getOrigin();
 
                     btVector3 forwardRay(
-                            -tr.getBasis()[0][2],
-                            -tr.getBasis()[1][2],
-                            -tr.getBasis()[2][2]);
+                            tr.getBasis()[0][0],
+                            tr.getBasis()[1][0],
+                            tr.getBasis()[2][0]);
 
                     forwardRay *= visionDistance;
 

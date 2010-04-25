@@ -451,7 +451,7 @@ public:
             joints.push_back(c);
             dyn->addConstraint(c);
             
-            SixDoFMotor* sm = new SixDoFMotor(brain, c, 0, M_PI_8, 0.0, 0.15);
+            SixDoFMotor* sm = new SixDoFMotor(brain, c, 0, M_PI_2, 0.0, 0.25);
             jointControllers.push_back(sm);
 
         }
@@ -476,7 +476,7 @@ public:
                 joints.push_back(c);
                 dyn->addConstraint(c);
 
-                SixDoFMotor* sm = new SixDoFMotor(brain, c, 0, M_PI_8, 0.0, 0.15);
+                SixDoFMotor* sm = new SixDoFMotor(brain, c, 0, M_PI_4, 0.0, 0.25);
                 jointControllers.push_back(sm);
 
             }
