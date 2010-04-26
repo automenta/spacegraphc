@@ -38,9 +38,9 @@ public:
         m_fMuscleStrength = 0.5f;
 
 
-        int numNeurons = 1024;
+        int numNeurons = 8024;
         int minSynapses = 1;
-        int maxSynapses = 4;
+        int maxSynapses = 6;
 
         brain = new Brain();
 
@@ -50,17 +50,18 @@ public:
         btTransform t;
         t.setIdentity();
 
-        float torsoWidth = 0.8;
-        float torsoHeight = 1.0;
-        float torsoThickness = 0.5;
+        float torsoWidth = 0.4;
+        float torsoHeight = 0.6;
+        float torsoThickness = 0.35;
+        float headRadius = 0.3;
         btRigidBody* torso = createRigidShape(45.0, t, new btBoxShape(btVector3(torsoThickness, torsoHeight, torsoWidth)));
 
         t.setIdentity();
         t.setOrigin(positionOffset);
-        btRigidBody* head = createRigidShape(3.0, t, new btBoxShape(btVector3(0.3, 0.3, 0.4)));
+        btRigidBody* head = createRigidShape(3.0, t, new btSphereShape(headRadius));
 
 
-        btRigidBody* eye = createRigidShape(1.0, t, new btBoxShape(btVector3(0.05, 0.2, 0.2)));
+        btRigidBody* eye = createRigidShape(1.0, t, new btBoxShape(btVector3(0.05, headRadius/2.0, headRadius/2.0)));
         {
             //eye joint: Eye to Head
 
@@ -80,19 +81,19 @@ public:
 
         }
 
-        eyeRetina = new Retina(brain, space->dynamicsWorld, eye, 32, 24, 0.33, 50.0);
+        eyeRetina = new Retina(brain, space->dynamicsWorld, eye, 64, 64, 0.33, 50.0);
 
         {
             //neck joint: torso->head
 
-            double neckLength = 1.5;
+            double neckLength = 0.05;
 
             btTransform localA, localB;
 
             localA.setIdentity();
-            localA.setOrigin(btVector3(0, (neckLength / 2), 0));
+            localA.setOrigin(btVector3(0, torsoHeight + (neckLength / 2), 0));
             localB.setIdentity();
-            localB.setOrigin(btVector3(0, -(neckLength / 2), 0));
+            localB.setOrigin(btVector3(0, -headRadius - (neckLength / 2), 0));
 
             btGeneric6DofConstraint* c = new btGeneric6DofConstraint(*torso, *head, localA, localB, false);
 
@@ -101,10 +102,11 @@ public:
             float forwardTilt = M_PI_4;
             c->setAngularLowerLimit(btVector3(-sideToSideTilt, -sideToSideRoll, -forwardTilt));
             c->setAngularUpperLimit(btVector3(sideToSideTilt, sideToSideRoll, forwardTilt));
-
+            c->setLinearLowerLimit(btVector3(0,0,0));
+            c->setLinearUpperLimit(btVector3(0,0,0));
             addJoint(c);
 
-            neckMotor = new SixDoFMotor(brain, c, 0.0, M_PI_2, 0, 0.25);
+            neckMotor = new SixDoFMotor(brain, c, 0.0, M_PI_2, 0, 0.50);
         }
 
 
@@ -140,7 +142,7 @@ public:
                 c->setAngularUpperLimit(btVector3(sideToSideTilt, sideToSideRoll, forwardTilt));
 
                 addJoint(c);
-                leftShoulderMotor = new SixDoFMotor(brain, c, 0, M_PI_4, 0, 0.1);
+                leftShoulderMotor = new SixDoFMotor(brain, c, 0, M_PI_2, 0, 0.2);
             }
             {
 
@@ -232,10 +234,10 @@ public:
 
     void addNeuron() {
         unsigned minSynapsesPerNeuron = 1;
-        unsigned maxSynapsesPerNeuron = 12;
+        unsigned maxSynapsesPerNeuron = 6;
         float percentInhibitoryNeuron = 0.5f;
         float percentInputSynapse = 0.25f;
-        float percentOutputNeuron = 0.10f;
+        float percentOutputNeuron = 0.25f;
         float percentInhibitorySynapse = 0.5f;
         float minSynapseWeight = 0.001f;
         float maxSynapseWeight = 1.0f;

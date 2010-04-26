@@ -457,6 +457,8 @@
         <itemPath>crittergod/bio/NPosition.h</itemPath>
         <itemPath>crittergod/bio/Retina.cpp</itemPath>
         <itemPath>crittergod/bio/Retina.h</itemPath>
+        <itemPath>crittergod/bio/ServoHinge.cpp</itemPath>
+        <itemPath>crittergod/bio/ServoHinge.h</itemPath>
         <itemPath>crittergod/bio/SineSound.cpp</itemPath>
         <itemPath>crittergod/bio/SineSound.h</itemPath>
         <itemPath>crittergod/bio/SixDoFMotor.cpp</itemPath>
@@ -571,6 +573,8 @@
         <itemPath>crittergod/widget3d/WidgetPlane.cpp</itemPath>
         <itemPath>crittergod/widget3d/WidgetPlane.h</itemPath>
       </logicalFolder>
+      <itemPath>crittergod/RunRobots.cpp</itemPath>
+      <itemPath>crittergod/RunRobots.h</itemPath>
       <itemPath>crittergod/RunSims.cpp</itemPath>
       <itemPath>crittergod/RunSims.h</itemPath>
       <itemPath>crittergod/RunTests.cpp</itemPath>
@@ -617,13 +621,12 @@
       </toolsSet>
       <compileType>
         <ccTool>
-          <developmentMode>5</developmentMode>
           <incDir>
             <pElem>bullet</pElem>
             <pElem>crittergod</pElem>
             <pElem>bulletgl</pElem>
           </incDir>
-          <commandLine>-fopenmp -O3</commandLine>
+          <commandLine>-fopenmp</commandLine>
         </ccTool>
         <linkerTool>
           <linkerLibItems>

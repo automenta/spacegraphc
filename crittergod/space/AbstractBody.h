@@ -86,6 +86,13 @@ public:
         joints.push_back(c);
         dyn->addConstraint(c);
     }
+    
+    btRigidBody* createRigidShape(btScalar mass, const btVector3& pos, btCollisionShape* shape) {
+        btTransform t;
+        t.setIdentity();
+        t.setOrigin(pos);
+        return createRigidShape(mass, t, shape);
+    }
 
     btRigidBody* createRigidShape(btScalar mass, const btTransform& startTransform, btCollisionShape* shape) {
         shapes.push_back(shape);

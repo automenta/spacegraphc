@@ -31,8 +31,9 @@ public:
     btVector3* size;
     list<Rect*> frontRects;
     btRigidBody* rb;
+    btScalar mass;
 
-    BoxBody(btVector3* _position, btVector3* _size) : AbstractBody(), position(_position), size(_size) {
+    BoxBody(btVector3* _position, btVector3* _size, btScalar _mass=1.0) : AbstractBody(), position(_position), size(_size), mass(_mass) {
 
     }
 
@@ -41,7 +42,7 @@ public:
         transform.setIdentity();
         transform.setOrigin(*position);
 
-        rb = createRigidShape(btScalar(1.), transform, new btBoxShape(*size));
+        rb = createRigidShape(btScalar(mass), transform, new btBoxShape(*size));
         rb->setDamping(0.8, 0.8);
 
 

@@ -45,6 +45,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/bullet/BulletCollision/CollisionShapes/btTriangleMesh.o \
 	${OBJECTDIR}/bullet/BulletCollision/Gimpact/btGImpactShape.o \
 	${OBJECTDIR}/bullet/BulletCollision/CollisionDispatch/btManifoldResult.o \
+	${OBJECTDIR}/crittergod/bio/ServoHinge.o \
 	${OBJECTDIR}/bullet/BulletSoftBody/btSoftBodyHelpers.o \
 	${OBJECTDIR}/bullet/BulletCollision/CollisionDispatch/btBoxBoxCollisionAlgorithm.o \
 	${OBJECTDIR}/bullet/BulletDynamics/ConstraintSolver/btHinge2Constraint.o \
@@ -201,6 +202,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/crittergod/bio/Retina.o \
 	${OBJECTDIR}/crittergod/audio/Audio.o \
 	${OBJECTDIR}/bullet/BulletDynamics/ConstraintSolver/btConeTwistConstraint.o \
+	${OBJECTDIR}/crittergod/RunRobots.o \
 	${OBJECTDIR}/crittergod/video/font/FontDemo1.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/bullet/BulletCollision/CollisionShapes/btSphereShape.o \
@@ -311,6 +313,11 @@ ${OBJECTDIR}/bullet/BulletCollision/CollisionDispatch/btManifoldResult.o: nbproj
 	${MKDIR} -p ${OBJECTDIR}/bullet/BulletCollision/CollisionDispatch
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/bullet/BulletCollision/CollisionDispatch/btManifoldResult.o bullet/BulletCollision/CollisionDispatch/btManifoldResult.cpp
+
+${OBJECTDIR}/crittergod/bio/ServoHinge.o: nbproject/Makefile-${CND_CONF}.mk crittergod/bio/ServoHinge.cpp 
+	${MKDIR} -p ${OBJECTDIR}/crittergod/bio
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/crittergod/bio/ServoHinge.o crittergod/bio/ServoHinge.cpp
 
 ${OBJECTDIR}/bullet/BulletSoftBody/btSoftBodyHelpers.o: nbproject/Makefile-${CND_CONF}.mk bullet/BulletSoftBody/btSoftBodyHelpers.cpp 
 	${MKDIR} -p ${OBJECTDIR}/bullet/BulletSoftBody
@@ -1091,6 +1098,11 @@ ${OBJECTDIR}/bullet/BulletDynamics/ConstraintSolver/btConeTwistConstraint.o: nbp
 	${MKDIR} -p ${OBJECTDIR}/bullet/BulletDynamics/ConstraintSolver
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/bullet/BulletDynamics/ConstraintSolver/btConeTwistConstraint.o bullet/BulletDynamics/ConstraintSolver/btConeTwistConstraint.cpp
+
+${OBJECTDIR}/crittergod/RunRobots.o: nbproject/Makefile-${CND_CONF}.mk crittergod/RunRobots.cpp 
+	${MKDIR} -p ${OBJECTDIR}/crittergod
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/crittergod/RunRobots.o crittergod/RunRobots.cpp
 
 ${OBJECTDIR}/crittergod/video/font/FontDemo1.o: nbproject/Makefile-${CND_CONF}.mk crittergod/video/font/FontDemo1.cpp 
 	${MKDIR} -p ${OBJECTDIR}/crittergod/video/font

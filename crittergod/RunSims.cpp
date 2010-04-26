@@ -226,7 +226,7 @@ void runHumanoid() {
 
     RetinaPanel rp(h->eyeRetina);
     ds->getFace()->addPanel("retina", &rp);
-    rp.setSize(150, 150);
+    rp.setSize(230, 150);
     rp.setPosition(300, 600);
 
     RetinaPanel rp2(h->lhRetina);
@@ -401,24 +401,71 @@ void runWidgets3D() {
     {
         float d = 0.0;
 
-        Rect* r1 = new Rect(-0.5, -0.5, d, 0.2, 0.2);
+        Rect* r1 = new Rect(-0.3, -0.3, d, 0.1, 0.2);
         *(r1->fillColor) = btVector3(0, 1, 0);
         ba->front()->push_back(r1);
 
-        Rect* r2 = new Rect(0.5, -0.5, d, 0.2, 0.2);
+        Rect* r2 = new Rect(0.3, -0.3, d, 0.2, 0.2);
         *(r2->fillColor) = btVector3(0, 0, 1);
         ba->front()->push_back(r2);
 
-        Rect* r3 = new Rect(0.5, 0.5, d, 0.2, 0.2);
+        Rect* r3 = new Rect(0.3, 0.3, d, 0.2, 0.2);
         *(r3->fillColor) = btVector3(1, 0, 0);
         ba->front()->push_back(r3);
 
-        Rect* r4 = new Rect(-0.5, 0.5, d, 0.2, 0.2);
+        Rect* r4 = new Rect(-0.3, 0.3, d, 0.2, 0.2);
         ba->front()->push_back(r4);
 
     }
     ds->addBody(ba);
 
+    PanelBody* cx = new PanelBody(new btVector3(0, 0, 0.5), new btVector3(3, 2, d));
+    {
+        float d = 0.1;
+
+        float w = 0.1;
+        float h = 0.1;
+        for (float x = -0.5+w/2.0; x < 0.5-w/2.0; x+=w) {
+            for (float y = -0.5+h/2.0; y < 0.5-h/2.0; y+=h) {
+                Rect* r1 = new Rect(x, y, d, w, h);
+                float r = x + 0.5;
+                float g = y + 0.5;
+                float b = 0.0;
+                *(r1->fillColor) = btVector3(r, g, b);
+                cx->front()->push_back(r1);
+            }
+
+        }
+
+
+    }
+    ds->addBody(cx);
+
+    {
+        int numLegs = 3;
+        vector<btScalar>* legLengths = new vector<btScalar> ();
+        vector<btScalar>* legRadii = new vector<btScalar> ();
+        legLengths->push_back(0.8);    legRadii->push_back(0.1);
+        legLengths->push_back(0.5);    legRadii->push_back(0.10);
+        legLengths->push_back(0.5);    legRadii->push_back(0.08);
+        SpiderBody2* spider = new SpiderBody2(numLegs, legLengths, legRadii, btVector3(0, 10, 4), 32);
+        ds->addBody(spider);
+        spider->setDamping(0.5);
+
+        for (unsigned l = 0; l < numLegs; l++) {
+            RetinaPanel* rp = new RetinaPanel(spider->legEye[l]);
+            string panelName = "retina_";
+            panelName[5] = 'a' + l;
+            ds->getFace()->addPanel(panelName, rp);
+
+            int w = 66;
+            rp->setSize(w, w);
+            rp->setPosition(w * l, 0);
+        }
+
+
+    }
+    
     TouchReactiveBox* trb = new TouchReactiveBox(new btVector3(-4, -4, -4), new btVector3(3, 3, d));
     ds->addBody(trb);
 

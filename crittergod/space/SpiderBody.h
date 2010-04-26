@@ -301,7 +301,6 @@ class SpiderBody2 : public AbstractBody {
     vector<BodyScaleMotor*> scaleControllers;
     vector<ImpulseMotor*> impulseControllers;
 
-    NPosition* posCenter;
     SineSound* voice;
 
     btCapsuleShape* headShape;
@@ -347,8 +346,6 @@ public:
 
 
         brain = new Brain();
-
-        posCenter = new NPosition(brain, 1);
         
         // Setup rigid bodies        
         btTransform offset;
@@ -396,10 +393,10 @@ public:
                 btRigidBody* legPartBody = createRigidShape(btScalar(fLegMass), offset*transform, legPart);
 
                 if (j == PARTS_PER_LEG-1) {
-                    legEye.push_back( new Retina(brain, space->dynamicsWorld, legPartBody, retinaSize, retinaSize, 0.5, 40.0) );
+                    legEye.push_back( new Retina(brain, space->dynamicsWorld, legPartBody, retinaSize, retinaSize, 0.5, 90) );
 
-                    ImpulseMotor* hl = new ImpulseMotor(brain, legPartBody, 0.001, 0.001);
-                    impulseControllers.push_back(hl);
+                    //ImpulseMotor* hl = new ImpulseMotor(brain, legPartBody, 0.001, 0.001);
+                    //impulseControllers.push_back(hl);
 
                 }
 
@@ -486,6 +483,8 @@ public:
 
         //voice = new SineSound(brain, space->audio, 16);
 
+        for (unsigned n = 0; n < 4096; n++)
+            addNeuron();
 
         brain->printSummary();
     }
@@ -498,14 +497,14 @@ public:
 
     void addNeuron() {
         unsigned minSynapsesPerNeuron = 1;
-        unsigned maxSynapsesPerNeuron = 12;
+        unsigned maxSynapsesPerNeuron = 4;
         float percentInhibitoryNeuron = 0.5f;
         float percentInputSynapse = 0.25f;
-        float percentOutputNeuron = 0.10f;
+        float percentOutputNeuron = 0.05f;
         float percentInhibitorySynapse = 0.5f;
         float minSynapseWeight = 0.001f;
-        float maxSynapseWeight = 1.0f;
-        float neuronPotentialDecay = 0.95f;
+        float maxSynapseWeight = 3.0f;
+        float neuronPotentialDecay = 0.98f;
         brain->wireRandomly(minSynapsesPerNeuron, maxSynapsesPerNeuron,
             percentInhibitoryNeuron, percentInputSynapse, percentOutputNeuron, percentInhibitorySynapse,
             minSynapseWeight, maxSynapseWeight, neuronPotentialDecay);
@@ -517,10 +516,6 @@ public:
     }
 
     virtual void process(btScalar dt) {
-        static int frame = 0;
-
-        posCenter->set(bodies[0]->getCenterOfMassTransform().getRotation().getAxis().m_floats);
-        posCenter->process(dt);
 
         for (unsigned i = 0; i < bodies.size(); ++i) {
             partPos[i]->set(bodies[i]->getCenterOfMassTransform().getRotation().getAxis().m_floats);

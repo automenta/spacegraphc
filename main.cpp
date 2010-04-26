@@ -1,14 +1,21 @@
 #include <stdio.h>
 
 #include <RunSims.h>
+#include <RunRobots.h>
+#include <RunWidgets.h>
+
 
 #include "main.h"
 
 
 int main(int argc, char** argv) {
 
-    runSpiderWithBrains();
-    //runHumanoid();
+    {
+        //runServoDemo();
+
+        //runSpiderWithBrains();
+        //runHumanoid();
+    }
 
     //runSim();
     //runSpiderLab();
@@ -19,7 +26,9 @@ int main(int argc, char** argv) {
     //runBrainDemo();
     //runBrain2Demo();
 
-    //runWidgets3D();
+    {
+        runWidgets3D();
+    }
 
     //runCritterLab();
 

@@ -440,8 +440,8 @@ btRigidBody* DefaultSpace::addGround(float w, float h, float d, float x, float y
 }
 
 void DefaultSpace::addBody(AbstractBody* a) {
-    a->init(this);
     bodies.push_back(a);
+    a->init(this);
 }
 
 void DefaultSpace::removeBody(AbstractBody* a) {
@@ -464,12 +464,8 @@ void DefaultSpace::process(btScalar deltaTime) {
     //
     // set per-frame sinusoidal position targets using angular motor (hacky?)
     //
-    AbstractBody* t;
-    int r;
-#pragma omp parallel for private(r, t)
-    for (r = 0; r < bodies.size(); r++) {
-        t = bodies[r];
-        t->process(deltaTime);
+    for (unsigned r = 0; r < bodies.size(); r++) {
+        bodies[r]->process(deltaTime);
     }
 
 }
