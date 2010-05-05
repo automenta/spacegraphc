@@ -518,6 +518,8 @@
         <itemPath>crittergod/space/DefaultSpace.h</itemPath>
         <itemPath>crittergod/space/Humanoid.cpp</itemPath>
         <itemPath>crittergod/space/Humanoid.h</itemPath>
+        <itemPath>crittergod/space/RigidBody.cpp</itemPath>
+        <itemPath>crittergod/space/RigidBody.h</itemPath>
         <itemPath>crittergod/space/SnakeBody.cpp</itemPath>
         <itemPath>crittergod/space/SnakeBody.h</itemPath>
         <itemPath>crittergod/space/SpiderBody.cpp</itemPath>
@@ -568,6 +570,8 @@
         <itemPath>crittergod/widget3d/Panel.h</itemPath>
         <itemPath>crittergod/widget3d/Rect.cpp</itemPath>
         <itemPath>crittergod/widget3d/Rect.h</itemPath>
+        <itemPath>crittergod/widget3d/Slider.cpp</itemPath>
+        <itemPath>crittergod/widget3d/Slider.h</itemPath>
         <itemPath>crittergod/widget3d/TextRect.cpp</itemPath>
         <itemPath>crittergod/widget3d/TextRect.h</itemPath>
         <itemPath>crittergod/widget3d/WidgetPlane.cpp</itemPath>
@@ -635,8 +639,6 @@
             <linkerOptionItem>-lftgl</linkerOptionItem>
             <linkerOptionItem>-lGLU</linkerOptionItem>
             <linkerOptionItem>-lglut</linkerOptionItem>
-            <linkerOptionItem>-lpthread</linkerOptionItem>
-            <linkerOptionItem>-lgomp</linkerOptionItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>

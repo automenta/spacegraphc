@@ -13,6 +13,8 @@ using namespace std;
 
 #include <btBulletDynamicsCommon.h>
 #include <space/DefaultSpace.h>
+#include <space/RigidBody.h>
+
 
 #ifndef M_PI
 #define M_PI       3.14159265358979323846
@@ -35,7 +37,7 @@ public:
     btDynamicsWorld* dyn;
 
     vector<btCollisionShape*> shapes;
-    vector<btRigidBody*> bodies;
+    vector<RigidBody*> bodies;
     vector<btTypedConstraint*> joints;
 
     AbstractSpace* space;
@@ -94,9 +96,9 @@ public:
         return createRigidShape(mass, t, shape);
     }
 
-    btRigidBody* createRigidShape(btScalar mass, const btTransform& startTransform, btCollisionShape* shape) {
+    RigidBody* createRigidShape(btScalar mass, const btTransform& startTransform, btCollisionShape* shape) {
         shapes.push_back(shape);
-        btRigidBody* rb = localCreateRigidBody(mass, startTransform, shape);
+        RigidBody* rb = localCreateRigidBody(mass, startTransform, shape);
         bodies.push_back(rb);
         
         //rb->setDamping(0.05, 0.85);
@@ -112,7 +114,7 @@ public:
 
     //Deprecated
 
-    btRigidBody* localCreateRigidBody(btScalar mass, const btTransform& startTransform, btCollisionShape* shape) {
+    RigidBody* localCreateRigidBody(btScalar mass, const btTransform& startTransform, btCollisionShape* shape) {
         bool isDynamic = (mass != 0.f);
 
         btVector3 localInertia(0, 0, 0);
@@ -121,7 +123,7 @@ public:
 
         btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
         btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, shape, localInertia);
-        btRigidBody* body = new btRigidBody(rbInfo);
+        RigidBody* body = new RigidBody(rbInfo);
 
         body->setUserPointer(this);
         dyn->addRigidBody(body);

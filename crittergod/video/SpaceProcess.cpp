@@ -34,6 +34,7 @@ using namespace std;
 
 #include <OpenGL/GLDebugFont.h>
 
+#include <space/RigidBody.h>
 
 extern bool gDisableDeactivation;
 int numObjects = 0;
@@ -981,7 +982,8 @@ void SpaceProcess::renderscene(int pass) {
 
     for (int i = 0; i < numObjects; i++) {
         btCollisionObject* colObj = dynamicsWorld->getCollisionObjectArray()[i];
-        btRigidBody* body = btRigidBody::upcast(colObj);
+        btRigidBody* b = btRigidBody::upcast(colObj);
+        RigidBody* body = (RigidBody*)b;
         if (body && body->getMotionState()) {
             btDefaultMotionState* myMotionState = (btDefaultMotionState*) body->getMotionState();
             myMotionState->m_graphicsWorldTrans.getOpenGLMatrix(m);

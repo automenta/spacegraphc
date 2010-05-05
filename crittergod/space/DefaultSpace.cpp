@@ -728,7 +728,8 @@ void DefaultSpace::renderscene(int pass) {
 
     for (unsigned int i = 0; i < numObjects; i++) {
         btCollisionObject* colObj = dynamicsWorld->getCollisionObjectArray()[i];
-        btRigidBody* body = btRigidBody::upcast(colObj);
+        btRigidBody* b = btRigidBody::upcast(colObj);
+        RigidBody* body = (RigidBody*)b;
         btCollisionShape* shape = body->getCollisionShape();
 
         if (body && body->getMotionState()) {
@@ -793,6 +794,12 @@ void DefaultSpace::renderscene(int pass) {
                 abody = metaBody;
                 break;
             }
+        }
+
+        if (body->color!=NULL) {
+            shapeColor.setX( body->color->getX() );
+            shapeColor.setY( body->color->getY() );
+            shapeColor.setZ( body->color->getZ() );
         }
 
         switch (pass) {

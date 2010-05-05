@@ -45,8 +45,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/bullet/BulletCollision/CollisionShapes/btTriangleMesh.o \
 	${OBJECTDIR}/bullet/BulletCollision/Gimpact/btGImpactShape.o \
 	${OBJECTDIR}/bullet/BulletCollision/CollisionDispatch/btManifoldResult.o \
-	${OBJECTDIR}/crittergod/bio/ServoHinge.o \
 	${OBJECTDIR}/bullet/BulletSoftBody/btSoftBodyHelpers.o \
+	${OBJECTDIR}/crittergod/bio/ServoHinge.o \
 	${OBJECTDIR}/bullet/BulletCollision/CollisionDispatch/btBoxBoxCollisionAlgorithm.o \
 	${OBJECTDIR}/bullet/BulletDynamics/ConstraintSolver/btHinge2Constraint.o \
 	${OBJECTDIR}/bullet/BulletCollision/BroadphaseCollision/btBroadphaseProxy.o \
@@ -107,11 +107,13 @@ OBJECTFILES= \
 	${OBJECTDIR}/bullet/BulletCollision/CollisionShapes/btHeightfieldTerrainShape.o \
 	${OBJECTDIR}/bullet/BulletCollision/CollisionShapes/btUniformScalingShape.o \
 	${OBJECTDIR}/bullet/BulletCollision/CollisionShapes/btScaledBvhTriangleMeshShape.o \
+	${OBJECTDIR}/crittergod/space/RigidBody.o \
 	${OBJECTDIR}/crittergod/widget3d/Panel.o \
 	${OBJECTDIR}/crittergod/video/displaylists.o \
 	${OBJECTDIR}/crittergod/widget2d/textprinter.o \
 	${OBJECTDIR}/crittergod/bio/BloodBrainInterface.o \
 	${OBJECTDIR}/crittergod/objects/BrainVis.o \
+	${OBJECTDIR}/crittergod/widget3d/Slider.o \
 	${OBJECTDIR}/bullet/BulletDynamics/ConstraintSolver/btHingeConstraint.o \
 	${OBJECTDIR}/bullet/BulletCollision/NarrowPhaseCollision/btVoronoiSimplexSolver.o \
 	${OBJECTDIR}/bullet/BulletCollision/BroadphaseCollision/btQuantizedBvh.o \
@@ -314,15 +316,15 @@ ${OBJECTDIR}/bullet/BulletCollision/CollisionDispatch/btManifoldResult.o: nbproj
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/bullet/BulletCollision/CollisionDispatch/btManifoldResult.o bullet/BulletCollision/CollisionDispatch/btManifoldResult.cpp
 
-${OBJECTDIR}/crittergod/bio/ServoHinge.o: nbproject/Makefile-${CND_CONF}.mk crittergod/bio/ServoHinge.cpp 
-	${MKDIR} -p ${OBJECTDIR}/crittergod/bio
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/crittergod/bio/ServoHinge.o crittergod/bio/ServoHinge.cpp
-
 ${OBJECTDIR}/bullet/BulletSoftBody/btSoftBodyHelpers.o: nbproject/Makefile-${CND_CONF}.mk bullet/BulletSoftBody/btSoftBodyHelpers.cpp 
 	${MKDIR} -p ${OBJECTDIR}/bullet/BulletSoftBody
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/bullet/BulletSoftBody/btSoftBodyHelpers.o bullet/BulletSoftBody/btSoftBodyHelpers.cpp
+
+${OBJECTDIR}/crittergod/bio/ServoHinge.o: nbproject/Makefile-${CND_CONF}.mk crittergod/bio/ServoHinge.cpp 
+	${MKDIR} -p ${OBJECTDIR}/crittergod/bio
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/crittergod/bio/ServoHinge.o crittergod/bio/ServoHinge.cpp
 
 ${OBJECTDIR}/bullet/BulletCollision/CollisionDispatch/btBoxBoxCollisionAlgorithm.o: nbproject/Makefile-${CND_CONF}.mk bullet/BulletCollision/CollisionDispatch/btBoxBoxCollisionAlgorithm.cpp 
 	${MKDIR} -p ${OBJECTDIR}/bullet/BulletCollision/CollisionDispatch
@@ -624,6 +626,11 @@ ${OBJECTDIR}/bullet/BulletCollision/CollisionShapes/btScaledBvhTriangleMeshShape
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/bullet/BulletCollision/CollisionShapes/btScaledBvhTriangleMeshShape.o bullet/BulletCollision/CollisionShapes/btScaledBvhTriangleMeshShape.cpp
 
+${OBJECTDIR}/crittergod/space/RigidBody.o: nbproject/Makefile-${CND_CONF}.mk crittergod/space/RigidBody.cpp 
+	${MKDIR} -p ${OBJECTDIR}/crittergod/space
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/crittergod/space/RigidBody.o crittergod/space/RigidBody.cpp
+
 ${OBJECTDIR}/crittergod/widget3d/Panel.o: nbproject/Makefile-${CND_CONF}.mk crittergod/widget3d/Panel.cpp 
 	${MKDIR} -p ${OBJECTDIR}/crittergod/widget3d
 	${RM} $@.d
@@ -648,6 +655,11 @@ ${OBJECTDIR}/crittergod/objects/BrainVis.o: nbproject/Makefile-${CND_CONF}.mk cr
 	${MKDIR} -p ${OBJECTDIR}/crittergod/objects
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/crittergod/objects/BrainVis.o crittergod/objects/BrainVis.cpp
+
+${OBJECTDIR}/crittergod/widget3d/Slider.o: nbproject/Makefile-${CND_CONF}.mk crittergod/widget3d/Slider.cpp 
+	${MKDIR} -p ${OBJECTDIR}/crittergod/widget3d
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/crittergod/widget3d/Slider.o crittergod/widget3d/Slider.cpp
 
 ${OBJECTDIR}/bullet/BulletDynamics/ConstraintSolver/btHingeConstraint.o: nbproject/Makefile-${CND_CONF}.mk bullet/BulletDynamics/ConstraintSolver/btHingeConstraint.cpp 
 	${MKDIR} -p ${OBJECTDIR}/bullet/BulletDynamics/ConstraintSolver

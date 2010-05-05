@@ -24,8 +24,8 @@ class FDBrainBody : public AbstractBody {
     Brain* brain;
 
     vector<btCollisionShape*> neuronShape;
-    vector<btRigidBody*> neuronBody;
-    map<AbstractNeuron*, btRigidBody*> neuronToBody;
+    vector<RigidBody*> neuronBody;
+    map<AbstractNeuron*, RigidBody*> neuronToBody;
     map<btCollisionShape*, AbstractNeuron*> shapeToNeuron;
 
     btVector3 minXYZ, maxXYZ;
