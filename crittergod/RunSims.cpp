@@ -43,6 +43,7 @@ using namespace std;
 
 #include <widget3d/Panel.h>
 #include <widget3d/Rect.h>
+#include <widget3d/XYSlider.h>
 #include <widget3d/TextRect.h>
 
 void runSim() {
@@ -343,23 +344,6 @@ public:
     }
 };
 
-class TouchReactiveBox : public PanelBody {
-    btVector3 touchPos;
-    Rect * r;
-public:
-
-    TouchReactiveBox(btVector3* pos, btVector3 *size) : PanelBody(pos, size) {
-        r = new Rect();
-        front()->push_back(r);
-    }
-
-    virtual void onTouch(btVector3 *touchPosWorld, btVector3* touchPosLocal) {
-        touchPos = *touchPosLocal;
-        *(r->pos) = btVector3(touchPos.getX() / size->getX() / 2.0, touchPos.getY() / size->getY() / 2.0, -0.5);
-        *(r->size) = btVector3(0.1, 0.1, 1.0);
-    }
-
-};
 
 void runWidgets3D() {
     Audio* audio = new Audio();
@@ -448,7 +432,7 @@ void runWidgets3D() {
         legLengths->push_back(0.8);    legRadii->push_back(0.1);
         legLengths->push_back(0.5);    legRadii->push_back(0.10);
         legLengths->push_back(0.5);    legRadii->push_back(0.08);
-        SpiderBody2* spider = new SpiderBody2(numLegs, legLengths, legRadii, btVector3(0, 10, 4), 32);
+        SpiderBody2* spider = new SpiderBody2(numLegs, legLengths, legRadii, btVector3(0, 10, 4), 16);
         ds->addBody(spider);
         spider->setDamping(0.5);
 
@@ -466,10 +450,10 @@ void runWidgets3D() {
 
     }
     
-    TouchReactiveBox* trb = new TouchReactiveBox(new btVector3(-4, -4, -4), new btVector3(3, 3, d));
+    XYSlider* trb = new XYSlider(new btVector3(-4, -4, -4), new btVector3(3, 3, d));
     ds->addBody(trb);
 
-    TouchReactiveBox* trb2 = new TouchReactiveBox(new btVector3(-4, -4, -4), new btVector3(3, 3, d));
+    XYSlider* trb2 = new XYSlider(new btVector3(-4, -4, -4), new btVector3(3, 3, d));
     btQuaternion forward;
     forward.setEuler(-M_PI_2, 0, 0);
     trb2->setFront(forward);

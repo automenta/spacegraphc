@@ -41,6 +41,7 @@
 #include <BulletCollision/CollisionDispatch/btCollisionConfiguration.h>
 #include <BulletCollision/BroadphaseCollision/btAxisSweep3.h>
 
+#include <space/RigidBody.h>
 
 #include <iostream>
 using namespace std;
@@ -208,43 +209,48 @@ public:
     virtual btVector4 getColor(CastResult res, btScalar d, float vDistance) {
         double pd = (1.0 - (d / vDistance));
         btCollisionObject* c = res.hitBody;
-        float r, g, b;
+        RigidBody* rb = (RigidBody*)res.hitBody;
 
-        long C = (long)c;
-        int hash = (C & 0x00000011) + ((C & 0x00001100) >> 2) + ((C & 0x00110000) >> 4) + ((C & 0x11000000) >> 6);
+        return btVector4(rb->color.getX(), rb->color.getY(), rb->color.getZ(), 1);
 
-        switch (hash % 9) {
-            case 0:
-                r = 1.0;  g = 0.5;   b = 0.25;
-                break;
-            case 1:
-                r = 0.25; g = 0.5;   b = 1.0;
-                break;
-            case 2:
-                r = 0.5; g = 1.0;   b = 0.25;
-                break;
-            case 3:
-                r = 0.25; g = 0.5;   b = 1.0;
-                break;
-            case 4:
-                r = 0.25;  g = 1.0;  b = 0.5;
-                break;
-            case 5:
-                r = 0.25; g = 1.0;   b = 0.5;
-                break;
-            case 6:
-                r = 1.0; g = 0;   b = 0;
-                break;
-            case 7:
-                r = 0.0; g = 1.0;   b = 0;
-                break;
-            case 8:
-                r = 0.0; g = 0;   b = 1.0;
-                break;
-        }
-
-        btVector4 v(r*pd, g*pd, b*pd, 1);
-        return v;
+//
+//        float r, g, b;
+//
+//        long C = (long)c;
+//        int hash = (C & 0x00000011) + ((C & 0x00001100) >> 2) + ((C & 0x00110000) >> 4) + ((C & 0x11000000) >> 6);
+//
+//        switch (hash % 9) {
+//            case 0:
+//                r = 1.0;  g = 0.5;   b = 0.25;
+//                break;
+//            case 1:
+//                r = 0.25; g = 0.5;   b = 1.0;
+//                break;
+//            case 2:
+//                r = 0.5; g = 1.0;   b = 0.25;
+//                break;
+//            case 3:
+//                r = 0.25; g = 0.5;   b = 1.0;
+//                break;
+//            case 4:
+//                r = 0.25;  g = 1.0;  b = 0.5;
+//                break;
+//            case 5:
+//                r = 0.25; g = 1.0;   b = 0.5;
+//                break;
+//            case 6:
+//                r = 1.0; g = 0;   b = 0;
+//                break;
+//            case 7:
+//                r = 0.0; g = 1.0;   b = 0;
+//                break;
+//            case 8:
+//                r = 0.0; g = 0;   b = 1.0;
+//                break;
+//        }
+//
+//        btVector4 v(r*pd, g*pd, b*pd, 1);
+//        return v;
     }
 
     virtual ~Retina() {

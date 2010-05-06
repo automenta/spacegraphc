@@ -75,9 +75,9 @@ public:
             shapes.push_back(new btCapsuleShape(btScalar(0.08), btScalar(fForeLegLength)));
         }
 
-        int numNeurons = 1024;
+        int numNeurons = 100;
         int minSynapses = 1;
-        int maxSynapses = 6;
+        int maxSynapses = 100;
 
 
         brain = new Brain();
@@ -294,8 +294,6 @@ class SpiderBody2 : public AbstractBody {
 
     unsigned NUM_LEGS, PARTS_PER_LEG;
 
-    //int NUM_LEGS, PART_COUNT, JOINT_COUNT;
-
     btVector3 positionOffset;
     vector<SixDoFMotor*> jointControllers;
     vector<BodyScaleMotor*> scaleControllers;
@@ -314,16 +312,12 @@ public:
     vector<Retina*> legEye;
     Brain* brain;
 
-
     SpiderBody2(unsigned numLegs, vector<btScalar>* _legLengths, vector<btScalar>* _legRadii, const btVector3& _positionOffset, unsigned _retinaSize) {
         NUM_LEGS = numLegs;
         legLengths = _legLengths;
         legRadii = _legRadii;
         PARTS_PER_LEG = legLengths->size();
         retinaSize = _retinaSize;
-
-        //PART_COUNT = 2 * NUM_LEGS + 1;
-        //JOINT_COUNT = PART_COUNT - 1;
 
         positionOffset = _positionOffset;
     }
@@ -483,7 +477,7 @@ public:
 
         //voice = new SineSound(brain, space->audio, 16);
 
-        for (unsigned n = 0; n < 4096; n++)
+        for (unsigned n = 0; n < 2000; n++)
             addNeuron();
 
         brain->printSummary();
@@ -497,7 +491,7 @@ public:
 
     void addNeuron() {
         unsigned minSynapsesPerNeuron = 1;
-        unsigned maxSynapsesPerNeuron = 4;
+        unsigned maxSynapsesPerNeuron = 32;
         float percentInhibitoryNeuron = 0.5f;
         float percentInputSynapse = 0.25f;
         float percentOutputNeuron = 0.05f;
@@ -542,16 +536,10 @@ public:
 
         //voice->process(dt);
 
-        //if (frand(0,1) < 0.5) {
-            unsigned numNeurons = 16384;
-            if (brain->neurons.size() < numNeurons) {
-                addNeuron();
-                addNeuron();
-                addNeuron();
-                addNeuron();
-                //cout << " added neurons, total = " << brain->neurons.size() << "\n";
-            }
-        //}
+        for (unsigned i = 0; i < bodies.size(); ++i) {
+            bodies[i]->setColor(btVector3(1, 0, 0));
+        }
+
     }
 
 //    btScalar getLegTargetAngle(int leg, bool hipOrKnee) {

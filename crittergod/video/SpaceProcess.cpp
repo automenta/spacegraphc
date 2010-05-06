@@ -607,7 +607,8 @@ void SpaceProcess::onMouseButton(int button, int state, int x, int y) {
     if (state == 0) {
         m_mouseButtons |= 1 << button;
     } else {
-        m_mouseButtons = 0;
+        //m_mouseButtons = 0;
+        m_mouseButtons &= ~(1 << button);
     }
 
     pointerPixelX = x;

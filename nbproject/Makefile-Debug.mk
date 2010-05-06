@@ -212,6 +212,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/crittergod/space/BoxBody.o \
 	${OBJECTDIR}/bullet/BulletCollision/CollisionShapes/btStaticPlaneShape.o \
 	${OBJECTDIR}/bullet/BulletCollision/CollisionShapes/btMultimaterialTriangleMeshShape.o \
+	${OBJECTDIR}/crittergod/widget3d/XYSlider.o \
 	${OBJECTDIR}/bullet/BulletCollision/CollisionShapes/btConvexTriangleMeshShape.o \
 	${OBJECTDIR}/bullet/BulletDynamics/Dynamics/btDiscreteDynamicsWorld.o \
 	${OBJECTDIR}/bullet/BulletCollision/CollisionDispatch/btInternalEdgeUtility.o \
@@ -1150,6 +1151,11 @@ ${OBJECTDIR}/bullet/BulletCollision/CollisionShapes/btMultimaterialTriangleMeshS
 	${MKDIR} -p ${OBJECTDIR}/bullet/BulletCollision/CollisionShapes
 	${RM} $@.d
 	$(COMPILE.cc) -g -Ibullet -Icrittergod -Ibulletgl -MMD -MP -MF $@.d -o ${OBJECTDIR}/bullet/BulletCollision/CollisionShapes/btMultimaterialTriangleMeshShape.o bullet/BulletCollision/CollisionShapes/btMultimaterialTriangleMeshShape.cpp
+
+${OBJECTDIR}/crittergod/widget3d/XYSlider.o: nbproject/Makefile-${CND_CONF}.mk crittergod/widget3d/XYSlider.cpp 
+	${MKDIR} -p ${OBJECTDIR}/crittergod/widget3d
+	${RM} $@.d
+	$(COMPILE.cc) -g -Ibullet -Icrittergod -Ibulletgl -MMD -MP -MF $@.d -o ${OBJECTDIR}/crittergod/widget3d/XYSlider.o crittergod/widget3d/XYSlider.cpp
 
 ${OBJECTDIR}/bullet/BulletCollision/CollisionShapes/btConvexTriangleMeshShape.o: nbproject/Makefile-${CND_CONF}.mk bullet/BulletCollision/CollisionShapes/btConvexTriangleMeshShape.cpp 
 	${MKDIR} -p ${OBJECTDIR}/bullet/BulletCollision/CollisionShapes

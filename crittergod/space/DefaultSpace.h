@@ -54,6 +54,7 @@ class DefaultSpace : public AbstractSpace {
     btConstraintSolver* m_solver;
 
     btDefaultCollisionConfiguration* m_collisionConfiguration;
+    AbstractBody* touchedAbstractBody;
 
     Container faceContainer;
     
@@ -66,6 +67,8 @@ public:
     DefaultSpace(Audio* _audio) {
         
         this->audio = _audio;
+        touchedAbstractBody = NULL;
+        
         initPhysics();
     }
 

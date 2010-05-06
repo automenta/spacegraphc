@@ -576,6 +576,8 @@
         <itemPath>crittergod/widget3d/TextRect.h</itemPath>
         <itemPath>crittergod/widget3d/WidgetPlane.cpp</itemPath>
         <itemPath>crittergod/widget3d/WidgetPlane.h</itemPath>
+        <itemPath>crittergod/widget3d/XYSlider.cpp</itemPath>
+        <itemPath>crittergod/widget3d/XYSlider.h</itemPath>
       </logicalFolder>
       <itemPath>crittergod/RunRobots.cpp</itemPath>
       <itemPath>crittergod/RunRobots.h</itemPath>

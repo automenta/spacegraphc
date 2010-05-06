@@ -62,7 +62,11 @@ public:
     virtual void process(float deltaTime) {
     }
 
-    virtual void onTouch(btVector3 *touchPosWorld, btVector3* touchPosLocal) { }
+    virtual bool isDraggable(btVector3* touchPosLocal) {
+        return true;
+    }
+
+    virtual void onTouch(btVector3 *touchPosWorld, btVector3* touchPosLocal, int buttonState) { }
 
     int indexOfPart(btRigidBody* part) {
         for (unsigned i = 0; i < bodies.size(); i++) {
@@ -78,10 +82,6 @@ public:
                 return i;
         }
         return -1;
-    }
-
-    virtual btVector3 getColor(btCollisionShape* shape) {
-        return btVector3(0.5, 0.5, 0.5);
     }
 
     void addJoint(btTypedConstraint* c) {

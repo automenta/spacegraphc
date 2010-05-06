@@ -241,33 +241,41 @@ void DefaultSpace::onMouseButton(int button, int state, int x, int y) {
 
 
                             btRigidBody* body = btRigidBody::upcast(rayCallback.m_collisionObject);
+                            RigidBody* rb = (RigidBody*)body;
+                            
                             if (body) {
                                 //other exclusions?
                                 if (!(body->isStaticObject() || body->isKinematicObject())) {
-                                    pickedBody = body;
-                                    pickedBody->setActivationState(DISABLE_DEACTIVATION);
+                                    bool draggable = true;
+                                    if (touchedAbstractBody!=NULL)
+                                        draggable = touchedAbstractBody->isDraggable(&touchPosLocal);
+                                    
+                                    if (draggable) {
+                                        pickedBody = body;
+                                        pickedBody->setActivationState(DISABLE_DEACTIVATION);
 
 
-                                    btVector3 pickPos = rayCallback.m_hitPointWorld;
-                                    //printf("pickPos=%f,%f,%f\n",pickPos.getX(),pickPos.getY(),pickPos.getZ());
+                                        btVector3 pickPos = rayCallback.m_hitPointWorld;
+                                        //printf("pickPos=%f,%f,%f\n",pickPos.getX(),pickPos.getY(),pickPos.getZ());
 
 
-                                    btVector3 localPivot = body->getCenterOfMassTransform().inverse() * pickPos;
+                                        btVector3 localPivot = body->getCenterOfMassTransform().inverse() * pickPos;
 
-                                    btPoint2PointConstraint* p2p = new btPoint2PointConstraint(*body, localPivot);
-                                    p2p->m_setting.m_impulseClamp = mousePickClamping;
+                                        btPoint2PointConstraint* p2p = new btPoint2PointConstraint(*body, localPivot);
+                                        p2p->m_setting.m_impulseClamp = mousePickClamping;
 
-                                    dynamicsWorld->addConstraint(p2p);
-                                    m_pickConstraint = p2p;
+                                        dynamicsWorld->addConstraint(p2p);
+                                        m_pickConstraint = p2p;
 
-                                    //save mouse position for dragging
-                                    gOldPickingPos = rayTo;
-                                    gHitPos = pickPos;
+                                        //save mouse position for dragging
+                                        gOldPickingPos = rayTo;
+                                        gHitPos = pickPos;
 
-                                    gOldPickingDist = (pickPos - rayFrom).length();
+                                        gOldPickingDist = (pickPos - rayFrom).length();
 
-                                    //very weak constraint for picking
-                                    p2p->m_setting.m_tau = 0.1f;
+                                        //very weak constraint for picking
+                                        p2p->m_setting.m_tau = 0.1f;
+                                    }
                                 }
                             }
                         }
@@ -601,19 +609,19 @@ void DefaultSpace::updatePointer() {
                     touchPosWorld = rayCallback.m_hitPointWorld;
                     touchPosLocal = body->getCenterOfMassTransform().inverse() * touchPosWorld;
 
-                    AbstractBody* abody = NULL;
+                    touchedAbstractBody = NULL;
                     //TODO this is a hack to find the AbstractBody that manages a specific part
                     for (unsigned j = 0; j < bodies.size(); j++) {
                         AbstractBody* metaBody = bodies[j];
                         int index = metaBody->indexOfPart(pickedBody);
                         if (index != -1) {
-                            abody = metaBody;
+                            touchedAbstractBody = metaBody;
                             break;
                         }
                     }
 
-                    if (abody!=NULL) {
-                        abody->onTouch(&touchPosWorld, &touchPosLocal);
+                    if (touchedAbstractBody!=NULL) {
+                        touchedAbstractBody->onTouch(&touchPosWorld, &touchPosLocal, m_mouseButtons);
                         //printf("pickPos=%f,%f,%f\n",touchPosWorld.getX(),touchPosWorld.getY(),touchPosWorld.getZ());
                         //printf("localPiv=%f,%f,%f\n",touchPosLocal.getX(),touchPosLocal.getY(),touchPosLocal.getZ());
                     }
@@ -779,7 +787,6 @@ void DefaultSpace::renderscene(int pass) {
         //		printf("aabbMax=(%f,%f,%f)\n",aabbMax.getX(),aabbMax.getY(),aabbMax.getZ());
         //		m_dynamicsWorld->getDebugDrawer()->drawAabb(aabbMin,aabbMax,btVector3(1,1,1));
 
-        btVector3 shapeColor(0.75, 0.75, 0.75);
 
 
         AbstractBody* abody = NULL;
@@ -789,28 +796,21 @@ void DefaultSpace::renderscene(int pass) {
             AbstractBody* metaBody = bodies[j];
             int index = metaBody->indexOfShape(shape);
             if (index != -1) {
-                shapeColor = metaBody->getColor(shape);
                 //shape->setUserPointer(metaBody);
                 abody = metaBody;
                 break;
             }
         }
 
-        if (body->color!=NULL) {
-            shapeColor.setX( body->color->getX() );
-            shapeColor.setY( body->color->getY() );
-            shapeColor.setZ( body->color->getZ() );
-        }
-
         switch (pass) {
             case 0:
-                m_shapeDrawer->drawOpenGL(m, shape, abody, shapeColor, getDebugMode(), aabbMin, aabbMax);
+                m_shapeDrawer->drawOpenGL(m, shape, abody, body->color, getDebugMode(), aabbMin, aabbMax);
                 break;
             case 1:
                 m_shapeDrawer->drawShadow(m, m_sundirection * rot, shape, aabbMin, aabbMax);
                 break;
             case 2:
-                m_shapeDrawer->drawOpenGL(m, shape, abody, shapeColor * 0.3, 0, aabbMin, aabbMax);
+                m_shapeDrawer->drawOpenGL(m, shape, abody, body->color * 0.3, 0, aabbMin, aabbMax);
                 break;
         }
 

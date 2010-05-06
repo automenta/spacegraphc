@@ -14,19 +14,20 @@ using namespace std;
 #include <btBulletDynamicsCommon.h>
 
 class RigidBody : public btRigidBody {
+private:
     
 public:
-    btVector3* color;
+    btVector3 color;
     bool dragMovable, touchable, visible;
 
     RigidBody(const btRigidBodyConstructionInfo& constructionInfo) : btRigidBody(constructionInfo) {
-        color = NULL;
+        color = btVector3(0.5, 0.5, 0.5);
         dragMovable = true;
         touchable = true;
         visible = true;
     }
 
-    void setColor(btVector3* c) {
+    void setColor(btVector3 c) {
         color = c;
     }
 

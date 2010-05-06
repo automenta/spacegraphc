@@ -8,7 +8,7 @@
 #ifndef _PANEL_H
 #define	_PANEL_H
 
-#include "../space/BoxBody.h"
+#include <space/BoxBody.h>
 
 class PanelBody : public BoxBody {
 public:
