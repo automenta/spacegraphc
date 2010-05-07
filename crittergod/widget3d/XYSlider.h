@@ -63,7 +63,8 @@ public:
     }
 
     virtual void updateSlider() {
-        *(r->pos) = btVector3(touchPos.getX() / size->getX() / 2.0, touchPos.getY() / size->getY() / 2.0, -0.5);
+        //*(r->pos) = btVector3(touchPos.getX() / size->getX() / 2.0, touchPos.getY() / size->getY() / 2.0, -0.5);
+        *(r->pos) = btVector3(touchPos.getX() / size->getX()/2.0, touchPos.getY() / size->getY()/2.0, 0.5);
         float sx = getKnobSizeX();
         float sy = getKnobSizeY();
         float sz = 0.5 * (sx + sy);
@@ -86,7 +87,7 @@ public:
         return 1.0;
     }
     virtual void updateSlider() {
-        *(r->pos) = btVector3(touchPos.getX() / size->getX() / 2.0, 0, -0.5);
+        *(r->pos) = btVector3(touchPos.getX() / size->getX() / 2.0, 0, 0.5);
         float sx = getKnobSizeX();
         float sy = getKnobSizeY();
         float sz = 0.5 * (sx + sy);
@@ -108,7 +109,7 @@ public:
         return 1.0;
     }
     virtual void updateSlider() {
-        *(r->pos) = btVector3(0, touchPos.getY() / size->getY() / 2.0, -0.5);
+        *(r->pos) = btVector3(0, touchPos.getY() / size->getY() / 2.0, 0.5);
         float sx = getKnobSizeX();
         float sy = getKnobSizeY();
         float sz = 0.5 * (sx + sy);

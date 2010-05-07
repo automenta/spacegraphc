@@ -537,7 +537,7 @@ public:
         //voice->process(dt);
 
         for (unsigned i = 0; i < bodies.size(); ++i) {
-            bodies[i]->setColor(btVector3(1, 0, 0));
+            bodies[i]->setColor(btVector3(0.8 - (i % 2 ? 0 : 0.1), 0.8 - (i % 3 ? 0 : 0.1), 0.8));
         }
 
     }

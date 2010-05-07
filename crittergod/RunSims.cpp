@@ -345,6 +345,27 @@ public:
 };
 
 
+class StrobeBox : public BoxBody {
+
+    float t;
+    btVector3 color;
+    float frequency;
+    
+public:
+    StrobeBox(btVector3* _position, btVector3* _size, btVector3 _color, float _frequency) : BoxBody(_position, _size) {
+        t = 0;
+        color = _color;
+        frequency = _frequency;
+    }
+
+    virtual void process(float dt) {
+        t += dt;
+        float i = 0.5 + 0.5 * sin(t * M_PI * frequency);
+        body->setColor(color * i);
+    }
+
+};
+
 void runWidgets3D() {
     Audio* audio = new Audio();
     DefaultSpace* ds = new DefaultSpace(audio);
@@ -436,7 +457,7 @@ void runWidgets3D() {
         legLengths->push_back(0.8);    legRadii->push_back(0.1);
         legLengths->push_back(0.5);    legRadii->push_back(0.10);
         legLengths->push_back(0.5);    legRadii->push_back(0.08);
-        SpiderBody2* spider = new SpiderBody2(numLegs, legLengths, legRadii, btVector3(0, 10, 4), 16);
+        SpiderBody2* spider = new SpiderBody2(numLegs, legLengths, legRadii, btVector3(0, 10, 4), 48);
         ds->addBody(spider);
         spider->setDamping(0.5);
 
@@ -446,28 +467,52 @@ void runWidgets3D() {
             panelName[5] = 'a' + l;
             ds->getFace()->addPanel(panelName, rp);
 
-            int w = 66;
+            int w = 110;
             rp->setSize(w, w);
             rp->setPosition(w * l, 0);
         }
 
 
     }
-    
-    XSlider* trb3 = new XSlider(new btVector3(-4, -4, -4), new btVector3(6, 2, d));
-    ds->addBody(trb3);
-    
-    YSlider* trb4 = new YSlider(new btVector3(-4, -4, -4), new btVector3(2, 6, d));
-    ds->addBody(trb4);
 
-    XYSlider* trb = new XYSlider(new btVector3(-4, -4, -4), new btVector3(3, 3, d));
-    ds->addBody(trb);
+    {
+        ds->addBody(new StrobeBox(new btVector3(0,1,0), new btVector3(1.5, 1.5, 1.5), btVector3(1.0, 0, 0), 2));
+        ds->addBody(new StrobeBox(new btVector3(0,1,0), new btVector3(1.5, 1.5, 1.5), btVector3(0, 1.0, 0), 3));
+        ds->addBody(new StrobeBox(new btVector3(0,1,0), new btVector3(1.5, 1.5, 1.5), btVector3(1.0, 1.0, 0), 3.5));
+        ds->addBody(new StrobeBox(new btVector3(0,1,0), new btVector3(1.5, 1.5, 1.5), btVector3(0, 0, 1.0), 1.5));
+    }
 
-    XYSlider* trb2 = new XYSlider(new btVector3(-4, -4, -4), new btVector3(3, 3, d));
-    btQuaternion forward;
-    forward.setEuler(-M_PI_2, 0, 0);
-    trb2->setFront(forward);
-    ds->addBody(trb2);
+    {
+        PanelBody* scx = new PanelBody(new btVector3(-2, -2, 0.5), new btVector3(4, 4, d));
+        btQuaternion* d = new btQuaternion(0,0,0,0);
+        d->setEulerZYX(0,0,0);
+        scx->setFacing(new btVector3(1,1,0), d);
+
+        ds->addBody(scx);
+
+        float sd = 0.05;
+
+        XSlider* trb3 = new XSlider(new btVector3(-4, -4, -4), new btVector3(3, 0.75, sd));
+        ds->addBody(trb3);
+
+        YSlider* trb4 = new YSlider(new btVector3(-4, -4, -4), new btVector3(0.75, 3, sd));
+        ds->addBody(trb4);
+
+        XYSlider* trb = new XYSlider(new btVector3(-4, -4, -4), new btVector3(2.5, 2.5, sd));
+        ds->addBody(trb);
+        trb->body->setColor(btVector3(0.3, 0.3, 0.3));
+
+        scx->attachFront(trb4, btVector3(-4.0,0,0.6));
+        scx->attachFront(trb3, btVector3(0,-4.0,0.6));
+        scx->attachFront(trb, btVector3(0,0,0.6));
+
+//    XYSlider* trb2 = new XYSlider(new btVector3(-4, -4, -4), new btVector3(3, 3, d));
+//    btQuaternion forward;
+//    forward.setEuler(-M_PI_2, 0, 0);
+//    trb2->setFront(forward);
+//    ds->addBody(trb2);
+    
+    }
 
     //    {
     //        Humanoid* h = new Humanoid(btVector3(0, 8, 0));

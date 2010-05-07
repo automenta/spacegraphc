@@ -73,7 +73,7 @@ void runServoDemo() {
             btVector3 aa(0,1,0);
             btVector3 ab(0,1,0);
 
-            btHingeConstraint* c = new btHingeConstraint(*(torso->rb), *(sh->fingerA), pa, pb, aa, ab, false);
+            btHingeConstraint* c = new btHingeConstraint(*(torso->body), *(sh->fingerA), pa, pb, aa, ab, false);
             c->setAngularOnly(true);
     //        btGeneric6DofConstraint* c = new btGeneric6DofConstraint(*(torso->rb), *(sh->fingerA), localA, localB, false);
     //        c->setAngularLowerLimit(btVector3(M_PI,0,0));

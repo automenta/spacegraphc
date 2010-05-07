@@ -11,6 +11,7 @@
 using namespace std;
 #include <iostream>
 #include <list>
+#include <map>
 
 #include "DefaultSpace.h"
 #include "AbstractBody.h"
@@ -24,13 +25,15 @@ typedef list<Rect*> RectList;
 
 static FTFont *font;
 
+#define DAMPENING 0.8
+
 class BoxBody : public AbstractBody {
 public:
 
     btVector3* position;
     btVector3* size;
     list<Rect*> frontRects;
-    RigidBody* rb;
+    RigidBody* body;
     btScalar mass;
 
     BoxBody(btVector3* _position, btVector3* _size, btScalar _mass=1.0) : AbstractBody(), position(_position), size(_size), mass(_mass) {
@@ -43,8 +46,8 @@ public:
         transform.setOrigin(*position);
 
 //        btVector3 halfSize(size->getX()/2.0, size->getY()/2.0, size->getZ()/2.0);
-        rb = createRigidShape(btScalar(mass), transform, new btBoxShape(*size));
-        rb->setDamping(0.8, 0.8);
+        body = createRigidShape(btScalar(mass), transform, new btBoxShape(*size));
+        body->setDamping(DAMPENING, DAMPENING);
 
         char const *file = "media/font/OCRA.ttf";
 
@@ -143,6 +146,26 @@ public:
             glPopMatrix();
         }
 
+    }
+
+    void attachFront(BoxBody* bb, btVector3 pos) {
+//        btTransform t1;
+//        t1.setOrigin(pos);
+//        btTransform t2;
+//        //t2.setOrigin(btVector3(0,0,-bb->size->getZ()));
+//        t2.setOrigin(pos);
+//        btGeneric6DofConstraint* p = new btGeneric6DofConstraint(*(rb), *(bb->rb), t1, t2, false);
+
+
+        btVector3 pivA = pos;
+        pivA -= btVector3(bb->size->getX(), 0, 0);
+        btVector3 pivB = btVector3(-bb->size->getX()*1.1, 0, 0);
+        btVector3 axA = btVector3(0,1,0);
+        btHingeConstraint* p = new btHingeConstraint(*(body), *(bb->body), pivA, pivB, axA, axA, false);
+        p->setLimit(0, 0, 0.5, 0.5);
+
+        //btPoint2PointConstraint* p = new btPoint2PointConstraint((*rb), *(bb->rb), pos, btVector3(0,0,-bb->size->getZ()));
+        dyn->addConstraint(p, true);
     }
 
     virtual void draw() {

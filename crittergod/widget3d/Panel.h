@@ -12,25 +12,29 @@
 
 class PanelBody : public BoxBody {
 public:
-    btQuaternion normal;
+    btQuaternion* facingNormal;
+    float speed;
     
-    PanelBody(btVector3* _position, btVector3* _size) : BoxBody(_position, _size) {
-        normal = btQuaternion(0,0,0,0);
-        normal.setEulerZYX(0,0,0);
+    PanelBody(btVector3* _position, btVector3* _size) : BoxBody(_position, _size), speed(0.1) {
+//        facingNormal = NULL;
+//        normal = btQuaternion(0,0,0,0);
+//        normal.setEulerZYX(0,0,0);
     }
 
-    void setFront(btQuaternion& nextNormal) {
-        normal = nextNormal;
+    void setFacing(btVector3* groundMask, btQuaternion* nextNormal) {
+        facingNormal = nextNormal;
     }
 
-    virtual void preDraw() {                
-        btQuaternion q = rb->getWorldTransform().getRotation().slerp(normal, 0.1);
-        rb->getWorldTransform().setRotation(q);
+    virtual void preDraw() {
+        if (facingNormal!=NULL) {
+            btQuaternion q = body->getWorldTransform().getRotation().slerp(*facingNormal, speed);
+            body->getWorldTransform().setRotation(q);
 
-        btVector3 groundProjection = rb->getWorldTransform().getOrigin();
-        groundProjection.setZ(0);
-        btVector3 r = rb->getWorldTransform().getOrigin().lerp(groundProjection, 0.1);
-        rb->getWorldTransform().setOrigin(r);
+            btVector3 groundProjection = body->getWorldTransform().getOrigin();
+            groundProjection.setZ(0);
+            btVector3 r = body->getWorldTransform().getOrigin().lerp(groundProjection, speed);
+            body->getWorldTransform().setOrigin(r);
+        }
     }
 
     
