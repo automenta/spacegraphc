@@ -42,6 +42,7 @@ public:
         transform.setIdentity();
         transform.setOrigin(*position);
 
+//        btVector3 halfSize(size->getX()/2.0, size->getY()/2.0, size->getZ()/2.0);
         rb = createRigidShape(btScalar(mass), transform, new btBoxShape(*size));
         rb->setDamping(0.8, 0.8);
 
@@ -73,9 +74,9 @@ public:
     }
 
     virtual void drawFront() {
-        float sx = size->getX()*2.0;
-        float sy = size->getY()*2.0;
-        float sz = size->getZ()*2.0;
+        float sx = size->getX();
+        float sy = size->getY();
+        float sz = size->getZ();
 
         for (RectList::const_iterator ri = frontRects.begin(); ri != frontRects.end(); ++ri) {
             glPushMatrix();
@@ -89,10 +90,10 @@ public:
             //glScalef(0.5 * rsize->getX() * sx, 0.5 * rsize->getY() * sy, 1.0 / 2.0);
             //glTranslatef(-0.5 + rpos->getX()*sx, -0.5 + rpos->getY()*sy, -d * 3);
 
-            float x1 = (rpos->getX() - rsize->getX()) * sx;
-            float x2 = (rpos->getX() + rsize->getX()) * sx;
-            float y1 = (rpos->getY() - rsize->getY()) * sy;
-            float y2 = (rpos->getY() + rsize->getY()) * sy;
+            float x1 = (rpos->getX() - rsize->getX()/2.0) * sx * 2.0;
+            float x2 = (rpos->getX() + rsize->getX()/2.0) * sx * 2.0;
+            float y1 = (rpos->getY() - rsize->getY()/2.0) * sy * 2.0;
+            float y2 = (rpos->getY() + rsize->getY()/2.0) * sy * 2.0;
             float xw = fabs(x2 - x1);
             float yh = fabs(y2 - y1);
             float z = (rpos->getZ() + 1.0)* sz;

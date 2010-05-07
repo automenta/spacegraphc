@@ -19,11 +19,8 @@ public:
     string text;
 
 
-    TextRect(const char* _text, float w=1.0, float h=1.0)  {
-        Rect();
+    TextRect(const char* _text, float w=1.0, float h=1.0) : Rect(0,0,0,w,h)  {
         text = _text;
-        this->pos = new btVector3(0,0,0);
-        this->size = new btVector3(w, h, 1.0);
         this->fillColor = NULL;
     }
 

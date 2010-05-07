@@ -350,15 +350,19 @@ void runWidgets3D() {
     DefaultSpace* ds = new DefaultSpace(audio);
 
     *(ds->getBackgroundColor()) = btVector3(0.2, 0.2, 0.2);
-    //ds->addGround(50, 50, 5);
 
     double d = 0.4;
 
     PanelBody* bc = new PanelBody(new btVector3(0, 0.5, 0.25), new btVector3(6, 4, d));
     {
-        TextRect* ul = new TextRect("BL");
-        ul->span(-0.5, -0.5, -0.2, -0.2);
+        float blD = 0.1;
+        TextRect* ul = new TextRect("BL(0.1)");
+        ul->span(-0.5, -0.5, -0.5 + blD, -0.5 + blD);
         bc->front()->push_back(ul);
+
+        TextRect* ul2 = new TextRect("BL(0.1)");
+        ul2->span(-0.5 + blD, -0.5, -0.5 + blD * 2, -0.5 + blD);
+        bc->front()->push_back(ul2);
 
         TextRect * br = new TextRect("UR");
         br->span(0.5, 0.5, 0.2, 0.2);
@@ -368,7 +372,7 @@ void runWidgets3D() {
         ur->span(-0.5, 0.5, -0.35, 0.35);
         bc->front()->push_back(ur);
 
-        Rect* r1 = new Rect(0.5, -0.5, 0, 0.15, 0.15);
+        Rect* r1 = new Rect(0.4, -0.4, 0, 0.2, 0.2);
         *(r1->fillColor) = btVector3(0, 1, 0);
         bc->front()->push_back(r1);
 
@@ -450,6 +454,12 @@ void runWidgets3D() {
 
     }
     
+    XSlider* trb3 = new XSlider(new btVector3(-4, -4, -4), new btVector3(6, 2, d));
+    ds->addBody(trb3);
+    
+    YSlider* trb4 = new YSlider(new btVector3(-4, -4, -4), new btVector3(2, 6, d));
+    ds->addBody(trb4);
+
     XYSlider* trb = new XYSlider(new btVector3(-4, -4, -4), new btVector3(3, 3, d));
     ds->addBody(trb);
 
