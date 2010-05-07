@@ -148,7 +148,7 @@ public:
 
     }
 
-    void attachFront(BoxBody* bb, btVector3 pos) {
+    btHingeConstraint* attachFront(BoxBody* bb, btVector3 pos) {
 //        btTransform t1;
 //        t1.setOrigin(pos);
 //        btTransform t2;
@@ -168,6 +168,8 @@ public:
 
         //btPoint2PointConstraint* p = new btPoint2PointConstraint((*rb), *(bb->rb), pos, btVector3(0,0,-bb->size->getZ()));
         dyn->addConstraint(p, true);
+
+        return p;
     }
 
     virtual void draw() {

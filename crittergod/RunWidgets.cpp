@@ -73,9 +73,30 @@ public:
 };
 
 
-class DemoSliderBody : public PanelBox {
+class SliderDemoPanel : public PanelBox {
 public:
-    DemoSliderBody(btVector3* _position, btVector3* _size) : PanelBox(_position, _size) {
+    btHingeConstraint* h1;
+
+    class HingeButton : public ButtonBox {
+    public:
+        SliderDemoPanel* sdp;
+        int numClicks;
+
+        HingeButton(SliderDemoPanel* _sdp, btVector3* _position, btVector3* _size) : ButtonBox(_position, _size) {
+            sdp = _sdp;
+            numClicks = 0;
+        }
+        
+        virtual void onClicked() {
+            float angle = numClicks % 2 ? M_PI_2 : 0;
+
+            sdp->h1->setLimit(angle, angle, 0.9, 0.9);
+            numClicks++;
+        }
+        
+    };
+
+    SliderDemoPanel(btVector3* _position, btVector3* _size) : PanelBox(_position, _size) {
         
     }
     
@@ -84,7 +105,7 @@ public:
         
         float sd = 0.05;
 
-        ButtonBox* b = new ButtonBox(new btVector3(-4, -4, -4), new btVector3(3, 0.75, sd));
+        HingeButton* b = new HingeButton(this, new btVector3(-4, -4, -4), new btVector3(3, 0.75, sd));
         space->addBody(b);
 
         XSlider* trb3 = new XSlider(new btVector3(-4, -4, -4), new btVector3(3, 0.75, sd));
@@ -100,7 +121,7 @@ public:
         attachFront(b, btVector3(0,4.0,0.6));
         attachFront(trb4, btVector3(-4.0,0,0.6));
         attachFront(trb3, btVector3(0,-4.0,0.6));
-        attachFront(trb, btVector3(0,0,0.6));
+        h1 = attachFront(trb, btVector3(0,0,0.6));
 
     }
 
@@ -223,7 +244,7 @@ void runWidgets3D() {
     }
 
     {
-        DemoSliderBody* scx = new DemoSliderBody(new btVector3(-2, -2, 0.5), new btVector3(4, 4, d));
+        SliderDemoPanel* scx = new SliderDemoPanel(new btVector3(-2, -2, 0.5), new btVector3(4, 4, d));
         btQuaternion* d = new btQuaternion(0,0,0,0);
         d->setEulerZYX(0,0,0);
         scx->setFacing(new btVector3(1,1,0), d);
