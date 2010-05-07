@@ -8,9 +8,7 @@
 #ifndef _RUNWIDGETS_H
 #define	_RUNWIDGETS_H
 
-
-void runSliders();
-void runFont3D();
+void runWidgets3D();
 
 #endif	/* _RUNWIDGETS_H */
 

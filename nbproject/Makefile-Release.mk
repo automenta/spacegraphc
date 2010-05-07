@@ -107,8 +107,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/bullet/BulletCollision/CollisionShapes/btHeightfieldTerrainShape.o \
 	${OBJECTDIR}/bullet/BulletCollision/CollisionShapes/btUniformScalingShape.o \
 	${OBJECTDIR}/bullet/BulletCollision/CollisionShapes/btScaledBvhTriangleMeshShape.o \
-	${OBJECTDIR}/crittergod/space/RigidBody.o \
 	${OBJECTDIR}/crittergod/widget3d/Panel.o \
+	${OBJECTDIR}/crittergod/space/RigidBody.o \
 	${OBJECTDIR}/crittergod/video/displaylists.o \
 	${OBJECTDIR}/crittergod/widget2d/textprinter.o \
 	${OBJECTDIR}/crittergod/bio/BloodBrainInterface.o \
@@ -627,15 +627,15 @@ ${OBJECTDIR}/bullet/BulletCollision/CollisionShapes/btScaledBvhTriangleMeshShape
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/bullet/BulletCollision/CollisionShapes/btScaledBvhTriangleMeshShape.o bullet/BulletCollision/CollisionShapes/btScaledBvhTriangleMeshShape.cpp
 
-${OBJECTDIR}/crittergod/space/RigidBody.o: nbproject/Makefile-${CND_CONF}.mk crittergod/space/RigidBody.cpp 
-	${MKDIR} -p ${OBJECTDIR}/crittergod/space
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/crittergod/space/RigidBody.o crittergod/space/RigidBody.cpp
-
 ${OBJECTDIR}/crittergod/widget3d/Panel.o: nbproject/Makefile-${CND_CONF}.mk crittergod/widget3d/Panel.cpp 
 	${MKDIR} -p ${OBJECTDIR}/crittergod/widget3d
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/crittergod/widget3d/Panel.o crittergod/widget3d/Panel.cpp
+
+${OBJECTDIR}/crittergod/space/RigidBody.o: nbproject/Makefile-${CND_CONF}.mk crittergod/space/RigidBody.cpp 
+	${MKDIR} -p ${OBJECTDIR}/crittergod/space
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/crittergod/space/RigidBody.o crittergod/space/RigidBody.cpp
 
 ${OBJECTDIR}/crittergod/video/displaylists.o: nbproject/Makefile-${CND_CONF}.mk crittergod/video/displaylists.cpp 
 	${MKDIR} -p ${OBJECTDIR}/crittergod/video

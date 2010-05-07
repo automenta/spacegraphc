@@ -55,6 +55,7 @@ class DefaultSpace : public AbstractSpace {
 
     btDefaultCollisionConfiguration* m_collisionConfiguration;
     AbstractBody* touchedAbstractBody;
+    AbstractBody* lastTouchedAbstractBody;
 
     Container faceContainer;
     

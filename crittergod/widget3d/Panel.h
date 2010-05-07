@@ -10,12 +10,12 @@
 
 #include <space/BoxBody.h>
 
-class PanelBody : public BoxBody {
+class PanelBox : public BoxBody {
 public:
     btQuaternion* facingNormal;
     float speed;
     
-    PanelBody(btVector3* _position, btVector3* _size) : BoxBody(_position, _size), speed(0.1) {
+    PanelBox(btVector3* _position, btVector3* _size) : BoxBody(_position, _size), speed(0.1) {
 //        facingNormal = NULL;
 //        normal = btQuaternion(0,0,0,0);
 //        normal.setEulerZYX(0,0,0);

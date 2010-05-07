@@ -40,13 +40,13 @@ public:
     vector<RigidBody*> bodies;
     vector<btTypedConstraint*> joints;
 
-    AbstractSpace* space;
+    DefaultSpace* space;
 
     AbstractBody() {
 
     }
 
-    virtual void init(AbstractSpace* ds) {
+    virtual void init(DefaultSpace* ds) {
         space = ds;
         dyn = ds->dynamicsWorld;
         init();
@@ -66,6 +66,10 @@ public:
         return true;
     }
 
+    /** called when an object is not touched any longer */
+    virtual void onUntouched() { }
+
+    /** called when an object is touched by a pointer (Ex: mouse cursor) */
     virtual void onTouch(btVector3 *touchPosWorld, btVector3* touchPosLocal, int buttonState) { }
 
     int indexOfPart(btRigidBody* part) {

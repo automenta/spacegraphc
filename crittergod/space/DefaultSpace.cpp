@@ -576,6 +576,7 @@ void DefaultSpace::updatePointer() {
     float pickDistance = 100.0f;
     btVector3 rayTo = getRayTo(pointerPixelX, pointerPixelY);
 
+    touchedAbstractBody = NULL;
     touchedBody = NULL;
     touched = NULL;
 
@@ -620,6 +621,12 @@ void DefaultSpace::updatePointer() {
                         }
                     }
 
+                    if (lastTouchedAbstractBody!=NULL) {
+                        if (lastTouchedAbstractBody!=touchedAbstractBody) {
+                            lastTouchedAbstractBody->onUntouched();
+                        }
+                    }
+
                     if (touchedAbstractBody!=NULL) {
                         touchedAbstractBody->onTouch(&touchPosWorld, &touchPosLocal, m_mouseButtons);
                         //printf("pickPos=%f,%f,%f\n",touchPosWorld.getX(),touchPosWorld.getY(),touchPosWorld.getZ());
@@ -630,6 +637,8 @@ void DefaultSpace::updatePointer() {
             }
         }
     }
+    
+    lastTouchedAbstractBody = touchedAbstractBody;
 
 }
 

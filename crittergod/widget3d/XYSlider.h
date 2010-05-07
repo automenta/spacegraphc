@@ -10,14 +10,18 @@
 
 #include <widget3d/Panel.h>
 
-class XYSlider : public PanelBody {
+class XYSlider : public PanelBox {
 public:
     btVector3 touchPos;
     Rect * r;
 
-    XYSlider(btVector3* pos, btVector3 *size) : PanelBody(pos, size) {
+    XYSlider(btVector3* pos, btVector3 *size) : PanelBox(pos, size) {
         r = new Rect();
         front()->push_back(r);
+        updateSlider();
+    }
+
+    virtual void onUntouched() {
         updateSlider();
     }
 
@@ -31,28 +35,7 @@ public:
     }
 
     virtual bool isDraggable(btVector3* touchPosLocal) {
-//        float x = touchPosLocal->x();
-//        float y = touchPosLocal->y();
-//        float z = touchPosLocal->z();
-//        float frontFaceZ = size->getZ();
-//        //printf("%f %f %f : %f %f : %f\n", x, y, z, getMarginX(), getMarginY(), frontFaceZ);
-//        if ((fabs(z - frontFaceZ) < size->getZ()/10.0) && (z > 0)) //on or near the front face (not back or sides)
-//            if (fabs(x) <= getMarginX())
-//                if (fabs(y) <= getMarginY())
-//                    return false;
         return false;
-    }
-
-    virtual float getMarginPercent() {
-        return 0.25;
-    }
-
-    virtual float getMarginX() {
-        return 0.5 * size->getX() * (1.0 - getMarginPercent());
-    }
-
-    virtual float getMarginY() {
-        return 0.5 * size->getY() * (1.0 - getMarginPercent());
     }
 
     virtual float getKnobSizeX() {

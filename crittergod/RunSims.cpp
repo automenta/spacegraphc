@@ -345,190 +345,7 @@ public:
 };
 
 
-class StrobeBox : public BoxBody {
 
-    float t;
-    btVector3 color;
-    float frequency;
-    
-public:
-    StrobeBox(btVector3* _position, btVector3* _size, btVector3 _color, float _frequency) : BoxBody(_position, _size) {
-        t = 0;
-        color = _color;
-        frequency = _frequency;
-    }
-
-    virtual void process(float dt) {
-        t += dt;
-        float i = 0.5 + 0.5 * sin(t * M_PI * frequency);
-        body->setColor(color * i);
-    }
-
-};
-
-void runWidgets3D() {
-    Audio* audio = new Audio();
-    DefaultSpace* ds = new DefaultSpace(audio);
-
-    *(ds->getBackgroundColor()) = btVector3(0.2, 0.2, 0.2);
-
-    double d = 0.4;
-
-    PanelBody* bc = new PanelBody(new btVector3(0, 0.5, 0.25), new btVector3(6, 4, d));
-    {
-        float blD = 0.1;
-        TextRect* ul = new TextRect("BL(0.1)");
-        ul->span(-0.5, -0.5, -0.5 + blD, -0.5 + blD);
-        bc->front()->push_back(ul);
-
-        TextRect* ul2 = new TextRect("BL(0.1)");
-        ul2->span(-0.5 + blD, -0.5, -0.5 + blD * 2, -0.5 + blD);
-        bc->front()->push_back(ul2);
-
-        TextRect * br = new TextRect("UR");
-        br->span(0.5, 0.5, 0.2, 0.2);
-        bc->front()->push_back(br);
-
-        TextRect * ur = new TextRect("UL");
-        ur->span(-0.5, 0.5, -0.35, 0.35);
-        bc->front()->push_back(ur);
-
-        Rect* r1 = new Rect(0.4, -0.4, 0, 0.2, 0.2);
-        *(r1->fillColor) = btVector3(0, 1, 0);
-        bc->front()->push_back(r1);
-
-    }
-    ds->addBody(bc);
-
-    for (int i = 0; i < 5; i++) {
-        PanelBody* bb = new PanelBody(new btVector3(0, 0, 1.0), new btVector3(2, 1, d));
-        bb->front()->push_back(new TextRect("!@#$%", 0.3, 0.3));
-        ds->addBody(bb);
-    }
-
-    PanelBody* ba = new PanelBody(new btVector3(0, 0, 0.5), new btVector3(3, 2, d));
-    {
-        float d = 0.0;
-
-        Rect* r1 = new Rect(-0.3, -0.3, d, 0.1, 0.2);
-        *(r1->fillColor) = btVector3(0, 1, 0);
-        ba->front()->push_back(r1);
-
-        Rect* r2 = new Rect(0.3, -0.3, d, 0.2, 0.2);
-        *(r2->fillColor) = btVector3(0, 0, 1);
-        ba->front()->push_back(r2);
-
-        Rect* r3 = new Rect(0.3, 0.3, d, 0.2, 0.2);
-        *(r3->fillColor) = btVector3(1, 0, 0);
-        ba->front()->push_back(r3);
-
-        Rect* r4 = new Rect(-0.3, 0.3, d, 0.2, 0.2);
-        ba->front()->push_back(r4);
-
-    }
-    ds->addBody(ba);
-
-    PanelBody* cx = new PanelBody(new btVector3(0, 0, 0.5), new btVector3(3, 2, d));
-    {
-        float d = 0.1;
-
-        float w = 0.1;
-        float h = 0.1;
-        for (float x = -0.5+w/2.0; x < 0.5-w/2.0; x+=w) {
-            for (float y = -0.5+h/2.0; y < 0.5-h/2.0; y+=h) {
-                Rect* r1 = new Rect(x, y, d, w, h);
-                float r = x + 0.5;
-                float g = y + 0.5;
-                float b = 0.0;
-                *(r1->fillColor) = btVector3(r, g, b);
-                cx->front()->push_back(r1);
-            }
-
-        }
-
-
-    }
-    ds->addBody(cx);
-
-    {
-        int numLegs = 3;
-        vector<btScalar>* legLengths = new vector<btScalar> ();
-        vector<btScalar>* legRadii = new vector<btScalar> ();
-        legLengths->push_back(0.8);    legRadii->push_back(0.1);
-        legLengths->push_back(0.5);    legRadii->push_back(0.10);
-        legLengths->push_back(0.5);    legRadii->push_back(0.08);
-        SpiderBody2* spider = new SpiderBody2(numLegs, legLengths, legRadii, btVector3(0, 10, 4), 48);
-        ds->addBody(spider);
-        spider->setDamping(0.5);
-
-        for (unsigned l = 0; l < numLegs; l++) {
-            RetinaPanel* rp = new RetinaPanel(spider->legEye[l]);
-            string panelName = "retina_";
-            panelName[5] = 'a' + l;
-            ds->getFace()->addPanel(panelName, rp);
-
-            int w = 110;
-            rp->setSize(w, w);
-            rp->setPosition(w * l, 0);
-        }
-
-
-    }
-
-    {
-        ds->addBody(new StrobeBox(new btVector3(0,1,0), new btVector3(1.5, 1.5, 1.5), btVector3(1.0, 0, 0), 2));
-        ds->addBody(new StrobeBox(new btVector3(0,1,0), new btVector3(1.5, 1.5, 1.5), btVector3(0, 1.0, 0), 3));
-        ds->addBody(new StrobeBox(new btVector3(0,1,0), new btVector3(1.5, 1.5, 1.5), btVector3(1.0, 1.0, 0), 3.5));
-        ds->addBody(new StrobeBox(new btVector3(0,1,0), new btVector3(1.5, 1.5, 1.5), btVector3(0, 0, 1.0), 1.5));
-    }
-
-    {
-        PanelBody* scx = new PanelBody(new btVector3(-2, -2, 0.5), new btVector3(4, 4, d));
-        btQuaternion* d = new btQuaternion(0,0,0,0);
-        d->setEulerZYX(0,0,0);
-        scx->setFacing(new btVector3(1,1,0), d);
-
-        ds->addBody(scx);
-
-        float sd = 0.05;
-
-        XSlider* trb3 = new XSlider(new btVector3(-4, -4, -4), new btVector3(3, 0.75, sd));
-        ds->addBody(trb3);
-
-        YSlider* trb4 = new YSlider(new btVector3(-4, -4, -4), new btVector3(0.75, 3, sd));
-        ds->addBody(trb4);
-
-        XYSlider* trb = new XYSlider(new btVector3(-4, -4, -4), new btVector3(2.5, 2.5, sd));
-        ds->addBody(trb);
-        trb->body->setColor(btVector3(0.3, 0.3, 0.3));
-
-        scx->attachFront(trb4, btVector3(-4.0,0,0.6));
-        scx->attachFront(trb3, btVector3(0,-4.0,0.6));
-        scx->attachFront(trb, btVector3(0,0,0.6));
-
-//    XYSlider* trb2 = new XYSlider(new btVector3(-4, -4, -4), new btVector3(3, 3, d));
-//    btQuaternion forward;
-//    forward.setEuler(-M_PI_2, 0, 0);
-//    trb2->setFront(forward);
-//    ds->addBody(trb2);
-    
-    }
-
-    //    {
-    //        Humanoid* h = new Humanoid(btVector3(0, 8, 0));
-    //        ds->addBody(h);
-    //
-    //        RetinaPanel* rp2 = new RetinaPanel(h->lhRetina);
-    //        ds->getFace()->addPanel("lhRetina", rp2);
-    //        rp2->setSize(150, 150);
-    //        rp2->setPosition(600, 600);
-    //
-    //    }
-
-
-    runGLWindow(0, NULL, 1024, 800, VERSION, ds);
-
-}
 
 void runBrain2Demo() {
     Brain* b = new Brain();
@@ -782,6 +599,92 @@ void runSpiderWithBrains() {
     bop.setSize(100, 600);
 
     runGLWindow(0, NULL, 1024, 800, VERSION, ds);
+
+    delete audio;
+
+}
+
+class SliderTestPanel : public Panel {
+
+public:
+    float a;
+    float b;
+
+    SliderTestPanel() : Panel() {
+
+        a = b = 0.5;
+
+
+        HSlider* hs = new HSlider(&a, 0, 1.0);
+        hs->span(15, 15, 200, 40);
+        addPanel("hslider", hs);
+
+        VSlider* vs = new VSlider(&b, 0, 1.0);
+        vs->span(15, 50, 50, 250);
+        addPanel("vslider", vs);
+
+    }
+
+};
+
+void runSliders() {
+    Audio* audio = new Audio();
+    DefaultSpace* ds = new DefaultSpace(audio);
+
+    SliderTestPanel *stp = new SliderTestPanel();
+    stp->span(5,5,400,400);
+    ds->getFace()->addPanel("stp", stp);
+
+    runGLWindow(0, NULL, 1024, 800, "Sliders", ds);
+
+    delete audio;
+
+}
+
+void runFont3D() {
+    Audio* audio = new Audio();
+    DefaultSpace* ds = new DefaultSpace(audio);
+
+    char const *file = "media/font/OCRA.ttf";
+
+    // Initialise FTGL stuff
+    static FTPolygonFont* font = new FTPolygonFont(file);
+
+    if(font->Error())
+    {
+        fprintf(stderr, "could not load font `%s'\n", file);
+        return;
+    }
+
+    font->FaceSize(40);
+    font->CharMap(ft_encoding_unicode);
+
+    class FontBody : public AbstractBody {
+        float n;
+        virtual void draw() {
+            glEnable(GL_LIGHTING);
+            glEnable(GL_DEPTH_TEST);
+            glEnable(GL_TEXTURE);
+
+            glPushMatrix();
+                //glColorMaterial(GL_FRONT, GL_DIFFUSE);
+                glTranslatef(0.0, 0.0, 20.0);
+                glScalef(-0.1, 0.1, 0.1);
+//                glRotatef(n / 1.11, 0.0, 1.0, 0.0);
+//                glRotatef(n / 2.23, 1.0, 0.0, 0.0);
+//                glRotatef(n / 3.17, 0.0, 0.0, 1.0);
+                //glColor3f(1.0, 0.5, 1.0);
+                //drawText3D(font[fontindex], "SpaceGraph", 0, 0, 20.0);
+                font->Render("SpaceGraph");
+            glPopMatrix();
+
+            //n += 1.0;
+        }
+    };
+
+    ds->addBody(new FontBody());
+
+    runGLWindow(0, NULL, 1024, 800, "Sliders", ds);
 
     delete audio;
 
