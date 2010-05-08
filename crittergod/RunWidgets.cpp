@@ -76,6 +76,8 @@ public:
 class SliderDemoPanel : public PanelBox {
 public:
     btHingeConstraint* h1;
+    btHingeConstraint* h2;
+    btHingeConstraint* h3;
 
     class HingeButton : public ButtonBox {
     public:
@@ -88,9 +90,11 @@ public:
         }
         
         virtual void onClicked() {
-            float angle = numClicks % 2 ? M_PI_2 : 0;
+            float angle = numClicks % 2 ? 0 : M_PI_2;
 
-            sdp->h1->setLimit(angle, angle, 0.9, 0.9);
+            sdp->h1->setLimit(angle, angle, 0.99, 0.99);
+            sdp->h2->setLimit(angle, angle, 0.99, 0.99);
+            sdp->h3->setLimit(angle, angle, 0.99, 0.99);
             numClicks++;
         }
         
@@ -119,8 +123,8 @@ public:
         trb->body->setColor(btVector3(0.3, 0.3, 0.3));
 
         attachFront(b, btVector3(0,4.0,0.6));
-        attachFront(trb4, btVector3(-4.0,0,0.6));
-        attachFront(trb3, btVector3(0,-4.0,0.6));
+        h3 = attachFront(trb4, btVector3(-4.0,0,0.6));
+        h2 = attachFront(trb3, btVector3(0,-4.0,0.6));
         h1 = attachFront(trb, btVector3(0,0,0.6));
 
     }
@@ -274,4 +278,113 @@ void runWidgets3D() {
 
     runGLWindow(0, NULL, 1024, 800, "SpaceGraph-C", ds);
 
+}
+
+#define brainNeurons 8000
+#define armNeurons 1000
+#define armPixels 8
+
+class ArmedPanelBox : public PanelBox {
+    float rx;
+    Brain* brain;
+    
+public:
+    ArmedPanelBox(btVector3* pos, btVector3* size) : PanelBox(pos, size) {
+        rx = 0.0;
+    }
+
+    virtual void init() {
+        mass = 0.1;
+
+        PanelBox::init();
+
+        brain = new Brain();
+
+        float sx = size->getX();
+        float sy = size->getY();
+        float pad = 0.3;
+        addArm(btVector3(-sx, 0, 0), btVector3(-pad,0,0), 0);
+        addArm(btVector3(sx, 0, 0), btVector3(pad,0,0), M_PI);
+        addArm(btVector3(0, -sy, 0), btVector3(0,-pad,0), -M_PI/2.0);
+        addArm(btVector3(0, sy, 0), btVector3(0,pad,0), M_PI/2.0);
+        
+        for (unsigned n = 0; n < brainNeurons; n++)
+            addNeuron();
+        brain->printSummary();
+
+    }
+
+    void addNeuron() {
+        unsigned minSynapsesPerNeuron = 32;
+        unsigned maxSynapsesPerNeuron = 64;
+        float percentInhibitoryNeuron = 0.5f;
+        float percentInputSynapse = 0.25f;
+        float percentOutputNeuron = 0.1f;
+        float percentInhibitorySynapse = 0.5f;
+        float minSynapseWeight = 0.001f;
+        float maxSynapseWeight = 2.0f;
+        float neuronPotentialDecay = 0.98f;
+        brain->wireRandomly(minSynapsesPerNeuron, maxSynapsesPerNeuron,
+            percentInhibitoryNeuron, percentInputSynapse, percentOutputNeuron, percentInhibitorySynapse,
+            minSynapseWeight, maxSynapseWeight, neuronPotentialDecay);
+    }
+
+    void addArm(btVector3 pos, btVector3 armPos, float headPhase) {
+            int numLegs = 1;
+            vector<btScalar>* legLengths = new vector<btScalar> ();
+            vector<btScalar>* legRadii = new vector<btScalar> ();
+            legLengths->push_back(0.9);    legRadii->push_back(0.15);
+            legLengths->push_back(0.8);    legRadii->push_back(0.1);
+            legLengths->push_back(0.7);    legRadii->push_back(0.1);
+            legLengths->push_back(0.6);    legRadii->push_back(0.1);
+            legLengths->push_back(0.5);    legRadii->push_back(0.10);
+            SpiderBody2* spider = new SpiderBody2(numLegs, legLengths, legRadii, btVector3(0, 10, 4), armPixels, armNeurons);
+            spider->setHeadPhase(headPhase);
+            space->addBody(spider);
+            spider->setDamping(0.5);
+
+            brain->addInputs(&(spider->brain->ins));
+            brain->addOutputs(&(spider->brain->outs));
+
+            for (unsigned l = 0; l < numLegs; l++) {
+                RetinaPanel* rp = new RetinaPanel(spider->legEye[l]);
+                string panelName = "retina_";
+                panelName[5] = 'a' + l;
+                panelName[4] = rand() % 26 + 'a';
+                space->getFace()->addPanel(panelName, rp);
+
+                int w = 64;
+                rp->setSize(w, w);
+                rp->setPosition(rx, 0);
+                rx += w;
+            }
+
+            attachFrontPoint(spider->bodies[0], pos, armPos);
+
+    }
+
+
+};
+
+void runLiveWidgets() {
+    Audio* audio = new Audio();
+    DefaultSpace* ds = new DefaultSpace(audio);
+
+    ds->setTexturing(false);
+    //ds->addGround(15, 5, 15, 0, -10, 0);
+
+    *(ds->getBackgroundColor()) = btVector3(0.2, 0.2, 0.2);
+
+    ArmedPanelBox* b = new ArmedPanelBox(new btVector3(0, 0.5, 0.25), new btVector3(1.0, 1.0, 0.2));
+    ds->addBody(b);    
+
+    {
+        ds->addBody(new StrobeBox(new btVector3(0,1,0), new btVector3(1.5, 1.5, 1.5), btVector3(1.0, 0, 0), 2));
+        ds->addBody(new StrobeBox(new btVector3(0,1,0), new btVector3(1.5, 1.5, 1.5), btVector3(0, 1.0, 0), 3));
+        ds->addBody(new StrobeBox(new btVector3(0,1,0), new btVector3(1.5, 1.5, 1.5), btVector3(1.0, 1.0, 0), 3.5));
+        ds->addBody(new StrobeBox(new btVector3(0,1,0), new btVector3(1.5, 1.5, 1.5), btVector3(0, 0, 1.0), 1.5));
+    }
+
+    runGLWindow(0, NULL, 1024, 800, "SpaceGraph-C", ds);
+    
 }

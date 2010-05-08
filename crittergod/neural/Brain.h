@@ -15,8 +15,6 @@
 #include <stdio.h>
 #include <math.h>
 
-#include <omp.h>
-
 using namespace std;
 
 #include "../math/Math.h"
@@ -81,6 +79,16 @@ public:
         ins.push_back(i);
         inValues.resize(ins.size(), 0);
         return i;
+    }
+    void addInputs(vector<InNeuron*>* addedIn) {
+        for (unsigned i = 0; i < addedIn->size(); i++)
+            ins.push_back((*addedIn)[i]);
+        inValues.resize(ins.size(), 0);
+    }
+    void addOutputs(vector<OutNeuron*>* addedOut) {
+        for (unsigned i = 0; i < addedOut->size(); i++)
+            outs.push_back((*addedOut)[i]);
+        outValues.resize(outs.size(), 0);
     }
 
     OutNeuron* newOutput() {

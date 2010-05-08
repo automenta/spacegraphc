@@ -151,10 +151,11 @@ public:
                 } else {
                     btVector3 from = eyePart->getWorldTransform().getOrigin();
 
+
                     btVector3 forwardRay(
-                            tr.getBasis()[0][0],
-                            tr.getBasis()[1][0],
-                            tr.getBasis()[2][0]);
+                            tr.getBasis()[0][2],
+                            tr.getBasis()[1][2],
+                            tr.getBasis()[2][2]);
 
                     forwardRay *= visionDistance;
 

@@ -307,20 +307,27 @@ class SpiderBody2 : public AbstractBody {
 
     vector<NPosition*> partPos;
     unsigned retinaSize;
+    unsigned initialNeurons;
+    float headPhase;
 
 public:
     vector<Retina*> legEye;
     Brain* brain;
 
-    SpiderBody2(unsigned numLegs, vector<btScalar>* _legLengths, vector<btScalar>* _legRadii, const btVector3& _positionOffset, unsigned _retinaSize) {
+    SpiderBody2(unsigned numLegs, vector<btScalar>* _legLengths, vector<btScalar>* _legRadii, const btVector3& _positionOffset, unsigned _retinaSize, unsigned _initialNeurons=1000) {
         NUM_LEGS = numLegs;
         legLengths = _legLengths;
         legRadii = _legRadii;
         PARTS_PER_LEG = legLengths->size();
         retinaSize = _retinaSize;
 
+        headPhase = 0;
+
         positionOffset = _positionOffset;
+        initialNeurons = _initialNeurons;
     }
+    
+    void setHeadPhase(float _headPhase) { headPhase = _headPhase; }
 
     virtual void init() {
         //shapes.reserve(PART_COUNT);
@@ -367,7 +374,7 @@ public:
         unsigned i;
         // legs
         for (i = 0; i < NUM_LEGS; i++) {
-            float fAngle = 2 * M_PI * i / NUM_LEGS;
+            float fAngle = 2 * M_PI * i / NUM_LEGS + headPhase;
             float fSin = sin(fAngle);
             float fCos = cos(fAngle);
 
@@ -427,7 +434,7 @@ public:
             la = headRadius;
             lb = fLegLength;
 
-            float fAngle = 2 * M_PI * i / NUM_LEGS;
+            float fAngle = 2 * M_PI * i / NUM_LEGS + headPhase;
             float fSin = sin(fAngle);
             float fCos = cos(fAngle);
 
@@ -467,20 +474,23 @@ public:
                 joints.push_back(c);
                 dyn->addConstraint(c);
 
-                SixDoFMotor* sm = new SixDoFMotor(brain, c, 0, M_PI_4, 0.0, 0.25);
+                SixDoFMotor* sm = new SixDoFMotor(brain, c, 0, M_PI_2, 0.0, 0.25);
                 jointControllers.push_back(sm);
 
             }
         }
 
-
-
         //voice = new SineSound(brain, space->audio, 16);
 
-        for (unsigned n = 0; n < 2000; n++)
+        addNeurons(initialNeurons);
+    }
+
+    void addNeurons(unsigned num) {
+        for (unsigned n = 0; n < num; n++)
             addNeuron();
 
         brain->printSummary();
+
     }
 
     void setDamping(float f) {

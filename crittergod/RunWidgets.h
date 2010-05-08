@@ -9,6 +9,7 @@
 #define	_RUNWIDGETS_H
 
 void runWidgets3D();
+void runLiveWidgets();
 
 #endif	/* _RUNWIDGETS_H */
 

@@ -141,8 +141,7 @@ public:
   /**@brief Return the dot product between this quaternion and another
    * @param q The other quaternion */
 	btScalar dot(const btQuaternion& q) const
-	{
-		return m_floats[0] * q.x() + m_floats[1] * q.y() + m_floats[2] * q.z() + m_floats[3] * q.m_floats[3];
+	{		return m_floats[0] * q.x() + m_floats[1] * q.y() + m_floats[2] * q.z() + m_floats[3] * q.m_floats[3];
 	}
 
   /**@brief Return the length squared of the quaternion */

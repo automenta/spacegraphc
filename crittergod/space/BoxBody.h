@@ -147,8 +147,15 @@ public:
         }
 
     }
-
     btHingeConstraint* attachFront(BoxBody* bb, btVector3 pos) {
+        btVector3 pivA = pos;
+        pivA -= btVector3(bb->size->getX(), 0, 0);
+        btVector3 pivB = btVector3(-bb->size->getX()*1.1, 0, 0);
+        btVector3 axis = btVector3(0,1,0);
+        attachFront(bb->body, pivA, pivB, axis);
+    }
+
+    btHingeConstraint* attachFront(btRigidBody* bb, btVector3 pivA, btVector3 pivB, btVector3 axis) {
 //        btTransform t1;
 //        t1.setOrigin(pos);
 //        btTransform t2;
@@ -156,19 +163,20 @@ public:
 //        t2.setOrigin(pos);
 //        btGeneric6DofConstraint* p = new btGeneric6DofConstraint(*(rb), *(bb->rb), t1, t2, false);
 
-
         float angle = 0;
         
-        btVector3 pivA = pos;
-        pivA -= btVector3(bb->size->getX(), 0, 0);
-        btVector3 pivB = btVector3(-bb->size->getX()*1.1, 0, 0);
-        btVector3 axA = btVector3(0,1,0);
-        btHingeConstraint* p = new btHingeConstraint(*(body), *(bb->body), pivA, pivB, axA, axA, false);
-        p->setLimit(angle, angle, 0.5, 0.5);
+        btHingeConstraint* p = new btHingeConstraint(*(body), *(bb), pivA, pivB, axis, axis, false);
+        p->setLimit(angle, angle, 0.99, 0.99);
 
         //btPoint2PointConstraint* p = new btPoint2PointConstraint((*rb), *(bb->rb), pos, btVector3(0,0,-bb->size->getZ()));
         dyn->addConstraint(p, true);
 
+        return p;
+    }
+    
+    btPoint2PointConstraint* attachFrontPoint(btRigidBody* bb, btVector3 pivA, btVector3 pivB) {
+        btPoint2PointConstraint* p = new btPoint2PointConstraint((*body), *(bb), pivA, pivB);
+        dyn->addConstraint(p, false);
         return p;
     }
 

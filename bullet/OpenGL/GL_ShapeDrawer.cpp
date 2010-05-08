@@ -462,6 +462,17 @@ void GL_ShapeDrawer::drawOpenGL(btScalar* m, const btCollisionShape* shape, void
     } else {
         if (m_textureenabled && (!m_textureinitialized)) {
             GLubyte* image = new GLubyte[256 * 256 * 3];
+//            for (int y = 0; y < 256; ++y) {
+//                const int t = y >> 4;
+//                GLubyte* pi = image + y * 256 * 3;
+//                for (int x = 0; x < 256; ++x) {
+//                    const int s = x >> 4;
+//                    const GLubyte b = 180;
+//                    GLubyte c = b + ((s + t & 1)&1)*(255 - b);
+//                    pi[0] = pi[1] = pi[2] = c;
+//                    pi += 3;
+//                }
+//            }
             for (int y = 0; y < 256; ++y) {
                 const int t = y >> 4;
                 GLubyte* pi = image + y * 256 * 3;
@@ -469,7 +480,9 @@ void GL_ShapeDrawer::drawOpenGL(btScalar* m, const btCollisionShape* shape, void
                     const int s = x >> 4;
                     const GLubyte b = 180;
                     GLubyte c = b + ((s + t & 1)&1)*(255 - b);
-                    pi[0] = pi[1] = pi[2] = c;
+                    pi[0] = rand() % 256;
+                    pi[1] = rand() % 256;
+                    pi[2] = rand() % 256;
                     pi += 3;
                 }
             }
@@ -497,7 +510,7 @@ void GL_ShapeDrawer::drawOpenGL(btScalar* m, const btCollisionShape* shape, void
         static const GLfloat planey[] = {0, 1, 0, 0};
         static const GLfloat planez[] = {0, 0, 1, 0};
         glTexGenfv(GL_S, GL_OBJECT_PLANE, planex);
-        glTexGenfv(GL_T, GL_OBJECT_PLANE, planez);
+        glTexGenfv(GL_T, GL_OBJECT_PLANE, planey);
         glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
         glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
         glEnable(GL_TEXTURE_GEN_S);
@@ -519,6 +532,10 @@ void GL_ShapeDrawer::drawOpenGL(btScalar* m, const btCollisionShape* shape, void
             glDisable(GL_TEXTURE_2D);
         }
 
+        float mcolor[] = { color.x(), color.y(), color.z(), 1.0f };
+        glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, mcolor);
+        float scolor[] = { 0.1f, 0.1f, 0.1f, 0.1f };
+        glMaterialfv(GL_FRONT, GL_SPECULAR, scolor);
 
         glColor3f(color.x(), color.y(), color.z());
 

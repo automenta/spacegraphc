@@ -27,7 +27,8 @@ int main(int argc, char** argv) {
     //runBrain2Demo();
 
     {
-        runWidgets3D();
+        //runWidgets3D();
+        runLiveWidgets();
     }
 
     //runCritterLab();
