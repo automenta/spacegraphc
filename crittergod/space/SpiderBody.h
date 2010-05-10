@@ -305,6 +305,7 @@ class SpiderBody2 : public AbstractBody {
     vector<btScalar>* legLengths;
     vector<btScalar>* legRadii;
 
+    
     vector<NPosition*> partPos;
     unsigned retinaSize;
     unsigned initialNeurons;
@@ -313,6 +314,8 @@ class SpiderBody2 : public AbstractBody {
 public:
     vector<Retina*> legEye;
     Brain* brain;
+
+    unsigned kinestheticInputsStart, kinestheticInputsStop;
 
     SpiderBody2(unsigned numLegs, vector<btScalar>* _legLengths, vector<btScalar>* _legRadii, const btVector3& _positionOffset, unsigned _retinaSize, unsigned _initialNeurons=1000) {
         NUM_LEGS = numLegs;
@@ -408,14 +411,16 @@ public:
 
         }
 
+        kinestheticInputsStart = brain->getNumInputs();
         // Setup some damping on the m_bodies
         for (i = 0; i < bodies.size(); ++i) {
             //bodies[i]->setDamping(0.8, 0.85);
             bodies[i]->setDeactivationTime(0.8);
             bodies[i]->setSleepingThresholds(0.5f, 0.5f);
 
-            partPos.push_back(new NPosition(brain, 0));
+            partPos.push_back(new NPosition(brain, 1));
         }
+        kinestheticInputsStop = brain->getNumInputs();
 
 
         btTransform localA, localB;

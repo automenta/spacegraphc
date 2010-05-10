@@ -365,6 +365,23 @@ public:
 
 
 };
+class OutputLight : public BoxBody {
+    InNeuron* input;
+public:
+    OutputLight(InNeuron* i, btVector3* pos, btVector3* size) : BoxBody(pos, size) {
+       input = i;
+    }
+
+    virtual void process(float dt) {
+        float f = input->getInput();
+        if (f < 0) {
+            body->setColor(btVector3(0, 0, -f));
+        }
+        else {
+            body->setColor(btVector3(0, f, 0));
+        }
+    }
+};
 
 void runLiveWidgets() {
     Audio* audio = new Audio();
@@ -385,6 +402,61 @@ void runLiveWidgets() {
         ds->addBody(new StrobeBox(new btVector3(0,1,0), new btVector3(1.5, 1.5, 1.5), btVector3(0, 0, 1.0), 1.5));
     }
 
+    runGLWindow(0, NULL, 1024, 800, "SpaceGraph-C", ds);
+    
+}
+
+void runArm() {
+    Audio* audio = new Audio();
+    DefaultSpace* ds = new DefaultSpace(audio);
+
+    ds->setTexturing(false);
+    *(ds->getBackgroundColor()) = btVector3(0.2, 0.2, 0.2);
+
+
+//    {
+//        ds->addBody(new StrobeBox(new btVector3(0,1,0), new btVector3(1.5, 1.5, 1.5), btVector3(1.0, 0, 0), 2));
+//        ds->addBody(new StrobeBox(new btVector3(0,1,0), new btVector3(1.5, 1.5, 1.5), btVector3(0, 1.0, 0), 3));
+//        ds->addBody(new StrobeBox(new btVector3(0,1,0), new btVector3(1.5, 1.5, 1.5), btVector3(1.0, 1.0, 0), 3.5));
+//        ds->addBody(new StrobeBox(new btVector3(0,1,0), new btVector3(1.5, 1.5, 1.5), btVector3(0, 0, 1.0), 1.5));
+//    }
+
+    {
+        int numLegs = 3;
+        vector<btScalar>* legLengths = new vector<btScalar> ();
+        vector<btScalar>* legRadii = new vector<btScalar> ();
+        legLengths->push_back(0.8);    legRadii->push_back(0.1);
+        legLengths->push_back(0.5);    legRadii->push_back(0.1);
+        legLengths->push_back(0.5);    legRadii->push_back(0.1);
+        legLengths->push_back(0.5);    legRadii->push_back(0.1);
+        legLengths->push_back(0.5);    legRadii->push_back(0.1);
+        legLengths->push_back(0.5);    legRadii->push_back(0.08);
+        legLengths->push_back(0.5);    legRadii->push_back(0.08);
+        legLengths->push_back(0.5);    legRadii->push_back(0.08);
+        legLengths->push_back(0.3);    legRadii->push_back(0.08);
+        SpiderBody2* spider = new SpiderBody2(numLegs, legLengths, legRadii, btVector3(0, 0, 0), 16, 16000);
+        ds->addBody(spider);
+        spider->setDamping(0.5);
+
+        for (unsigned l = 0; l < numLegs; l++) {
+            RetinaPanel* rp = new RetinaPanel(spider->legEye[l]);
+            string panelName = "retina_";
+            panelName[5] = 'a' + l;
+            ds->getFace()->addPanel(panelName, rp);
+
+            int w = 130;
+            rp->setSize(w, w);
+            rp->setPosition(w * l, 0);
+        }
+
+        float x = 0;
+        for (unsigned i = spider->kinestheticInputsStart; i < spider->kinestheticInputsStart + 6; i++) {
+            ds->addBody(new OutputLight(spider->brain->ins[i], new btVector3(-5, x, 0), new btVector3(0.5,0.5,0.5)));
+            x += 1.0;
+        }
+
+
+    }
     runGLWindow(0, NULL, 1024, 800, "SpaceGraph-C", ds);
     
 }

@@ -28,7 +28,8 @@ int main(int argc, char** argv) {
 
     {
         //runWidgets3D();
-        runLiveWidgets();
+        //runLiveWidgets();
+        runArm();
     }
 
     //runCritterLab();

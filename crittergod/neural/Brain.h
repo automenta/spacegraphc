@@ -390,6 +390,9 @@ public:
         cout << "All neurons have firingThreshold=" << ft << "\n";
     }
 
+    unsigned getNumInputs() { return ins.size(); }
+    unsigned getNumOutputs() { return outs.size(); }
+
 };
 
 #endif /* BRAIN_H_ */

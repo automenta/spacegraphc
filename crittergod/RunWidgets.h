@@ -10,6 +10,7 @@
 
 void runWidgets3D();
 void runLiveWidgets();
+void runArm();
 
 #endif	/* _RUNWIDGETS_H */
 

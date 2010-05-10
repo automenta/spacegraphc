@@ -40,7 +40,7 @@ public:
         ins[0]->setInput(p[0]);
         ins[1]->setInput(p[1]);
         ins[2]->setInput(p[2]);
-        
+
         if (derivatives > 0) {
             ins[3]->setInput(v[0]);
             ins[4]->setInput(v[1]);
