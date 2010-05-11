@@ -627,6 +627,7 @@
       </toolsSet>
       <compileType>
         <ccTool>
+          <developmentMode>5</developmentMode>
           <incDir>
             <pElem>bullet</pElem>
             <pElem>crittergod</pElem>

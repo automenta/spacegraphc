@@ -91,7 +91,7 @@ public:
     unsigned p; //vision frame count
 
     Retina(Brain* b, btDynamicsWorld *_world, btRigidBody* _eyePart, unsigned pixelWidth, unsigned pixelHeight, float _proportionFired, float _visionDistance /* double minframerate */)
-    : NInput(b, pixelWidth*pixelHeight * 4),
+    : NInput(b, pixelWidth*pixelHeight * 3),
     NOutput(b, 1),
     world(_world), width(pixelWidth), height(pixelHeight), eyePart(_eyePart), proportionFired(_proportionFired), visionDistance(_visionDistance) {
 
@@ -117,7 +117,8 @@ public:
 
 
         float focus = outs[0]->getOutput();
-        float vDistance = (visionDistance / 2.0) * (1.0 + focus);
+        float focusScale = 0.01;
+        float vDistance = (visionDistance / 2.0) * (1.0 + focus * focusScale);
 
         if (width > height) {
             retinaWidth = vDistance;
@@ -153,9 +154,9 @@ public:
 
 
                     btVector3 forwardRay(
-                            tr.getBasis()[0][2],
-                            tr.getBasis()[1][2],
-                            tr.getBasis()[2][2]);
+                            tr.getBasis()[0][0],
+                            tr.getBasis()[1][0],
+                            tr.getBasis()[2][0]);
 
                     forwardRay *= visionDistance;
 
@@ -199,7 +200,6 @@ public:
                 ins[input++]->setInput(cp->getX() * vd);
                 ins[input++]->setInput(cp->getY() * vd);
                 ins[input++]->setInput(cp->getZ() * vd);
-                ins[input++]->setInput(2 * (vd) - 1.0);
 
             }
         }

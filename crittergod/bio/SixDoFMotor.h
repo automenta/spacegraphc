@@ -32,11 +32,11 @@ public:
 
     virtual void process(double dt) {
         outs[0]->setStimulationFactor(angularStimulation);
-        outs[0]->setDecay(0.95);
+        outs[0]->setDecay(0.99);
         outs[1]->setStimulationFactor(angularStimulation);
-        outs[1]->setDecay(0.95);
+        outs[1]->setDecay(0.99);
         outs[2]->setStimulationFactor(linearStimulation);
-        outs[2]->setDecay(0.95);
+        outs[2]->setDecay(0.99);
 
         float smoothing = 0.02;
 

@@ -82,7 +82,7 @@ public:
     OutNeuron() {
         AbstractNeuron();
         stimulationFactor = 0.1;
-        potentialDecay = 0.95;
+        potentialDecay = 0.99;
     }
 
     void setStimulationFactor(double newStimulationFactor) {
