@@ -1,7 +1,7 @@
-CritterGod is an Automatic-Life (AL) Operating Environment
-http://automenta.com/crittergod
+SpaceGraph-C is a 2D/3D Human-Computer Interface Operating Environment
+http://automenta.com/spacegraphc
 
- -- a simulation environment useful for research and experimentation with "artificial life" technology.
+ -- a simulation environment useful for research and experimentation with "artificial intelligence" and "artificial life" technologies
  -- developed in C++ using OpenGL
  -- inspired by Critterding http://critterding.sf.net
 
