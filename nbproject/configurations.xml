@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="62">
+<configurationDescriptor version="65">
   <logicalFolder name="root" displayName="root" projectFiles="true">
     <logicalFolder name="bullet" displayName="bullet" projectFiles="true">
       <logicalFolder name="BulletCollision"
@@ -441,153 +441,6 @@
       <itemPath>bullet/btBulletCollisionCommon.h</itemPath>
       <itemPath>bullet/btBulletDynamicsCommon.h</itemPath>
     </logicalFolder>
-    <logicalFolder name="crittergod" displayName="crittergod" projectFiles="true">
-      <logicalFolder name="audio" displayName="audio" projectFiles="true">
-        <itemPath>crittergod/audio/Audio.cpp</itemPath>
-        <itemPath>crittergod/audio/Audio.h</itemPath>
-        <itemPath>crittergod/audio/SoundSource.cpp</itemPath>
-        <itemPath>crittergod/audio/SoundSource.h</itemPath>
-      </logicalFolder>
-      <logicalFolder name="bio" displayName="bio" projectFiles="true">
-        <itemPath>crittergod/bio/BloodBrainInterface.cpp</itemPath>
-        <itemPath>crittergod/bio/BloodBrainInterface.h</itemPath>
-        <itemPath>crittergod/bio/NColor.cpp</itemPath>
-        <itemPath>crittergod/bio/NColor.h</itemPath>
-        <itemPath>crittergod/bio/NPosition.cpp</itemPath>
-        <itemPath>crittergod/bio/NPosition.h</itemPath>
-        <itemPath>crittergod/bio/Retina.cpp</itemPath>
-        <itemPath>crittergod/bio/Retina.h</itemPath>
-        <itemPath>crittergod/bio/ServoHinge.cpp</itemPath>
-        <itemPath>crittergod/bio/ServoHinge.h</itemPath>
-        <itemPath>crittergod/bio/SineSound.cpp</itemPath>
-        <itemPath>crittergod/bio/SineSound.h</itemPath>
-        <itemPath>crittergod/bio/SixDoFMotor.cpp</itemPath>
-        <itemPath>crittergod/bio/SixDoFMotor.h</itemPath>
-      </logicalFolder>
-      <logicalFolder name="control" displayName="control" projectFiles="true">
-      </logicalFolder>
-      <logicalFolder name="graph" displayName="graph" projectFiles="true">
-        <itemPath>crittergod/graph/Graph.cpp</itemPath>
-        <itemPath>crittergod/graph/Graph.h</itemPath>
-      </logicalFolder>
-      <logicalFolder name="math" displayName="math" projectFiles="true">
-        <itemPath>crittergod/math/Math.cpp</itemPath>
-        <itemPath>crittergod/math/Math.h</itemPath>
-        <itemPath>crittergod/math/vector2f.cpp</itemPath>
-        <itemPath>crittergod/math/vector2f.h</itemPath>
-        <itemPath>crittergod/math/vector2i.cpp</itemPath>
-        <itemPath>crittergod/math/vector2i.h</itemPath>
-        <itemPath>crittergod/math/vector3f.cpp</itemPath>
-        <itemPath>crittergod/math/vector3f.h</itemPath>
-      </logicalFolder>
-      <logicalFolder name="media" displayName="media" projectFiles="true">
-        <logicalFolder name="font" displayName="font" projectFiles="true">
-        </logicalFolder>
-      </logicalFolder>
-      <logicalFolder name="neural" displayName="neural" projectFiles="true">
-        <itemPath>crittergod/neural/Brain.cpp</itemPath>
-        <itemPath>crittergod/neural/Brain.h</itemPath>
-        <itemPath>crittergod/neural/BrainLink.cpp</itemPath>
-        <itemPath>crittergod/neural/BrainLink.h</itemPath>
-        <itemPath>crittergod/neural/NInput.cpp</itemPath>
-        <itemPath>crittergod/neural/NInput.h</itemPath>
-        <itemPath>crittergod/neural/NOutput.cpp</itemPath>
-        <itemPath>crittergod/neural/NOutput.h</itemPath>
-        <itemPath>crittergod/neural/Neuron.cpp</itemPath>
-        <itemPath>crittergod/neural/Neuron.h</itemPath>
-      </logicalFolder>
-      <logicalFolder name="objects" displayName="objects" projectFiles="true">
-        <itemPath>crittergod/objects/BrainPanel.cpp</itemPath>
-        <itemPath>crittergod/objects/BrainPanel.h</itemPath>
-        <itemPath>crittergod/objects/BrainVis.cpp</itemPath>
-        <itemPath>crittergod/objects/BrainVis.h</itemPath>
-        <itemPath>crittergod/objects/FDBrainBody.cpp</itemPath>
-        <itemPath>crittergod/objects/FDBrainBody.h</itemPath>
-        <itemPath>crittergod/objects/NeuralSignalsPanel.cpp</itemPath>
-        <itemPath>crittergod/objects/NeuralSignalsPanel.h</itemPath>
-        <itemPath>crittergod/objects/PointerPanel.cpp</itemPath>
-        <itemPath>crittergod/objects/PointerPanel.h</itemPath>
-        <itemPath>crittergod/objects/RetinaPanel.cpp</itemPath>
-        <itemPath>crittergod/objects/RetinaPanel.h</itemPath>
-      </logicalFolder>
-      <logicalFolder name="space" displayName="space" projectFiles="true">
-        <itemPath>crittergod/space/AbstractBody.h</itemPath>
-        <itemPath>crittergod/space/BoxBody.cpp</itemPath>
-        <itemPath>crittergod/space/BoxBody.h</itemPath>
-        <itemPath>crittergod/space/DefaultSpace.cpp</itemPath>
-        <itemPath>crittergod/space/DefaultSpace.h</itemPath>
-        <itemPath>crittergod/space/Humanoid.cpp</itemPath>
-        <itemPath>crittergod/space/Humanoid.h</itemPath>
-        <itemPath>crittergod/space/RigidBody.cpp</itemPath>
-        <itemPath>crittergod/space/RigidBody.h</itemPath>
-        <itemPath>crittergod/space/SnakeBody.cpp</itemPath>
-        <itemPath>crittergod/space/SnakeBody.h</itemPath>
-        <itemPath>crittergod/space/SpiderBody.cpp</itemPath>
-        <itemPath>crittergod/space/SpiderBody.h</itemPath>
-      </logicalFolder>
-      <logicalFolder name="video" displayName="video" projectFiles="true">
-        <logicalFolder name="font" displayName="font" projectFiles="true">
-          <itemPath>crittergod/video/font/FontDemo1.cpp</itemPath>
-          <itemPath>crittergod/video/font/FontDemo1.h</itemPath>
-        </logicalFolder>
-        <itemPath>crittergod/video/AbstractSpace.cpp</itemPath>
-        <itemPath>crittergod/video/AbstractSpace.h</itemPath>
-        <itemPath>crittergod/video/GLWindow.cpp</itemPath>
-        <itemPath>crittergod/video/GLWindow.h</itemPath>
-        <itemPath>crittergod/video/SpaceProcess.cpp</itemPath>
-        <itemPath>crittergod/video/SpaceProcess.h</itemPath>
-        <itemPath>crittergod/video/Spacetime.cpp</itemPath>
-        <itemPath>crittergod/video/Spacetime.h</itemPath>
-        <itemPath>crittergod/video/displaylists.cpp</itemPath>
-        <itemPath>crittergod/video/displaylists.h</itemPath>
-        <itemPath>crittergod/video/gldebugdrawer.cpp</itemPath>
-        <itemPath>crittergod/video/gldebugdrawer.h</itemPath>
-        <itemPath>crittergod/video/mousepicker.cpp</itemPath>
-        <itemPath>crittergod/video/mousepicker.h</itemPath>
-        <itemPath>crittergod/video/raycast.cpp</itemPath>
-        <itemPath>crittergod/video/raycast.h</itemPath>
-      </logicalFolder>
-      <logicalFolder name="widget2d" displayName="widget2d" projectFiles="true">
-        <itemPath>crittergod/widget2d/button.cpp</itemPath>
-        <itemPath>crittergod/widget2d/button.h</itemPath>
-        <itemPath>crittergod/widget2d/container.cpp</itemPath>
-        <itemPath>crittergod/widget2d/container.h</itemPath>
-        <itemPath>crittergod/widget2d/panel.cpp</itemPath>
-        <itemPath>crittergod/widget2d/panel.h</itemPath>
-        <itemPath>crittergod/widget2d/slider.cpp</itemPath>
-        <itemPath>crittergod/widget2d/slider.h</itemPath>
-        <itemPath>crittergod/widget2d/text.cpp</itemPath>
-        <itemPath>crittergod/widget2d/text.h</itemPath>
-        <itemPath>crittergod/widget2d/textprinter.cpp</itemPath>
-        <itemPath>crittergod/widget2d/textprinter.h</itemPath>
-        <itemPath>crittergod/widget2d/widget.cpp</itemPath>
-        <itemPath>crittergod/widget2d/widget.h</itemPath>
-      </logicalFolder>
-      <logicalFolder name="widget3d" displayName="widget3d" projectFiles="true">
-        <itemPath>crittergod/widget3d/Button.cpp</itemPath>
-        <itemPath>crittergod/widget3d/Button.h</itemPath>
-        <itemPath>crittergod/widget3d/Panel.cpp</itemPath>
-        <itemPath>crittergod/widget3d/Panel.h</itemPath>
-        <itemPath>crittergod/widget3d/Rect.cpp</itemPath>
-        <itemPath>crittergod/widget3d/Rect.h</itemPath>
-        <itemPath>crittergod/widget3d/Slider.cpp</itemPath>
-        <itemPath>crittergod/widget3d/Slider.h</itemPath>
-        <itemPath>crittergod/widget3d/TextRect.cpp</itemPath>
-        <itemPath>crittergod/widget3d/TextRect.h</itemPath>
-        <itemPath>crittergod/widget3d/WidgetPlane.cpp</itemPath>
-        <itemPath>crittergod/widget3d/WidgetPlane.h</itemPath>
-        <itemPath>crittergod/widget3d/XYSlider.cpp</itemPath>
-        <itemPath>crittergod/widget3d/XYSlider.h</itemPath>
-      </logicalFolder>
-      <itemPath>crittergod/RunRobots.cpp</itemPath>
-      <itemPath>crittergod/RunRobots.h</itemPath>
-      <itemPath>crittergod/RunSims.cpp</itemPath>
-      <itemPath>crittergod/RunSims.h</itemPath>
-      <itemPath>crittergod/RunTests.cpp</itemPath>
-      <itemPath>crittergod/RunTests.h</itemPath>
-      <itemPath>crittergod/RunWidgets.cpp</itemPath>
-      <itemPath>crittergod/RunWidgets.h</itemPath>
-    </logicalFolder>
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
@@ -599,6 +452,153 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="spacegraph" displayName="spacegraph" projectFiles="true">
+      <logicalFolder name="audio" displayName="audio" projectFiles="true">
+        <itemPath>spacegraph/audio/Audio.cpp</itemPath>
+        <itemPath>spacegraph/audio/Audio.h</itemPath>
+        <itemPath>spacegraph/audio/SoundSource.cpp</itemPath>
+        <itemPath>spacegraph/audio/SoundSource.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="bio" displayName="bio" projectFiles="true">
+        <itemPath>spacegraph/bio/BloodBrainInterface.cpp</itemPath>
+        <itemPath>spacegraph/bio/BloodBrainInterface.h</itemPath>
+        <itemPath>spacegraph/bio/NColor.cpp</itemPath>
+        <itemPath>spacegraph/bio/NColor.h</itemPath>
+        <itemPath>spacegraph/bio/NPosition.cpp</itemPath>
+        <itemPath>spacegraph/bio/NPosition.h</itemPath>
+        <itemPath>spacegraph/bio/Retina.cpp</itemPath>
+        <itemPath>spacegraph/bio/Retina.h</itemPath>
+        <itemPath>spacegraph/bio/ServoHinge.cpp</itemPath>
+        <itemPath>spacegraph/bio/ServoHinge.h</itemPath>
+        <itemPath>spacegraph/bio/SineSound.cpp</itemPath>
+        <itemPath>spacegraph/bio/SineSound.h</itemPath>
+        <itemPath>spacegraph/bio/SixDoFMotor.cpp</itemPath>
+        <itemPath>spacegraph/bio/SixDoFMotor.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="control" displayName="control" projectFiles="true">
+      </logicalFolder>
+      <logicalFolder name="graph" displayName="graph" projectFiles="true">
+        <itemPath>spacegraph/graph/Graph.cpp</itemPath>
+        <itemPath>spacegraph/graph/Graph.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="math" displayName="math" projectFiles="true">
+        <itemPath>spacegraph/math/Math.cpp</itemPath>
+        <itemPath>spacegraph/math/Math.h</itemPath>
+        <itemPath>spacegraph/math/vector2f.cpp</itemPath>
+        <itemPath>spacegraph/math/vector2f.h</itemPath>
+        <itemPath>spacegraph/math/vector2i.cpp</itemPath>
+        <itemPath>spacegraph/math/vector2i.h</itemPath>
+        <itemPath>spacegraph/math/vector3f.cpp</itemPath>
+        <itemPath>spacegraph/math/vector3f.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="media" displayName="media" projectFiles="true">
+        <logicalFolder name="font" displayName="font" projectFiles="true">
+        </logicalFolder>
+      </logicalFolder>
+      <logicalFolder name="neural" displayName="neural" projectFiles="true">
+        <itemPath>spacegraph/neural/Brain.cpp</itemPath>
+        <itemPath>spacegraph/neural/Brain.h</itemPath>
+        <itemPath>spacegraph/neural/BrainLink.cpp</itemPath>
+        <itemPath>spacegraph/neural/BrainLink.h</itemPath>
+        <itemPath>spacegraph/neural/NInput.cpp</itemPath>
+        <itemPath>spacegraph/neural/NInput.h</itemPath>
+        <itemPath>spacegraph/neural/NOutput.cpp</itemPath>
+        <itemPath>spacegraph/neural/NOutput.h</itemPath>
+        <itemPath>spacegraph/neural/Neuron.cpp</itemPath>
+        <itemPath>spacegraph/neural/Neuron.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="objects" displayName="objects" projectFiles="true">
+        <itemPath>spacegraph/objects/BrainVis.cpp</itemPath>
+        <itemPath>spacegraph/objects/BrainVis.h</itemPath>
+        <itemPath>spacegraph/objects/FDBrainBody.cpp</itemPath>
+        <itemPath>spacegraph/objects/FDBrainBody.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="space" displayName="space" projectFiles="true">
+        <itemPath>spacegraph/space/AbstractBody.h</itemPath>
+        <itemPath>spacegraph/space/BoxBody.cpp</itemPath>
+        <itemPath>spacegraph/space/BoxBody.h</itemPath>
+        <itemPath>spacegraph/space/DefaultSpace.cpp</itemPath>
+        <itemPath>spacegraph/space/DefaultSpace.h</itemPath>
+        <itemPath>spacegraph/space/Humanoid.cpp</itemPath>
+        <itemPath>spacegraph/space/Humanoid.h</itemPath>
+        <itemPath>spacegraph/space/RigidBody.cpp</itemPath>
+        <itemPath>spacegraph/space/RigidBody.h</itemPath>
+        <itemPath>spacegraph/space/SnakeBody.cpp</itemPath>
+        <itemPath>spacegraph/space/SnakeBody.h</itemPath>
+        <itemPath>spacegraph/space/SpiderBody.cpp</itemPath>
+        <itemPath>spacegraph/space/SpiderBody.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="video" displayName="video" projectFiles="true">
+        <logicalFolder name="font" displayName="font" projectFiles="true">
+          <itemPath>spacegraph/video/font/FontDemo1.cpp</itemPath>
+          <itemPath>spacegraph/video/font/FontDemo1.h</itemPath>
+        </logicalFolder>
+        <itemPath>spacegraph/video/AbstractSpace.cpp</itemPath>
+        <itemPath>spacegraph/video/AbstractSpace.h</itemPath>
+        <itemPath>spacegraph/video/GLWindow.cpp</itemPath>
+        <itemPath>spacegraph/video/GLWindow.h</itemPath>
+        <itemPath>spacegraph/video/SpaceProcess.cpp</itemPath>
+        <itemPath>spacegraph/video/SpaceProcess.h</itemPath>
+        <itemPath>spacegraph/video/Spacetime.cpp</itemPath>
+        <itemPath>spacegraph/video/Spacetime.h</itemPath>
+        <itemPath>spacegraph/video/displaylists.cpp</itemPath>
+        <itemPath>spacegraph/video/displaylists.h</itemPath>
+        <itemPath>spacegraph/video/gldebugdrawer.cpp</itemPath>
+        <itemPath>spacegraph/video/gldebugdrawer.h</itemPath>
+        <itemPath>spacegraph/video/mousepicker.cpp</itemPath>
+        <itemPath>spacegraph/video/mousepicker.h</itemPath>
+        <itemPath>spacegraph/video/raycast.cpp</itemPath>
+        <itemPath>spacegraph/video/raycast.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="widget2d" displayName="widget2d" projectFiles="true">
+        <itemPath>spacegraph/widget2d/BrainPanel.cpp</itemPath>
+        <itemPath>spacegraph/widget2d/BrainPanel.h</itemPath>
+        <itemPath>spacegraph/widget2d/NeuralSignalsPanel.cpp</itemPath>
+        <itemPath>spacegraph/widget2d/NeuralSignalsPanel.h</itemPath>
+        <itemPath>spacegraph/widget2d/PointerPanel.cpp</itemPath>
+        <itemPath>spacegraph/widget2d/PointerPanel.h</itemPath>
+        <itemPath>spacegraph/widget2d/RetinaPanel.cpp</itemPath>
+        <itemPath>spacegraph/widget2d/RetinaPanel.h</itemPath>
+        <itemPath>spacegraph/widget2d/button.cpp</itemPath>
+        <itemPath>spacegraph/widget2d/button.h</itemPath>
+        <itemPath>spacegraph/widget2d/container.cpp</itemPath>
+        <itemPath>spacegraph/widget2d/container.h</itemPath>
+        <itemPath>spacegraph/widget2d/panel.cpp</itemPath>
+        <itemPath>spacegraph/widget2d/panel.h</itemPath>
+        <itemPath>spacegraph/widget2d/slider.cpp</itemPath>
+        <itemPath>spacegraph/widget2d/slider.h</itemPath>
+        <itemPath>spacegraph/widget2d/text.cpp</itemPath>
+        <itemPath>spacegraph/widget2d/text.h</itemPath>
+        <itemPath>spacegraph/widget2d/textprinter.cpp</itemPath>
+        <itemPath>spacegraph/widget2d/textprinter.h</itemPath>
+        <itemPath>spacegraph/widget2d/widget.cpp</itemPath>
+        <itemPath>spacegraph/widget2d/widget.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="widget3d" displayName="widget3d" projectFiles="true">
+        <itemPath>spacegraph/widget3d/Button.cpp</itemPath>
+        <itemPath>spacegraph/widget3d/Button.h</itemPath>
+        <itemPath>spacegraph/widget3d/Panel.cpp</itemPath>
+        <itemPath>spacegraph/widget3d/Panel.h</itemPath>
+        <itemPath>spacegraph/widget3d/Rect.cpp</itemPath>
+        <itemPath>spacegraph/widget3d/Rect.h</itemPath>
+        <itemPath>spacegraph/widget3d/Slider.cpp</itemPath>
+        <itemPath>spacegraph/widget3d/Slider.h</itemPath>
+        <itemPath>spacegraph/widget3d/TextRect.cpp</itemPath>
+        <itemPath>spacegraph/widget3d/TextRect.h</itemPath>
+        <itemPath>spacegraph/widget3d/WidgetPlane.cpp</itemPath>
+        <itemPath>spacegraph/widget3d/WidgetPlane.h</itemPath>
+        <itemPath>spacegraph/widget3d/XYSlider.cpp</itemPath>
+        <itemPath>spacegraph/widget3d/XYSlider.h</itemPath>
+      </logicalFolder>
+      <itemPath>spacegraph/RunRobots.cpp</itemPath>
+      <itemPath>spacegraph/RunRobots.h</itemPath>
+      <itemPath>spacegraph/RunSims.cpp</itemPath>
+      <itemPath>spacegraph/RunSims.h</itemPath>
+      <itemPath>spacegraph/RunTests.cpp</itemPath>
+      <itemPath>spacegraph/RunTests.h</itemPath>
+      <itemPath>spacegraph/RunWidgets.cpp</itemPath>
+      <itemPath>spacegraph/RunWidgets.h</itemPath>
     </logicalFolder>
     <logicalFolder name="src" displayName="src" projectFiles="true">
       <itemPath>main.cpp</itemPath>
@@ -613,8 +613,8 @@
   <sourceRootList>
     <Elem>bullet</Elem>
     <Elem>src</Elem>
-    <Elem>crittergod</Elem>
     <Elem>bulletgl</Elem>
+    <Elem>spacegraph</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -630,7 +630,7 @@
           <developmentMode>5</developmentMode>
           <incDir>
             <pElem>bullet</pElem>
-            <pElem>crittergod</pElem>
+            <pElem>spacegraph</pElem>
             <pElem>bulletgl</pElem>
           </incDir>
           <commandLine>-fopenmp</commandLine>
@@ -662,10 +662,6 @@
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
         </fortranCompilerTool>
-        <linkerTool>
-          <linkerLibItems>
-          </linkerLibItems>
-        </linkerTool>
       </compileType>
     </conf>
   </confs>

@@ -148,7 +148,6 @@ public:
                                     b/=8.0;
                                     pixel[x][y] = btVector4(r, g, b, 1.0);
                                 }
-                    continue;
                 } else {
                     btVector3 from = eyePart->getWorldTransform().getOrigin();
 
@@ -197,9 +196,9 @@ public:
 
                 btVector3* cp = &(pixel[x][y]);
 
-                ins[input++]->setInput(cp->getX() * vd);
-                ins[input++]->setInput(cp->getY() * vd);
-                ins[input++]->setInput(cp->getZ() * vd);
+                ins[input++]->setInput(-0.5 + 2.0 * cp->getX() * vd);
+                ins[input++]->setInput(-0.5 + 2.0 * cp->getY() * vd);
+                ins[input++]->setInput(-0.5 + 2.0 * cp->getZ() * vd);
 
             }
         }

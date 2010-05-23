@@ -9,16 +9,16 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=GNU-Linux-x86
 CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-Linux-x86
-CND_ARTIFACT_NAME_Debug=crittergod5
-CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux-x86/crittergod5
+CND_ARTIFACT_NAME_Debug=spacegraphc
+CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux-x86/spacegraphc
 CND_PACKAGE_DIR_Debug=dist/Debug/GNU-Linux-x86/package
-CND_PACKAGE_NAME_Debug=crittergod5.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux-x86/package/crittergod5.tar
+CND_PACKAGE_NAME_Debug=spacegraphc.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux-x86/package/spacegraphc.tar
 # Release configuration
 CND_PLATFORM_Release=GNU-Linux-x86
 CND_ARTIFACT_DIR_Release=dist/Release/GNU-Linux-x86
-CND_ARTIFACT_NAME_Release=crittergod5
-CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux-x86/crittergod5
+CND_ARTIFACT_NAME_Release=spacegraphc
+CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux-x86/spacegraphc
 CND_PACKAGE_DIR_Release=dist/Release/GNU-Linux-x86/package
-CND_PACKAGE_NAME_Release=crittergod5.tar
-CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux-x86/package/crittergod5.tar
+CND_PACKAGE_NAME_Release=spacegraphc.tar
+CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux-x86/package/spacegraphc.tar

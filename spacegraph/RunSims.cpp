@@ -16,10 +16,10 @@ using namespace std;
 
 #include <neural/Brain.h>
 
-#include <objects/BrainPanel.h>
-#include <objects/PointerPanel.h>
-#include <objects/NeuralSignalsPanel.h>
-#include <objects/RetinaPanel.h>
+#include <widget2d/BrainPanel.h>
+#include <widget2d/PointerPanel.h>
+#include <widget2d/NeuralSignalsPanel.h>
+#include <widget2d/RetinaPanel.h>
 #include <objects/FDBrainBody.h>
 
 #include <space/DefaultSpace.h>
