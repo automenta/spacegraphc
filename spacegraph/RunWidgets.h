@@ -11,6 +11,7 @@
 void runWidgets3D();
 void runLiveWidgets();
 void runArm();
+void runIzhikevich();
 
 #endif	/* _RUNWIDGETS_H */
 

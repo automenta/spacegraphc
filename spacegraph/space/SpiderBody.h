@@ -235,7 +235,8 @@ public:
         posCenter->process(dt);
 
         //process brain
-        brain->forward(dt);
+        float brainScale = 0.1;
+        brain->forward(dt * brainScale);
 
         for (unsigned j = 0; j < jointControllers.size(); j++)
             jointControllers[j]->process(dt);
@@ -397,7 +398,7 @@ public:
                 btRigidBody* legPartBody = createRigidShape(btScalar(fLegMass), offset*transform, legPart);
 
                 if (j == PARTS_PER_LEG-1) {
-                    legEye.push_back( new Retina(brain, space->dynamicsWorld, legPartBody, retinaSize, retinaSize, 0.5, 90) );
+                    legEye.push_back( new Retina(brain, space->dynamicsWorld, legPartBody, retinaSize, retinaSize, 0.78, 90) );
 
                     //ImpulseMotor* hl = new ImpulseMotor(brain, legPartBody, 0.001, 0.001);
                     //impulseControllers.push_back(hl);
@@ -454,7 +455,7 @@ public:
             joints.push_back(c);
             dyn->addConstraint(c);
             
-            SixDoFMotor* sm = new SixDoFMotor(brain, c, 0, M_PI_2, 0.0, 0.25);
+            SixDoFMotor* sm = new SixDoFMotor(brain, c, 0, M_PI_4, 0.0, 0.12);
             jointControllers.push_back(sm);
 
         }
@@ -479,7 +480,7 @@ public:
                 joints.push_back(c);
                 dyn->addConstraint(c);
 
-                SixDoFMotor* sm = new SixDoFMotor(brain, c, 0, M_PI_2, 0.0, 0.25);
+                SixDoFMotor* sm = new SixDoFMotor(brain, c, 0, M_PI_4, 0.0, 0.12);
                 jointControllers.push_back(sm);
 
             }

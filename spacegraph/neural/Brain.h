@@ -142,13 +142,13 @@ public:
 
     void wireRandomly(unsigned minSynapsesPerNeuron, unsigned maxSynapsesPerNeuron, float percentInhibitoryNeuron, float percentInputSynapse, float percentInhibitorySynapse, float percentOutputNeuron, float minSynapseWeight, float maxSynapseWeight, float neuronPotentialDecay) {
         float minPlasticityStrengthen = 1.001;
-        float maxPlasticityStrengthen = 1.010;
-        float minPlasticityWeaken = 0.990;
+        float maxPlasticityStrengthen = 1.015;
+        float minPlasticityWeaken = 0.985;
         float maxPlasticityWeaken = 0.999;
 
-        float percentChanceConsistentSynapses = 0.05;
+        float percentChanceConsistentSynapses = 0.0;
 
-        float percentChancePlasticNeuron = 0.99;
+        float percentChancePlasticNeuron = 1.0;
 
         float minFiringThreshold = 0.01;
         float maxFiringThreshold = 0.9999;
@@ -176,7 +176,8 @@ public:
         // create all runtime neurons
         /*for (unsigned i = 0; i < numNeurons; i++)*/
         {
-            Neuron* t = new Neuron();
+            //Neuron* t = new CritterdingNeuron();
+            Neuron* t = new IzhikevichNeuron();
 
             // is it inhibitory ?
             if (frand(0, 1) <= percentInhibitoryNeuron) {

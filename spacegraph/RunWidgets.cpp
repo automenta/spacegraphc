@@ -66,7 +66,7 @@ public:
 
     virtual void process(float dt) {
         t += dt;
-        float i = 0.5 + 0.5 * sin(t * M_PI * frequency);
+        float i = 0.5 + 0.5 * (0.5 + 0.5 * sin(t * M_PI * frequency));
         body->setColor(color * i);
     }
 
@@ -91,9 +91,9 @@ public:
         virtual void onClicked() {
             float angle = numClicks % 2 ? 0 : M_PI_2;
 
-            sdp->h1->setLimit(angle, angle, 0.99, 0.99);
-            sdp->h2->setLimit(angle, angle, 0.99, 0.99);
-            sdp->h3->setLimit(angle, angle, 0.99, 0.99);
+            //sdp->h1->setLimit(angle, angle, 0.99, 0.99);
+            //sdp->h2->setLimit(angle, angle, 0.99, 0.99);
+            //sdp->h3->setLimit(angle, angle, 0.99, 0.99);
             numClicks++;
         }
 
@@ -108,8 +108,6 @@ public:
 
         float sd = 0.05;
 
-        HingeButton* b = new HingeButton(this, new btVector3(-4, -4, -4), new btVector3(3, 0.75, sd));
-        space->addBody(b);
 
         XSlider* trb3 = new XSlider(new btVector3(-4, -4, -4), new btVector3(3, 0.75, sd));
         space->addBody(trb3);
@@ -121,10 +119,13 @@ public:
         space->addBody(trb);
         trb->body->setColor(btVector3(0.3, 0.3, 0.3));
 
-        attachFront(b, btVector3(0, 4.0, 0.6));
         h3 = attachFront(trb4, btVector3(-4.0, 0, 0.6));
         h2 = attachFront(trb3, btVector3(0, -4.0, 0.6));
         h1 = attachFront(trb, btVector3(0, 0, 0.6));
+
+        HingeButton* b = new HingeButton(this, new btVector3(-4, -4, -4), new btVector3(3, 0.75, sd));
+        space->addBody(b);
+        attachFront(b, btVector3(0, 4.0, 0.6));
 
     }
 
@@ -517,6 +518,91 @@ void runArm() {
     ds->getFace()->addPanel("brainOuts", bop);
     bop->setSize(200, 800);
     bop->setPosition(400, 400);
+
+    runGLWindow(0, NULL, 1024, 800, "SpaceGraph-C", ds);
+
+}
+
+void runIzhikevich() {
+   Audio* audio = new Audio();
+    DefaultSpace* ds = new DefaultSpace(audio);
+
+    ds->setTexturing(false);
+    *(ds->getBackgroundColor()) = btVector3(0.2, 0.2, 0.2);
+
+    double d = 0.4;
+
+
+    {
+        int numLegs = 3;
+        vector<btScalar>* legLengths = new vector<btScalar > ();
+        vector<btScalar>* legRadii = new vector<btScalar > ();
+        legLengths->push_back(0.8);        legRadii->push_back(0.1);
+        legLengths->push_back(0.5);        legRadii->push_back(0.10);
+        legLengths->push_back(0.5);        legRadii->push_back(0.10);
+        legLengths->push_back(0.5);        legRadii->push_back(0.10);
+        legLengths->push_back(0.5);        legRadii->push_back(0.10);
+        legLengths->push_back(0.5);        legRadii->push_back(0.08);
+        SpiderBody2* spider = new SpiderBody2(numLegs, legLengths, legRadii, btVector3(0, 4, 4), 32, 12000);
+        ds->addBody(spider);
+        spider->setDamping(0.5);
+
+        for (unsigned l = 0; l < numLegs; l++) {
+            RetinaPanel* rp = new RetinaPanel(spider->legEye[l]);
+            string panelName = "retina_";
+            panelName[5] = 'a' + l;
+            ds->getFace()->addPanel(panelName, rp);
+
+            int w = 110;
+            rp->setSize(w, w);
+            rp->setPosition(w * l, 0);
+        }
+
+
+
+    //    BrainInsPanel bip(spider->brain, 100);
+    //    ds->getFace()->addPanel("brainIns", &bip);
+    //    bip.setPosition(600, 600);
+    //    bip.setSize(100, 600);
+
+//        BrainOutsPanel* bop = new BrainOutsPanel(spider->brain, 30, -100.0, 30.0);
+//        ds->getFace()->addPanel("brainOuts", bop);
+//        bop->setPosition(800, 600);
+//        bop->setSize(100, 800);
+
+    }
+
+    {
+        int numLegs = 6;
+        vector<btScalar>* legLengths = new vector<btScalar > ();
+        vector<btScalar>* legRadii = new vector<btScalar > ();
+        legLengths->push_back(0.8);        legRadii->push_back(0.1);
+        legLengths->push_back(0.5);        legRadii->push_back(0.10);
+        legLengths->push_back(0.5);        legRadii->push_back(0.10);
+        legLengths->push_back(0.5);        legRadii->push_back(0.10);
+        legLengths->push_back(0.5);        legRadii->push_back(0.10);
+        legLengths->push_back(0.3);        legRadii->push_back(0.08);
+        legLengths->push_back(0.3);        legRadii->push_back(0.08);
+        SpiderBody2* spider = new SpiderBody2(numLegs, legLengths, legRadii, btVector3(0, -4, -4), 6, 12000);
+        ds->addBody(spider);
+        spider->setDamping(0.5);
+
+    }
+
+    {
+        float schumannResonance = 7.4;
+        ds->addBody(new StrobeBox(new btVector3(8, 8, 8), new btVector3(1.5, 1.5, 1.5), btVector3(1.0, 0, 0), schumannResonance));
+        ds->addBody(new StrobeBox(new btVector3(-8, -8, 8), new btVector3(1.5, 1.5, 1.5), btVector3(0, 1.0, 0), schumannResonance));
+        ds->addBody(new StrobeBox(new btVector3(-8, 8, 8), new btVector3(1.5, 1.5, 1.5), btVector3(1.0, 1.0, 0), schumannResonance));
+        ds->addBody(new StrobeBox(new btVector3(8, -8, 8), new btVector3(1.5, 1.5, 1.5), btVector3(0, 0, 1.0), schumannResonance));
+
+        ds->addBody(new StrobeBox(new btVector3(8, 8, -8), new btVector3(1.5, 1.5, 1.5), btVector3(1.0, 0, 0), schumannResonance));
+        ds->addBody(new StrobeBox(new btVector3(-8, -8, -8), new btVector3(1.5, 1.5, 1.5), btVector3(0, 1.0, 0), schumannResonance));
+        ds->addBody(new StrobeBox(new btVector3(-8, 8, -8), new btVector3(1.5, 1.5, 1.5), btVector3(1.0, 1.0, 0), schumannResonance));
+        ds->addBody(new StrobeBox(new btVector3(8, -8, -8), new btVector3(1.5, 1.5, 1.5), btVector3(0, 0, 1.0), schumannResonance));
+
+    }
+
 
     runGLWindow(0, NULL, 1024, 800, "SpaceGraph-C", ds);
 

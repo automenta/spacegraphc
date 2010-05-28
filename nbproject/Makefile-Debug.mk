@@ -109,15 +109,15 @@ OBJECTFILES= \
 	${OBJECTDIR}/bullet/BulletSoftBody/btSoftSoftCollisionAlgorithm.o \
 	${OBJECTDIR}/bullet/BulletCollision/NarrowPhaseCollision/btRaycastCallback.o \
 	${OBJECTDIR}/spacegraph/RunTests.o \
-	${OBJECTDIR}/spacegraph/widget3d/Rect.o \
-	${OBJECTDIR}/bullet/BulletDynamics/ConstraintSolver/btHingeConstraint.o \
-	${OBJECTDIR}/bullet/OpenGL/GlutStuff.o \
-	${OBJECTDIR}/bullet/LinearMath/btConvexHull.o \
 	${OBJECTDIR}/bullet/OpenGL/Win32AppMain.o \
 	${OBJECTDIR}/bullet/BulletCollision/CollisionShapes/btCapsuleShape.o \
 	${OBJECTDIR}/spacegraph/widget3d/TextRect.o \
+	${OBJECTDIR}/spacegraph/widget3d/Rect.o \
 	${OBJECTDIR}/bullet/BulletCollision/Gimpact/btTriangleShapeEx.o \
+	${OBJECTDIR}/bullet/BulletDynamics/ConstraintSolver/btHingeConstraint.o \
+	${OBJECTDIR}/bullet/OpenGL/GlutStuff.o \
 	${OBJECTDIR}/bullet/BulletCollision/CollisionShapes/btCompoundShape.o \
+	${OBJECTDIR}/bullet/LinearMath/btConvexHull.o \
 	${OBJECTDIR}/bullet/BulletDynamics/Vehicle/btRaycastVehicle.o \
 	${OBJECTDIR}/bullet/BulletCollision/BroadphaseCollision/btBroadphaseProxy.o \
 	${OBJECTDIR}/bullet/LinearMath/btSerializer.o \
@@ -630,26 +630,6 @@ ${OBJECTDIR}/spacegraph/RunTests.o: nbproject/Makefile-${CND_CONF}.mk spacegraph
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -Ibullet -Ispacegraph -Ibulletgl -MMD -MP -MF $@.d -o ${OBJECTDIR}/spacegraph/RunTests.o spacegraph/RunTests.cpp
 
-${OBJECTDIR}/spacegraph/widget3d/Rect.o: nbproject/Makefile-${CND_CONF}.mk spacegraph/widget3d/Rect.cpp 
-	${MKDIR} -p ${OBJECTDIR}/spacegraph/widget3d
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -Ibullet -Ispacegraph -Ibulletgl -MMD -MP -MF $@.d -o ${OBJECTDIR}/spacegraph/widget3d/Rect.o spacegraph/widget3d/Rect.cpp
-
-${OBJECTDIR}/bullet/BulletDynamics/ConstraintSolver/btHingeConstraint.o: nbproject/Makefile-${CND_CONF}.mk bullet/BulletDynamics/ConstraintSolver/btHingeConstraint.cpp 
-	${MKDIR} -p ${OBJECTDIR}/bullet/BulletDynamics/ConstraintSolver
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -Ibullet -Ispacegraph -Ibulletgl -MMD -MP -MF $@.d -o ${OBJECTDIR}/bullet/BulletDynamics/ConstraintSolver/btHingeConstraint.o bullet/BulletDynamics/ConstraintSolver/btHingeConstraint.cpp
-
-${OBJECTDIR}/bullet/OpenGL/GlutStuff.o: nbproject/Makefile-${CND_CONF}.mk bullet/OpenGL/GlutStuff.cpp 
-	${MKDIR} -p ${OBJECTDIR}/bullet/OpenGL
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -Ibullet -Ispacegraph -Ibulletgl -MMD -MP -MF $@.d -o ${OBJECTDIR}/bullet/OpenGL/GlutStuff.o bullet/OpenGL/GlutStuff.cpp
-
-${OBJECTDIR}/bullet/LinearMath/btConvexHull.o: nbproject/Makefile-${CND_CONF}.mk bullet/LinearMath/btConvexHull.cpp 
-	${MKDIR} -p ${OBJECTDIR}/bullet/LinearMath
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -Ibullet -Ispacegraph -Ibulletgl -MMD -MP -MF $@.d -o ${OBJECTDIR}/bullet/LinearMath/btConvexHull.o bullet/LinearMath/btConvexHull.cpp
-
 ${OBJECTDIR}/bullet/OpenGL/Win32AppMain.o: nbproject/Makefile-${CND_CONF}.mk bullet/OpenGL/Win32AppMain.cpp 
 	${MKDIR} -p ${OBJECTDIR}/bullet/OpenGL
 	${RM} $@.d
@@ -665,15 +645,35 @@ ${OBJECTDIR}/spacegraph/widget3d/TextRect.o: nbproject/Makefile-${CND_CONF}.mk s
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -Ibullet -Ispacegraph -Ibulletgl -MMD -MP -MF $@.d -o ${OBJECTDIR}/spacegraph/widget3d/TextRect.o spacegraph/widget3d/TextRect.cpp
 
+${OBJECTDIR}/spacegraph/widget3d/Rect.o: nbproject/Makefile-${CND_CONF}.mk spacegraph/widget3d/Rect.cpp 
+	${MKDIR} -p ${OBJECTDIR}/spacegraph/widget3d
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -Ibullet -Ispacegraph -Ibulletgl -MMD -MP -MF $@.d -o ${OBJECTDIR}/spacegraph/widget3d/Rect.o spacegraph/widget3d/Rect.cpp
+
 ${OBJECTDIR}/bullet/BulletCollision/Gimpact/btTriangleShapeEx.o: nbproject/Makefile-${CND_CONF}.mk bullet/BulletCollision/Gimpact/btTriangleShapeEx.cpp 
 	${MKDIR} -p ${OBJECTDIR}/bullet/BulletCollision/Gimpact
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -Ibullet -Ispacegraph -Ibulletgl -MMD -MP -MF $@.d -o ${OBJECTDIR}/bullet/BulletCollision/Gimpact/btTriangleShapeEx.o bullet/BulletCollision/Gimpact/btTriangleShapeEx.cpp
 
+${OBJECTDIR}/bullet/BulletDynamics/ConstraintSolver/btHingeConstraint.o: nbproject/Makefile-${CND_CONF}.mk bullet/BulletDynamics/ConstraintSolver/btHingeConstraint.cpp 
+	${MKDIR} -p ${OBJECTDIR}/bullet/BulletDynamics/ConstraintSolver
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -Ibullet -Ispacegraph -Ibulletgl -MMD -MP -MF $@.d -o ${OBJECTDIR}/bullet/BulletDynamics/ConstraintSolver/btHingeConstraint.o bullet/BulletDynamics/ConstraintSolver/btHingeConstraint.cpp
+
+${OBJECTDIR}/bullet/OpenGL/GlutStuff.o: nbproject/Makefile-${CND_CONF}.mk bullet/OpenGL/GlutStuff.cpp 
+	${MKDIR} -p ${OBJECTDIR}/bullet/OpenGL
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -Ibullet -Ispacegraph -Ibulletgl -MMD -MP -MF $@.d -o ${OBJECTDIR}/bullet/OpenGL/GlutStuff.o bullet/OpenGL/GlutStuff.cpp
+
 ${OBJECTDIR}/bullet/BulletCollision/CollisionShapes/btCompoundShape.o: nbproject/Makefile-${CND_CONF}.mk bullet/BulletCollision/CollisionShapes/btCompoundShape.cpp 
 	${MKDIR} -p ${OBJECTDIR}/bullet/BulletCollision/CollisionShapes
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -Ibullet -Ispacegraph -Ibulletgl -MMD -MP -MF $@.d -o ${OBJECTDIR}/bullet/BulletCollision/CollisionShapes/btCompoundShape.o bullet/BulletCollision/CollisionShapes/btCompoundShape.cpp
+
+${OBJECTDIR}/bullet/LinearMath/btConvexHull.o: nbproject/Makefile-${CND_CONF}.mk bullet/LinearMath/btConvexHull.cpp 
+	${MKDIR} -p ${OBJECTDIR}/bullet/LinearMath
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -Ibullet -Ispacegraph -Ibulletgl -MMD -MP -MF $@.d -o ${OBJECTDIR}/bullet/LinearMath/btConvexHull.o bullet/LinearMath/btConvexHull.cpp
 
 ${OBJECTDIR}/bullet/BulletDynamics/Vehicle/btRaycastVehicle.o: nbproject/Makefile-${CND_CONF}.mk bullet/BulletDynamics/Vehicle/btRaycastVehicle.cpp 
 	${MKDIR} -p ${OBJECTDIR}/bullet/BulletDynamics/Vehicle

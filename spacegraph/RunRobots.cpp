@@ -15,11 +15,11 @@ using namespace std;
 
 #include <bio/ServoHinge.h>
 
-#include <objects/BrainPanel.h>
-#include <objects/PointerPanel.h>
-#include <objects/NeuralSignalsPanel.h>
-#include <objects/RetinaPanel.h>
-#include <objects/FDBrainBody.h>
+#include <widget2d/BrainPanel.h>
+#include <widget2d/PointerPanel.h>
+#include <widget2d/NeuralSignalsPanel.h>
+#include <widget2d/RetinaPanel.h>
+#include <widget2d/FDBrainBody.h>
 
 #include <space/DefaultSpace.h>
 #include <video/GLWindow.h>

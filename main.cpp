@@ -13,7 +13,7 @@ int main(int argc, char** argv) {
     {
         //runServoDemo();
 
-        runSpiderWithBrains();
+        //runSpiderWithBrains();
         //runHumanoid();
     }
 
@@ -30,6 +30,7 @@ int main(int argc, char** argv) {
         //runWidgets3D();
         //runLiveWidgets();
         //runArm();
+        runIzhikevich();
     }
 
     //runCritterLab();

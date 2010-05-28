@@ -21,12 +21,17 @@ public:
     vector<float>* input;
     float **v;
 
+    //max visible range
+    float signalMin, signalMax;
+    
     int numSignals;
     int historySize;
 
     bool normalize;
 
-    NeuralSignalsPanel(vector<float>* b, int _historySize) : Panel(), input(b), historySize(_historySize), normalize(true) {
+    NeuralSignalsPanel(vector<float>* b, int _historySize, int _signalMin=-1, int _signalMax=1) : Panel(), input(b), historySize(_historySize), normalize(true),
+    signalMin(_signalMin), signalMax(_signalMax) {
+        
         setSize(250, 200);
         setPosition(355, 355);
 
@@ -76,7 +81,7 @@ public:
         int hWidth = floor(float(width()) / float(historySize));
         int oHeight = floor(float(height()) / float(numSignals));
 
-        double min=-1, max=1;
+        double min=signalMin, max=signalMax;
 
         if (normalize) {
             min = max = v[0][0];
@@ -117,6 +122,11 @@ public:
                     g = a;
                     r = a/2.0;
                 }
+                
+                r = fmax(0.1, r);
+                g = fmax(0.1, g);
+                b = fmax(0.1, b);
+
                 float bh = (1.0 * abs(a - 0.5)) * oHeight;
                 drawRect(r, g, b, x + this->x(), y+this->y()+(1.0 - bh)/2, hWidth, bh);
                 x += hWidth;
@@ -137,7 +147,7 @@ private:
 class BrainOutsPanel : public NeuralSignalsPanel {
 
 public:
-    BrainOutsPanel(Brain* b, int historySize) : NeuralSignalsPanel(&(b->outValues), historySize) {
+    BrainOutsPanel(Brain* b, int historySize, float signalsMin=-1, float signalsMax=1) : NeuralSignalsPanel(&(b->outValues), historySize, signalsMin, signalsMax) {
         //setMin(-1);
         //setMax(1);
     }
